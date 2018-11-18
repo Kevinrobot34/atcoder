@@ -1,0 +1,18 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<math.h>
+
+
+int main(){
+	int i, j, n, m;
+	char str[20];
+	char key[5] = "YAKI";
+
+	scanf("%s", str);
+	printf("%s", str);
+	printf("\n%s\n", key);
+	
+
+	return 0;
+}
