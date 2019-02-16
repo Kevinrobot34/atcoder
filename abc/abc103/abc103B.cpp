@@ -12,33 +12,22 @@
 #include<string>
 using namespace std;
 
-int test_func(){
-
-	printf("test");
-
-}
-
 int main(){
 	string s, t;
 	cin >> s;
 	cin >> t;
 
-	for (size_t i = 0; i < s.size(); i++) {
-		printf("%c ", s[i]);
+	int n = s.length();
+	int i = 0;
+	for (; i < n; i++) {
+		int j = 0;
+		for (; j < n; j++) {
+			if (s[j] != t[(i+j) % n]) break;
+		}
+		if (j == n) break;
 	}
 
-	for (size_t i = 0; i < s.size(); i++) {
-		for (size_t j = 0; j < s.size(); j++) {
-			if (s[i] != t[(i+j)%3]) break;
-		}
-		if (j == s.size()) break;
-	}
-	if (i == s.size()) {
-		printf("Yes\n");
-	}else{
-		printf("No\n");
-	}
-	printf("%s\n", s.c_str());
+	printf("%s\n", (i == n) ? "No" : "Yes");
 
 	return 0;
 }
