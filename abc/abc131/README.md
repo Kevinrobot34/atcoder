@@ -1,12 +1,20 @@
-# ABC118
-* https://atcoder.jp/contests/abc118
+# ABC131
+* https://atcoder.jp/contests/abc131
 
 
-## C - Monsters Battle Royale
-GCDであることに気付けるかどうかの問題．
-気づけなかったけど適当に通してしまった．
+## C - Anti-Division
+GCD, LCM
 
 
-## D - Match Matching
-stringを値に持つdp．
-* dp[i] = (i本のマッチを使って作ることのできる最大の整数に対応するstring)
+## D - Megalomania
+pairのソート
+
+
+## E - Friendships
+グラフに関する問題
+ちょっと絵を描いて考えるとわかる
+
+
+## F - Must Be Rectangular!
+x座標かy座標の少なくとも一方が一致している点同士を１つのグループにしていく
+UnionFindを使う

@@ -1,12 +1,15 @@
-# ABC118
-* https://atcoder.jp/contests/abc118
+# ABC129
+* https://atcoder.jp/contests/abc129
 
 
-## C - Monsters Battle Royale
-GCDであることに気付けるかどうかの問題．
-気づけなかったけど適当に通してしまった．
+## C - Typical Stairs
+Fibonacci数列求める時のDPの応用
 
 
-## D - Match Matching
-stringを値に持つdp．
-* dp[i] = (i本のマッチを使って作ることのできる最大の整数に対応するstring)
+## D - Lamp
+上手く数え上げる
+
+
+## E - Sum Equals Xor
+* Xorの性質
+* 桁DPチックなこと

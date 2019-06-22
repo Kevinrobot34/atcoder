@@ -4,5 +4,5 @@ def GCD(a, b):
 def LCM(a, b):
     return a * b // GCD(a, b)
 
-print(GCD(9, 12))
+print(GCD(8, 12))
 print(LCM(9, 12))
