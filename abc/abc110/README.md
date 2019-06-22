@@ -1,9 +1,11 @@
-## ABC110
+# ABC110
+* https://atcoder.jp/contests/abc110
 
-### D - Factorization
+
+## D - Factorization
 素因数分解して，Combinationの計算をする．
 
-#### 素因数分解
+### 素因数分解
 * https://en.wikipedia.org/wiki/Trial_division
 ```cpp
 map<int,int> factorize(int m) {
@@ -29,5 +31,5 @@ map<int,int> factorize(int m) {
 }
 ```
 
-#### Combinationの計算
+### Combinationの計算
 * http://drken1215.hatenablog.com/entry/2018/06/08/210000
