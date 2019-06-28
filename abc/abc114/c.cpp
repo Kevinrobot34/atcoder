@@ -1,6 +1,4 @@
-#include<cstdio>
-#include<iostream>
-#include<string>
+#include <bits/stdc++.h>
 using namespace std;
 
 int main() {
@@ -9,19 +7,13 @@ int main() {
     cin >> s;
     int x = stoi(s);
 
-    int ans = 0;
-    if (s.length() >= 4) {
-        for (int i = 0; i < s.length() - 3; i++) {
+    int p3[15];
+    p3[0] = 1;
+    for (int i = 1; i <= s.size(); i++) p3[i] = p3[i-1] * 3;
 
-        }
-    } else {
-        if (x < 357) ans = 0;
-        else if (x < 375) ans = 1;
-        else if (x < 537) ans = 2;
-        else if (x < 573) ans = 3;
-        else if (x < 735) ans = 4;
-        else if (x < 753) ans = 5;
-        else ans = 6;
+    int ans = 0;
+    for (int n = 0; n < p3[s.size()]; n++) {
+      string s2
     }
 
     printf("%d\n", ans);
