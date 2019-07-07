@@ -1,5 +1,10 @@
 ## ABC104
-### D
+
+### C - All Green
+100i点問題を全て解くかどうかでbit全探索
+
+
+### D - We Love ABC
 DPでやる．
 
 $\mathrm{dp}[i][str]$
