@@ -57,7 +57,7 @@ $ python hoge.py < test.txt
 
 # 変数・データ構造
 ## 文字列
-**CPP** \
+**C++** \
 http://vivi.dyndns.org/tech/cpp/string.html
 
 **python**\
@@ -310,12 +310,14 @@ print(b[6] - b[3]) # 27
 ## DP
 問題
 * フィボナッチ数列の延長
-    * [ABC129 C - Typical Stairs (300点)]( https://atcoder.jp/contests/abc129/tasks/abc129_c )
+  - [ABC129 C - Typical Stairs (300点)]( https://atcoder.jp/contests/abc129/tasks/abc129_c )
 * ナップザック問題
 * その他
-    * [ABC082 D - FT Robot (500点)]( https://atcoder.jp/contests/abc082/tasks/arc087_b )
-    * [ABC104 D - We Love ABC (400点)]( https://atcoder.jp/contests/abc104/tasks/abc104_d )
-    * [ABC132 F - Small Products (600点)]( https://atcoder.jp/contests/abc132/tasks/abc132_f )
+  * 体感難しい順
+  * [ABC135 D - Digits Parade (400点)]( https://atcoder.jp/contests/abc135/tasks/abc135_d )
+  * [ABC104 D - We Love ABC (400点)]( https://atcoder.jp/contests/abc104/tasks/abc104_d )
+  * [ABC082 D - FT Robot (500点)]( https://atcoder.jp/contests/abc082/tasks/arc087_b )
+  * [ABC132 F - Small Products (600点)]( https://atcoder.jp/contests/abc132/tasks/abc132_f )
 
 
 ## 桁DP・bitDP
@@ -525,6 +527,27 @@ def comb(n: int, k: int) -> int:
 * [ABC132 D - Blue and Red Balls (400点)]( https://atcoder.jp/contests/abc132/tasks/abc132_d )
 
 
+## XOR
+https://qiita.com/kuuso1/items/778acaa7011d98a3ff3a
+
+XOR関連の問題はDPなどと合わせて出たり、数学の問題として出ることが多々ある。
+XORの性質について知っていると便利なことも多い
+
+
+| $a$ | $b$ | $a \bigoplus b$ |
+| --- | --- | --------------- |
+| 0   | 0   | 0               |
+| 0   | 1   | 1               |
+| 1   | 0   | 1               |
+| 1   | 1   | 0               |
+
+* $a  \bigoplus x \bigoplus x = a$
+* 任意の偶数$n$について$n \bigoplus (n+1) = 1$
+
+問題
+* [ABC121 D - XOR World (400点)]( https://atcoder.jp/contests/abc121/tasks/abc121_d )
+
+
 
 # データ構造
 ## Union-Find木
@@ -637,6 +660,7 @@ class UnionFind():
 問題
 * [AGC034 A - Kenken Race (400点)]( https://atcoder.jp/contests/agc034/tasks/agc034_a )
 * [AGC034 B - ABC (600点)]( https://atcoder.jp/contests/agc034/tasks/agc034_a )
+* [ABC135 E - Golf (500点)]( https://atcoder.jp/contests/abc135/tasks/abc135_e )
 
 
 

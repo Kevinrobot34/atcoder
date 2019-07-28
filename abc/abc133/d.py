@@ -1,13 +1,12 @@
-n = int(input())
-a = list(map(int, input().split()))
+s = input()
 
-m = (n-1) // 2
-s = sum(a) // 2
-x = [sum([a[(0+1 + j*2)%n] for j in range(m)]), sum([a[(1+1 + j*2)%n] for j in range(m)])]
-ans = []
-for i in range(n):
-    index = i % 2
-    ans.append(s - x[index])
-    x[index] = x[index] - a[(i+1 + 0*2)%n] + a[(i+1 + m*2)%n]
+dp = [[0 for i in range(13)] for j in range(2)]
+if s[i] == '?':
+    for i in range(10):
+        dp[0][i] = 1
+else:
+    dp[0][int(s[i])] = 1
 
-print(" ".join([str(a*2) for a in ans]))
+print(dp)
+# for i in range(1, len(s)):
+#
