@@ -3,10 +3,7 @@ import math
 n = int(input())
 a = list(map(int, input().split()))
 
-if max(a) > 0:
-    m = math.ceil(math.log2(max(a)))
-else:
-    m = 1
+m = 20
 
 ans = n
 index = 0

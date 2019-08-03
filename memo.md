@@ -297,12 +297,15 @@ print(b[6] - b[3]) # 27
 * [ABC084 D - 2017-like Number (400点)]( https://atcoder.jp/contests/abc084/tasks/abc084_d )
 * [ABC098 C - Attention (300点)]( https://atcoder.jp/contests/abc098/tasks/arc098_a )
 * [ABC106 D - AtCoder Express 2 (400点)]( https://atcoder.jp/contests/abc106/tasks/abc106_d )
-
-
-## Run-length圧縮
+* [ABC122 C - GeT AC (300点)]( https://atcoder.jp/contests/abc122/tasks/abc122_c )
 
 
 ## しゃくとり法
+問題
+* [ABC098 D - Xor Sum 2 (500点)]( https://atcoder.jp/contests/abc098/tasks/arc098_b )
+
+
+## Run-length圧縮
 
 
 
@@ -310,24 +313,37 @@ print(b[6] - b[3]) # 27
 ## DP
 問題
 * フィボナッチ数列の延長
-  - [ABC129 C - Typical Stairs (300点)]( https://atcoder.jp/contests/abc129/tasks/abc129_c )
+  * [ABC129 C - Typical Stairs (300点)]( https://atcoder.jp/contests/abc129/tasks/abc129_c )
 * ナップザック問題
 * その他
   * 体感難しい順
   * [ABC135 D - Digits Parade (400点)]( https://atcoder.jp/contests/abc135/tasks/abc135_d )
+  * [ABC118 D - Match Matching (400点)]( https://atcoder.jp/contests/abc118/tasks/abc118_d )
+  * [ABC122 D - We Like AGC (400点)]( https://atcoder.jp/contests/abc122/tasks/abc122_d )
   * [ABC104 D - We Love ABC (400点)]( https://atcoder.jp/contests/abc104/tasks/abc104_d )
   * [ABC082 D - FT Robot (500点)]( https://atcoder.jp/contests/abc082/tasks/arc087_b )
   * [ABC132 F - Small Products (600点)]( https://atcoder.jp/contests/abc132/tasks/abc132_f )
 
 
-## 桁DP・bitDP
+## bitDP
+整数の2進数表記を用いて、サイズNの部分集合を全列挙するなどして行うDP
+例
+* 巡回セールスマン問題(TSP)
+
 問題
 * [JOI Flag]( http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=0559 )
-* [Zigzag Number]( http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=0570 )
+* [ABC113 D - Number of Amidakuji (400点)]( https://atcoder.jp/contests/abc113/tasks/abc113_d )
+
+
+## 桁DP
+問題
+* [Zigzag Numbers]( http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=0570 )
 * xor系
-    * [ABC117 D - XXOR (400点)]( https://atcoder.jp/contests/abc117/tasks/abc117_d )
-    * [ABC129 E - Sum Equals Xor (500点)]( https://atcoder.jp/contests/abc129/tasks/abc129_e )
-        * http://drken1215.hatenablog.com/entry/2019/06/10/150000
+  * 2進数表記で、桁ごとに考えると良いことが多い
+  * [ABC117 D - XXOR (400点)]( https://atcoder.jp/contests/abc117/tasks/abc117_d )
+  * [ABC129 E - Sum Equals Xor (500点)]( https://atcoder.jp/contests/abc129/tasks/abc129_e )
+      * http://drken1215.hatenablog.com/entry/2019/06/10/150000
+
 
 
 
@@ -461,7 +477,8 @@ $n$までの素数を$O(n\log\log n)$で求められるアルゴリズム。
 2. 小さい方から順に数字を見てTrueである数字は素数とみなす。その数字の倍数に対応する要素はFalseにする。
 3. 2.を繰り返して行く。
 
-オーダーは、$n$以下の素数の逆数和が$O(\log\log n)$であることから従う（参考：[素数の逆数和が発散することの証明]( https://mathtrain.jp/primeinverse )）。
+オーダーは、$n$以下の素数の逆数和が$O(\log\log n)$であることから従う
+（参考：[素数の逆数和が発散することの証明]( https://mathtrain.jp/primeinverse )）。
 境界条件がちょっとだけ面倒なので、$n$ではなく大きな数字を入れておくとバグりにくいかも。
 ```python
 is_prime = [True] * (n+1)
@@ -478,7 +495,9 @@ for i in range(2, n):
 
 ## Combination
 combinationの計算を効率よくやるには工夫が必要。\
-階乗とその逆元の事前計算をしておくことで高速にcombinationができるようになる。以下のFermatの小定理を使うことで、「素数を法とする時(mod p の時)の$a$の逆元は$a^{p-2}$であることがわかる」ということがポイント。
+階乗とその逆元の事前計算をしておくことで高速にcombinationができるようになる。
+以下のFermatの小定理を使うことで、
+「素数を法とする時(mod p の時)の$a$の逆元は$a^{p-2}$であることがわかる」ということがポイント。
 > Fermatの小定理
 > $p$を素数、$a$を$p$の倍数でない整数とする時、
 > $$ a^{p-1} \equiv 1 ~\text{ (mod $p$)} $$
@@ -578,7 +597,6 @@ UnionFind uf(5); // uf.par [0, 1, 2, 3, 4]
 uf.unite(0, 1)   // uf.par [1, 1, 2, 3, 4]
 uf.unite(1, 2)   // uf.par [1, 2, 2, 3, 4]
 uf.find(0)       // uf.par [2, 2, 2, 3, 4]
-
 ```
 
 ```python
@@ -659,7 +677,7 @@ class UnionFind():
 # 何とも言えないけど競プロっぽいやつ
 問題
 * [AGC034 A - Kenken Race (400点)]( https://atcoder.jp/contests/agc034/tasks/agc034_a )
-* [AGC034 B - ABC (600点)]( https://atcoder.jp/contests/agc034/tasks/agc034_a )
+* [AGC034 B - ABC (600点)]( https://atcoder.jp/contests/agc034/tasks/agc034_b )
 * [ABC135 E - Golf (500点)]( https://atcoder.jp/contests/abc135/tasks/abc135_e )
 
 
@@ -672,7 +690,7 @@ class UnionFind():
       import sys
       sys.setrecursionlimit(100000)
       ```
-
+* Pypy3(2.4.0)では`math.log2`が使えない。
 
 
 # Reference
