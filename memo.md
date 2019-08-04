@@ -1,17 +1,24 @@
-競技プログラミングのメモ
-
+競技プログラミングのメモ \
+基本的に蟻本([Amazonのリンク]( https://www.amazon.co.jp/dp/4839941068/ref=cm_sw_em_r_mt_dp_U_ZTWrDb9R924BK ))に書かれているアルゴリズムの実装や関連問題をメモしている。
 
 # コンテストサイト
 * [AtCoder]( http://atcoder.jp )
     * my account : https://atcoder.jp/users/Kevinrobot34
+        * AtCoder Problems : https://kenkoooo.com/atcoder/#/user/Kevinrobot34
     * 過去の自分の解答 : https://github.com/Kevinrobot34/atcoder
 * [Codeforces]( https://codeforces.com )
     * my account : https://codeforces.com/profile/Kevinrobot34
 * [AOJ]( http://judge.u-aizu.ac.jp/onlinejudge/ )
     * my account : http://judge.u-aizu.ac.jp/onlinejudge/user.jsp?id=Kevinrobot34#0
 
-# 入出力
 
+# 入出力
+基本的に競技プログラミングは**標準入力**から特定のフォーマットの入力を受け取り、
+**標準出力**から特定のフォーマットに従って出力をする。
+
+**C++** \
+標準入出力はcstdioの`scanf()`と`printf()`か、iostreamの`cin`と`cout`を使う。
+前者の方が早いらしい。
 ```cpp
 #include<cstdio>
 int n;
@@ -26,6 +33,12 @@ int n;
 cin >> n;
 ```
 
+**python** \
+標準入力からの入力の受け取りには、組み込み関数の[input()]( https://docs.python.org/ja/3/library/functions.html#input )を使う。
+> input([prompt])
+> （略）この関数は入力から 1 行を読み込み、文字列に変換して (末尾の改行を除いて) 返します
+
+標準出力は当然`print()`
 ```python
 # 文字列
 s = input()
@@ -42,6 +55,7 @@ m = int(input())
 table = [list(map(int, input().split())) for _ in range(m)]
 ```
 
+
 ## リダイレクト
 毎回テストデータを手入力していると面倒。適宜**リダイレクト**すると良い。 \
 `test.txt`というファイルにテストデータを保存しておいて、
@@ -55,13 +69,15 @@ $ python hoge.py < test.txt
 
 
 
-# 変数・データ構造
+# 基本的なデータ構造
 ## 文字列
 **C++** \
 http://vivi.dyndns.org/tech/cpp/string.html
 
-**python**\
+**python** \
+pythonのstringはimmutableだぞっ。
 https://qiita.com/Amtkxa/items/a03dabe050d8c648f098
+
 
 ## 配列
 
@@ -71,7 +87,6 @@ $O(N\log N)$でソート済み配列を取得する。
 **C++** \
 https://cpprefjp.github.io/reference/algorithm/sort.html \
 https://qiita.com/a4rcvv/items/7cd217cc5fafef700dff
-
 
 **python** \
 https://docs.python.org/ja/3.7/howto/sorting.html
@@ -161,7 +176,7 @@ https://cpprefjp.github.io/reference/queue/priority_queue.html
 **python** \
 https://docs.python.org/ja/3/library/heapq.html \
 (実装は https://github.com/python/cpython/blob/master/Lib/heapq.py )
-pythonのheapはmin-heapなことに注意。つまり、
+pythonのheapは二分min-heapなことに注意。つまり、
 * `heap[k] <= heap[2*k+1]` かつ `heap[k] <= heap[2*k+2]`
 * `heap[0]`が最小値
 
@@ -201,6 +216,9 @@ https://docs.python.org/ja/3/library/stdtypes.html#mapping-types-dict
 
 # 探索
 ## 全探索
+競プロでは文字通りの全列挙で解ける問題もしばしば出題されるので、DFS・BFS・bit使って全列挙などパッと書けるようになるのが大事。
+また完全な意味での全列挙でなくても、「ある変数$x$を固定するとそれ以外の変数については最適なパターンが決まるので、変数$x$について全探索する」的な解法もしばしばある。
+
 問題
 * [ABC080 C - Shopping Street (300点)]( https://atcoder.jp/contests/abc080/tasks/abc080_c )
 * [ABC099 C - Strange Bank (300点)]( https://atcoder.jp/contests/abc099/tasks/abc099_c )
@@ -232,7 +250,7 @@ https://docs.python.org/ja/3/library/stdtypes.html#mapping-types-dict
 ## 二分探索
 https://qiita.com/drken/items/97e37dd6143e33a64c8c
 
-**C++**\
+**C++** \
 https://cpprefjp.github.io/reference/algorithm/lower_bound.html \
 https://cpprefjp.github.io/reference/algorithm/upper_bound.html
 
@@ -262,15 +280,12 @@ bisect_left(a, 5), bisect_right(a, 5) # 10, 10
 * [ABC119 D - Lazy Faith (400点)]( https://atcoder.jp/contests/abc119/tasks/abc119_d )
 
 
+## 半分全列挙
+
+
+
 
 # アルゴリズム
-## いもす法
-https://imoz.jp/algorithms/imos_method.html
-
-問題
-* [ABC080 D - Recording (400点)]( https://atcoder.jp/contests/abc080/tasks/abc080_d )
-
-
 ## 累積和
 数列$a_0, a_1, ..., a_{N-1}$がある時に、$\sum_{i=l}^r a_i$を計算する問題を考える。
 ナイーブに足し算をすると$O(N)$かかりうる。
@@ -302,10 +317,28 @@ print(b[6] - b[3]) # 27
 
 ## しゃくとり法
 問題
+* [ABC130 D - Enough Array (500点)]( https://atcoder.jp/contests/abc130/tasks/abc130_d )
+    * 典型的なしゃくとり法
 * [ABC098 D - Xor Sum 2 (500点)]( https://atcoder.jp/contests/abc098/tasks/arc098_b )
 
 
+## いもす法
+https://imoz.jp/algorithms/imos_method.html
+
+問題
+* [ABC080 D - Recording (400点)]( https://atcoder.jp/contests/abc080/tasks/abc080_d )
+
+
+## 座標圧縮
+問題
+* [ABC113 C - ID (300点)]( https://atcoder.jp/contests/abc113/tasks/abc113_c )
+
+
 ## Run-length圧縮
+
+
+## 繰り返し二乗法・ダブリング
+
 
 
 
@@ -326,7 +359,7 @@ print(b[6] - b[3]) # 27
 
 
 ## bitDP
-整数の2進数表記を用いて、サイズNの部分集合を全列挙するなどして行うDP
+整数の2進数表記を用いて、サイズNの部分集合を全列挙するなどして行うDPのこと。 \
 例
 * 巡回セールスマン問題(TSP)
 
@@ -451,11 +484,21 @@ https://topcoder.g.hatena.ne.jp/iwiwi/20111205/1323099376
 
 
 # 数学
-## GCD / LCM
-最大公約数(GCD - Greatest Common Divisor) と 最小公倍数(LCM - Least Common Multiple)
-キーワード
-* GCD, LCM
-* ユークリッドの互除法
+## 約数
+```python
+def get_divisor(n: int):
+    divisor = []
+    for i in range(1, n + 1):
+        if i * i > n:
+            break
+        if n % i == 0:
+            divisor.append(i)
+            divisor.append(n // i)
+    return divisor
+```
+
+### GCD / LCM
+キーワード : GCD(最大公約数 - Greatest Common Divisor), LCM(最小公倍数 - Least Common Multiple), ユークリッドの互除法
 ```cpp
 int GCD(int a, int b) { return b ? GCD(b, a % b) : a; }
 int LCM(int a, int b) { return a * b / GCD(a, b) }
@@ -471,6 +514,20 @@ def LCM(a: int, b: int) -> int:
 
 
 ## 素数
+### 素因数分解
+```python
+from collections import defaultdict
+def factorize(n: int):
+    f = defaultdict(int)
+    p = 2
+    while n > 1:
+        while n % p == 0:
+            f[p] += 1
+            n = n // p
+        p += 1 if p == 2 else 2
+    return f
+```
+
 ### エラトステネスの篩
 $n$までの素数を$O(n\log\log n)$で求められるアルゴリズム。
 1. 2から$n$までの整数の配列を用意し全てTrueにする。
@@ -560,6 +617,7 @@ XORの性質について知っていると便利なことも多い
 | 1   | 0   | 1               |
 | 1   | 1   | 0               |
 
+* $a$ xor $b$ $\leq a + b$
 * $a  \bigoplus x \bigoplus x = a$
 * 任意の偶数$n$について$n \bigoplus (n+1) = 1$
 
@@ -670,19 +728,27 @@ class UnionFind():
 * [ABC131 F - Must Be Rectangular! (600点)]( https://atcoder.jp/contests/abc131/tasks/abc131_f )
 
 
-## Segment Tree
+## Segment Tree / BIT
+問題
+* [ABC136 F - Enclosed Points (600点)]( https://atcoder.jp/contests/abc136/tasks/abc136_f )
 
 
 
 # 何とも言えないけど競プロっぽいやつ
+うまく言語化できないけど、競プロっぽい問題はたくさんあるし、慣れないと解けない。
+ちょっとずつこれらのまとめもしていきたい。
+
 問題
 * [AGC034 A - Kenken Race (400点)]( https://atcoder.jp/contests/agc034/tasks/agc034_a )
 * [AGC034 B - ABC (600点)]( https://atcoder.jp/contests/agc034/tasks/agc034_b )
 * [ABC135 E - Golf (500点)]( https://atcoder.jp/contests/abc135/tasks/abc135_e )
+* [ABC136 D - Gathering Children (400点)]( https://atcoder.jp/contests/abc136/tasks/abc136_d )
+  - 問題を細かく分解する、状況をよく整理して答えを書くなどが大事
 
 
 
 # Memo
+* python3でTLEする場合はPyPy3に変えてみると通ることもある。
 * pythonの謎の`RE`について。
     * 可能性の一つとして`RecursionError: maximum recursion depth exceeded in comparison` がある。
     * 対策は以下。
@@ -690,11 +756,12 @@ class UnionFind():
       import sys
       sys.setrecursionlimit(100000)
       ```
-* Pypy3(2.4.0)では`math.log2`が使えない。
+* PyPy3(2.4.0)では`math.log2`が使えない。
 
 
 # Reference
 * [AtCoder 版！蟻本 (初級編)]( https://qiita.com/drken/items/e77685614f3c6bf86f44 )
+* [競技プログラミングを趣味にしよう]( https://trap.jp/post/152/ )
 
 **Python関連**
 * [Pythonで競技プログラミング]( https://qiita.com/knakajima3027/items/b871631b8997a6d67223 )

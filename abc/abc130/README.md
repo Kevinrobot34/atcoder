@@ -11,7 +11,7 @@
 
 
 ## E - Common Subsequence (500点)
-
+DP
 
 
 ## F - Minimum Bounding Box (600点)
