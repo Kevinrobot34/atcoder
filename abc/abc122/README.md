@@ -1,5 +1,5 @@
 # ABC122
-* https://atcoder.jp/contests/abc121
+* https://atcoder.jp/contests/abc122
 
 
 ## C - GeT AC (300点)

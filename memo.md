@@ -195,6 +195,10 @@ print(h)
 # [(3, 'create tests'), (7, 'release product'), (5, 'write code')]
 ```
 
+問題
+* [ABC123 D - Cake 123 (400点)]( https://atcoder.jp/contests/abc123/tasks/abc123_d )
+    * priority_queueの使い方・挙動を理解するのに良い問題。別解も多くて勉強になる。
+
 
 ## set
 **C++** \
@@ -236,6 +240,7 @@ https://docs.python.org/ja/3/library/stdtypes.html#mapping-types-dict
 問題
 * [ABC119 C - Synthetic Kadomatsu (300点)]( https://atcoder.jp/contests/abc119/tasks/abc119_c )
 * [ABC114 C - 755 (300点)]( https://atcoder.jp/contests/abc114/tasks/abc114_c )
+* [ABC126 D - Even Relation (400点)]( https://atcoder.jp/contests/abc126/tasks/abc126_d )
 
 
 ### BFS - 幅優先探索
@@ -317,6 +322,7 @@ print(b[6] - b[3]) # 27
 
 ## しゃくとり法
 問題
+* [ABC124 D - Handstand (400点)]( https://atcoder.jp/contests/abc124/tasks/abc124_d )
 * [ABC130 D - Enough Array (500点)]( https://atcoder.jp/contests/abc130/tasks/abc130_d )
     * 典型的なしゃくとり法
 * [ABC098 D - Xor Sum 2 (500点)]( https://atcoder.jp/contests/abc098/tasks/arc098_b )
@@ -511,6 +517,8 @@ def LCM(a: int, b: int) -> int:
 ```
 問題
 * [ABC131 C - Anti-Divisor (300点)]( https://atcoder.jp/contests/abc131/tasks/abc131_c )
+* [ABC125 C - GCD on Blackboard (300点)]( https://atcoder.jp/contests/abc125/tasks/abc125_c )
+    * 複数の数に対するGCD
 
 
 ## 素数
@@ -725,6 +733,7 @@ class UnionFind():
 問題
 * [ABC097 D - Equals (400点)]( https://atcoder.jp/contests/abc097/tasks/arc097_b )
 * [ABC120 D - Decayed Bridges (400点)]( https://atcoder.jp/contests/abc120/tasks/abc120_d )
+* [ABC126 E - 1 or 2 (500点)]( https://atcoder.jp/contests/abc126/tasks/abc126_e )
 * [ABC131 F - Must Be Rectangular! (600点)]( https://atcoder.jp/contests/abc131/tasks/abc131_f )
 
 
@@ -762,6 +771,7 @@ class UnionFind():
 # Reference
 * [AtCoder 版！蟻本 (初級編)]( https://qiita.com/drken/items/e77685614f3c6bf86f44 )
 * [競技プログラミングを趣味にしよう]( https://trap.jp/post/152/ )
+* [特集！知らないと損をする計算量の話]( https://qiita.com/drken/items/18b3b3db5735241465ef )
 
 **Python関連**
 * [Pythonで競技プログラミング]( https://qiita.com/knakajima3027/items/b871631b8997a6d67223 )
