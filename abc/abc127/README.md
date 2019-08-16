@@ -1,0 +1,20 @@
+# ABC127
+* https://atcoder.jp/contests/abc127
+
+
+## C - Prison (300点)
+minとmaxとるだけ。
+答えが0の時があるのだけ注意。
+
+
+## D - Integer Cards (400点)
+Pythonだとしんどい。
+Pythonだとしんどい。
+大切なことなので２回言いました。
+適当な二重ループ書くとやっぱり遅くてTLEする。
+
+
+## E - Cell Distance (500点)
+
+
+## F - Absolute Minima (600点)

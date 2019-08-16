@@ -410,7 +410,6 @@ def dijkstra(graph: list, node: int, start: int) -> list:
                 heappush(heap,(dist[NextNode], NextNode))
     return dist
     # dist = [costs to nodes]
-
 ```
 
 問題
@@ -419,6 +418,28 @@ def dijkstra(graph: list, node: int, start: int) -> list:
         * 良問
     * https://yukicoder.me/problems/no/807
 
+
+### Bellman-Ford法
+単一始点最短路問題を$O(|V| |E|)$で解けるアルゴリズム。
+$\text{dist}[i]=$(頂点$i$までの最短路)とした時、
+$$ \text{dist}[i] = \min \\{ \text{dist}[j] + \text{cost}_{j\to i} ~|~ (j, i) \in E  \\} $$
+が成り立つことを利用した手法。
+負の辺が存在していても問題なく、また負の閉路の検出にも使える。
+```python
+def bellman_ford(n, edge):
+    INF = float('inf')
+    d = [INF] * n
+    d[0] = 0
+    for i in range(n):
+        update = False
+        for v_from, v_to, cost in edge:
+            if d[v_from] != INF and d[v_to] > d[v_from] + cost:
+                d[v_to] = d[v_from] + cost # 緩和
+                update = True
+    return d, update
+```
+問題
+* [ABC137 E - Coins Respawn (500点)]( https://atcoder.jp/contests/abc137/tasks/abc137_e )
 
 ### Warshall-Floyd法
 全点対最短路問題を$O(|V|^3)$で解けるアルゴリズム。
