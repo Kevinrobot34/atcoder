@@ -55,6 +55,13 @@ m = int(input())
 table = [list(map(int, input().split())) for _ in range(m)]
 ```
 
+多くの行から読み込みが必要な場合、`input()`は遅いらしい。そのような時には以下のように代わりに`sys.stdin.readline`を使うようにしておくと早くなる。
+```python
+import sys
+input = sys.stdin.readline
+```
+
+
 
 ## リダイレクト
 毎回テストデータを手入力していると面倒。適宜**リダイレクト**すると良い。 \
@@ -230,6 +237,7 @@ https://docs.python.org/ja/3/library/stdtypes.html#mapping-types-dict
 * [ABC104 C - All Green (300点)]( https://atcoder.jp/contests/abc104/tasks/abc104_c )
     * bitを使った全探索（各問題を全部解くor全く解かない）
 * [ABC107 C - Candles (300点)]( https://atcoder.jp/contests/abc107/tasks/arc101_a )
+* [ABC128 D - equeue (400点)]( https://atcoder.jp/contests/abc128/tasks/abc128_d )
 
 
 ### DFS - 深さ優先探索
@@ -260,12 +268,13 @@ https://cpprefjp.github.io/reference/algorithm/lower_bound.html \
 https://cpprefjp.github.io/reference/algorithm/upper_bound.html
 
 **python** \
-https://docs.python.org/ja/3/library/bisect.html#bisect.bisect_right
+https://docs.python.org/ja/3/library/bisect.html
 
 * `bisect.bisect_left(a, x)`
   * 昇順ソート済みlist`a`の中で、`a[index] >= x`という条件を満たす最小の`index`を返す
 * `bisect.bisect_right(a, x)`
   * 昇順ソート済みlist`a`の中で、`a[index] > x`という条件を満たす最小の`index`を返す
+  * `bisect.bisect`のalias
 
 ```python
 from bisect import bisect_left, bisect_right
@@ -283,6 +292,7 @@ bisect_left(a, 5), bisect_right(a, 5) # 10, 10
 問題
 * [ABC077 C - Snuke Festival (300点)]( https://atcoder.jp/contests/abc077/tasks/arc084_a )
 * [ABC119 D - Lazy Faith (400点)]( https://atcoder.jp/contests/abc119/tasks/abc119_d )
+* [ABC138 E - Strings of Impurity (500点)]( https://atcoder.jp/contests/abc138/tasks/abc138_e )
 
 
 ## 半分全列挙
@@ -353,7 +363,10 @@ https://imoz.jp/algorithms/imos_method.html
 問題
 * フィボナッチ数列の延長
   * [ABC129 C - Typical Stairs (300点)]( https://atcoder.jp/contests/abc129/tasks/abc129_c )
-* ナップザック問題
+* ナップザック問題系
+* LIS (Longest Increasing Subsequence)系
+    * [ABC006 D - トランプ挿入ソート]( https://atcoder.jp/contests/abc006/tasks/abc006_4 )
+    * [ABC134 E - Sequence Decomposing (500点)]( https://atcoder.jp/contests/abc134/tasks/abc134_e )
 * その他
   * 体感難しい順
   * [ABC135 D - Digits Parade (400点)]( https://atcoder.jp/contests/abc135/tasks/abc135_d )
@@ -487,8 +500,10 @@ def is_dag(graph: list, n_v: int):
 
 ## 根付き木
 問題
-* 数え上げ
-    * [ABC133 E - Virus Tree 2 (500点)]( https://atcoder.jp/contests/abc133/tasks/abc133_e )
+* [ABC133 E - Virus Tree 2 (500点)]( https://atcoder.jp/contests/abc133/tasks/abc133_e )
+    * 数え上げ
+* [ABC138 D - Ki (400点)]( https://atcoder.jp/contests/abc138/tasks/abc138_d )
+    * 木の上でimos法的なことをする
 
 
 ### LCA
@@ -778,13 +793,20 @@ class UnionFind():
 
 
 # Memo
+**python関連**
 * python3でTLEする場合はPyPy3に変えてみると通ることもある。
+    * ただし再帰使って書いたDFSなどはpython3の方が早かったりもする
+* python3でTLEする場合、多数行の読み込みが遅いだけのことがある。遅い`input()`の代わりに`sys.stdin.readline`を使おう。
+    ```python
+  import sys
+  input = sys.stdin.readline
+    ```
 * pythonの謎の`RE`について。
-    * 可能性の一つとして`RecursionError: maximum recursion depth exceeded in comparison` がある。
+    * 再帰関数を使っているならば可能性の一つとして、`RecursionError: maximum recursion depth exceeded in comparison` がある。
     * 対策は以下。
        ```python
       import sys
-      sys.setrecursionlimit(100000)
+      sys.setrecursionlimit(10**6)
       ```
 * PyPy3(2.4.0)では`math.log2`が使えない。
 

@@ -1,97 +1,79 @@
+import math
+import copy
+from operator import mul
+from functools import reduce
 from collections import defaultdict
-from heapq import heappush, heappop
-
-def dijkstra(graph:list, node:int, start:int) -> list:
-    # graph[node] = [(cost, to)]
-    inf = float('inf')
-    dist = [inf] * node
-
-    dist[start] = 0
-    heap = [(0, start)]
-    while heap:
-        cost, thisNode = heappop(heap)
-        for NextCost, NextNode in graph[thisNode]:
-            dist_cand = dist[thisNode] + NextCost
-            if dist_cand < dist[NextNode]:
-                dist[NextNode] = dist_cand
-                heappush(heap,(dist[NextNode], NextNode))
-    return dist
-    # dist = [costs to nodes]
-
+from collections import Counter
 from collections import deque
-def topological_sort(graph: list, n_v: int) -> list:
-    res = []
-    indegree = [0] * n_v
+# 直積 A={a, b, c}, B={d, e}:のとき，A×B={(a,d),(a,e),(b,d),(b,e),(c,d),(c,e)}: product(A, B)
+from itertools import product
+# 階乗 P!: permutations(seq), 順列 {}_len(seq) P_n: permutations(seq, n)
+from itertools import permutations
+# 組み合わせ {}_len(seq) C_n: combinations(seq, n)
+from itertools import combinations
+# 一次元累積和
+from itertools import accumulate
+from bisect import bisect_left, bisect_right
 
-    for i in range(n_v):
-        for c, v in graph[i]:
-            indegree[v] += 1
+import re
+# import numpy as np
+# from scipy.misc import comb
 
-    cand = deque()
-    for i in range(n_v):
-        if indegree[i] == 0:
-            cand.append(i)
+import sys
+sys.setrecursionlimit(10**9)
 
-    while cand:
-        v1 = cand.popleft()
-        res.append(v1)
-        for c, v2 in graph[v1]:
-            indegree[v2] -= 1
-            if indegree[v2] == 0:
-                cand.append(v2)
+def inside(y, x, H, W):
+    return 0 <= y < H and 0 <= x < W
 
-    return res
+# 四方向: 右, 下, 左, 上
+dy = [0, -1, 0, 1]
+dx = [1, 0, -1, 0]
 
+def i_inpl(): return int(input())
+def l_inpl(): return list(map(int, input().split()))
+def line_inpl(x): return [i_inpl() for _ in range(x)]
 
-def is_dag(graph: list, n_v: int):
-    ts = topological_sort(graph, n_v)
-    return len(ts) == n_v
+INF = int(1e18)
+MOD = int(1e9)+7 # 10^9 + 7
 
+# field[H][W]
+def create_grid(H, W, value = 0):
+    return [[ value for _ in range(W)] for _ in range(H)]
 
-n, m = map(int, input().split())
-graph = defaultdict(list)
-graph2 = defaultdict(list)
-edges = []
-l_nodes = set()
-r_nodes = set()
-for i in range(m):
-    l, r, d = map(int, input().split())
-    l -= 1
-    r -= 1
-    edges.append((l, r, d))
-    graph[l].append((d, r))
-    graph2[r].append((d, l))
+########
 
-    l_nodes.add(l)
-    r_nodes.add(r)
+def main():
+    N, M = l_inpl()
 
+    G = [[] for _ in range(N+1)]
 
-if m == 0:
-    print("Yes")
-elif not is_dag(graph, n):
-    print("No")
-else:
-    x = l_nodes - r_nodes
+    for _ in range(M):
+        Li, Ri, Di = l_inpl()
+        Li, Ri = Li - 1, Ri - 1
+        G[Li].append((Ri, Di))
+        G[Ri].append((Li, -Di))
 
-    dist = dijkstra(graph, n, list(x)[0])
-    possible = True
-    for l, r, d in edges:
-        if dist[l] != float('inf') and dist[r] != float('inf') and d != abs(dist[l] - dist[r]):
-            possible = False
-            break
+    # ある点からの距離
+    x = [INF] * (N+1)
 
-    if possible:
-        x = r_nodes - l_nodes
+    # 計算によって得たx[s]が正しいか
+    def dfs(s, cost):
+        # node_startまでの距離が未探索
+        if x[s] == INF:
+            x[s] = cost
+            # s->tの距離の整合性
+            for t, d in G[s]:
+                if dfs(t, cost + d) == False:
+                    return False
+        return x[s] == cost
 
-        dist = dijkstra(graph2, n, list(x)[0])
-        possible = True
-        for l, r, d in edges:
-            if dist[l] != float('inf') and dist[r] != float('inf') and d != abs(dist[l] - dist[r]):
-                possible = False
-                break
-        if possible:
-            print("Yes")
-        else:
+    for i in range(N):
+        # if x[i] is not None: # 探索済み
+        #     continue
+        if x[i] == INF and dfs(i, 0) == False:
             print("No")
-    else:
-        print("No")
+            return
+    print("Yes")
+
+if __name__ == "__main__":
+    main()
