@@ -237,6 +237,7 @@ https://docs.python.org/ja/3/library/stdtypes.html#mapping-types-dict
 * [ABC104 C - All Green (300点)]( https://atcoder.jp/contests/abc104/tasks/abc104_c )
     * bitを使った全探索（各問題を全部解くor全く解かない）
 * [ABC107 C - Candles (300点)]( https://atcoder.jp/contests/abc107/tasks/arc101_a )
+* [ABC112 C - Pyramid (300点)]( https://atcoder.jp/contests/abc112/tasks/abc112_c )
 * [ABC128 D - equeue (400点)]( https://atcoder.jp/contests/abc128/tasks/abc128_d )
 
 
@@ -360,6 +361,10 @@ https://imoz.jp/algorithms/imos_method.html
 
 # 動的計画法
 ## DP
+いろんなパターンがある。それぞれの詳細については別途記載。
+* ナップザック
+* [LIS - 最長増加部分列]( https://github.com/Kevinrobot34/atcoder/blob/master/algorithm_memo/LIS.md )
+
 問題
 * フィボナッチ数列の延長
   * [ABC129 C - Typical Stairs (300点)]( https://atcoder.jp/contests/abc129/tasks/abc129_c )
@@ -388,6 +393,8 @@ https://imoz.jp/algorithms/imos_method.html
 
 
 ## 桁DP
+http://drken1215.hatenablog.com/entry/2019/02/04/013700
+
 問題
 * [Zigzag Numbers]( http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=0570 )
 * xor系
