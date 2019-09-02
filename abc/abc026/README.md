@@ -3,7 +3,7 @@
 
 
 ## C - 高橋君の給料
-* chokudaiさんの[今日の一問]( https://twitter.com/chokudai/status/1163662673529016321?s=20 )で取り上げられた問題。
+[chokudai今日の一問]( https://twitter.com/chokudai/status/1163662673529016321?s=20 )に選ばれた問題。
 * 木が与えられるので適宜DFSすれば良い。
 * forで書いてもいいっぽいので今度やってみる。
 

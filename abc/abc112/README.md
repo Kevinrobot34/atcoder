@@ -3,8 +3,10 @@
 
 
 ### C - Pyramid (300点)
+[chokudai今日の一問]( https://twitter.com/chokudai/status/1164158989019447296?s=20 )に選ばれた問題。
 中心座標について全探索。
 中心座標を決め打つと、hiが0でないデータを見るとHも決まることに注意。
+
 
 
 ### D - Partition (400点)

@@ -5,7 +5,11 @@
 * [AtCoder]( http://atcoder.jp )
     * my account : https://atcoder.jp/users/Kevinrobot34
         * AtCoder Problems : https://kenkoooo.com/atcoder/#/user/Kevinrobot34
+        * AtCoder Scores: http://atcoder-scores.herokuapp.com/?user=Kevinrobot34
     * 過去の自分の解答 : https://github.com/Kevinrobot34/atcoder
+    * [YouTube - AtCoder Live]( https://www.youtube.com/channel/UCtG3StnbhxHxXfE6Q4cPZwQ )
+        * コンペの後、問題解説生放送をやってる。
+        * 1.5倍速くらいで見ると、コスパよく勉強になる。
 * [Codeforces]( https://codeforces.com )
     * my account : https://codeforces.com/profile/Kevinrobot34
 * [AOJ]( http://judge.u-aizu.ac.jp/onlinejudge/ )
@@ -203,6 +207,7 @@ print(h)
 ```
 
 問題
+* [ABC062 D - 3N Numbers (500点)]( https://atcoder.jp/contests/abc062/tasks/arc074_b )
 * [ABC123 D - Cake 123 (400点)]( https://atcoder.jp/contests/abc123/tasks/abc123_d )
     * priority_queueの使い方・挙動を理解するのに良い問題。別解も多くて勉強になる。
 
@@ -231,6 +236,7 @@ https://docs.python.org/ja/3/library/stdtypes.html#mapping-types-dict
 また完全な意味での全列挙でなくても、「ある変数$x$を固定するとそれ以外の変数については最適なパターンが決まるので、変数$x$について全探索する」的な解法もしばしばある。
 
 問題
+* [ABC062 C - Chocolate Bar (400点)]( https://atcoder.jp/contests/abc062/tasks/arc074_a )
 * [ABC080 C - Shopping Street (300点)]( https://atcoder.jp/contests/abc080/tasks/abc080_c )
 * [ABC099 C - Strange Bank (300点)]( https://atcoder.jp/contests/abc099/tasks/abc099_c )
 * [ABC099 D - Good Grid (400点)]( https://atcoder.jp/contests/abc099/tasks/abc099_d )
@@ -291,9 +297,12 @@ bisect_left(a, 5), bisect_right(a, 5) # 10, 10
 ```
 
 問題
-* [ABC077 C - Snuke Festival (300点)]( https://atcoder.jp/contests/abc077/tasks/arc084_a )
-* [ABC119 D - Lazy Faith (400点)]( https://atcoder.jp/contests/abc119/tasks/abc119_d )
-* [ABC138 E - Strings of Impurity (500点)]( https://atcoder.jp/contests/abc138/tasks/abc138_e )
+* lower_bound / bisect_leftなど使ってソート済み配列を二分探索するタイプの問題
+    * [ABC077 C - Snuke Festival (300点)]( https://atcoder.jp/contests/abc077/tasks/arc084_a )
+    * [ABC119 D - Lazy Faith (400点)]( https://atcoder.jp/contests/abc119/tasks/abc119_d )
+    * [ABC138 E - Strings of Impurity (500点)]( https://atcoder.jp/contests/abc138/tasks/abc138_e )
+* 自分でループ書くタイプの二分探索するタイプの問題
+    * [ABC063 D - Widespread (400点)]( https://atcoder.jp/contests/abc063/tasks/arc075_b )
 
 
 ## 半分全列挙
@@ -369,6 +378,8 @@ https://imoz.jp/algorithms/imos_method.html
 * フィボナッチ数列の延長
   * [ABC129 C - Typical Stairs (300点)]( https://atcoder.jp/contests/abc129/tasks/abc129_c )
 * ナップザック問題系
+    * [ABC032D - ナップサック問題]( https://atcoder.jp/contests/abc032/tasks/abc032_d )
+    * [ABC060 D - Simple Knapsack (400点)]( https://atcoder.jp/contests/abc060/tasks/arc073_b )
 * LIS (Longest Increasing Subsequence)系
     * [ABC006 D - トランプ挿入ソート]( https://atcoder.jp/contests/abc006/tasks/abc006_4 )
     * [ABC134 E - Sequence Decomposing (500点)]( https://atcoder.jp/contests/abc134/tasks/abc134_e )
@@ -446,7 +457,7 @@ $$ \text{dist}[i] = \min \\{ \text{dist}[j] + \text{cost}_{j\to i} ~|~ (j, i) \i
 が成り立つことを利用した手法。
 負の辺が存在していても問題なく、また負の閉路の検出にも使える。
 ```python
-def bellman_ford(n, edge):
+def bellman_ford(n: int, edge: list):
     INF = float('inf')
     d = [INF] * n
     d[0] = 0
@@ -468,7 +479,35 @@ def bellman_ford(n, edge):
 * [ABC073 D - joisino's travel (400点)]( https://atcoder.jp/contests/abc073/tasks/abc073_d )
 
 
+### 経路復元
+
+
+
 ## 最小全域木
+問題
+* [ABC065 D - Built? (500点)]( https://atcoder.jp/contests/abc065/tasks/arc076_b )
+    * 最小全域木を作る問題を少しひねってある良問。
+
+### プリム法
+
+### クラスカル法
+対象のグラフを構成する辺をコストでソートし、小さい方から見ていく。
+今見ている辺を追加することで閉路ができなければ、最小全域木の一辺として使う。
+閉路ができるかどうかの判定にをUnionFindを使うことで高速に処理ができる。
+結局辺のソートの部分に一番時間がかかり、$E\leq V^2$なので$O(|E|\log |E|) = O(|E| \log |V|)$で最小全域木のコストが求まる。
+```python
+def kruskal(n: int, edge: list) -> int:
+    # edge[node] = (v_from, v_to, cost)
+    edge.sort(key=itemgetter(2)) # Sort edges by its cost
+    uf = UnionFind(n)
+    ans = 0
+    for v_from, v_to, cost in edge:
+        if not uf.same(v_from, v_to):
+            ans += cost
+            uf.unite(v_from, v_to)
+    return ans
+```
+* UnionFindについては[こちら]( #Union-Find木 )
 
 
 ## トポロジカルソート
@@ -504,6 +543,9 @@ def is_dag(graph: list, n_v: int):
     return len(ts) == n_v
 ```
 
+問題
+* [ABC139 E - League (500点)]( https://atcoder.jp/contests/abc139/tasks/abc139_e )
+    * トポロジカルソートじゃなくても大丈夫だが、トポロジカルソートちっくに書いても解ける。
 
 ## 根付き木
 問題
@@ -535,7 +577,7 @@ https://topcoder.g.hatena.ne.jp/iwiwi/20111205/1323099376
 # 数学
 ## 約数
 ```python
-def get_divisor(n: int):
+def get_divisor(n: int) -> list:
     divisor = []
     for i in range(1, n + 1):
         if i * i > n:
@@ -568,7 +610,7 @@ def LCM(a: int, b: int) -> int:
 ### 素因数分解
 ```python
 from collections import defaultdict
-def factorize(n: int):
+def factorize(n: int) -> dict:
     f = defaultdict(int)
     p = 2
     while n > 1:
@@ -578,6 +620,8 @@ def factorize(n: int):
         p += 1 if p == 2 else 2
     return f
 ```
+問題
+* [ABC052 C - Factors of Factorial (300点)]( https://atcoder.jp/contests/abc052/tasks/arc067_a )
 
 ### エラトステネスの篩
 $n$までの素数を$O(n\log\log n)$で求められるアルゴリズム。
@@ -796,6 +840,7 @@ class UnionFind():
 * [ABC135 E - Golf (500点)]( https://atcoder.jp/contests/abc135/tasks/abc135_e )
 * [ABC136 D - Gathering Children (400点)]( https://atcoder.jp/contests/abc136/tasks/abc136_d )
   - 問題を細かく分解する、状況をよく整理して答えを書くなどが大事
+* [JSC2019-qual C - Cell Inversion (500点)]( https://atcoder.jp/contests/jsc2019-qual/tasks/jsc2019_qual_c )
 
 
 
@@ -828,6 +873,7 @@ class UnionFind():
     * pythonの各種アルゴリズムなどがまとまってる
 * [Pythonistaなら知らないと恥ずかしい計算量のはなし]( https://qiita.com/Hironsan/items/68161ee16b1c9d7b25fb )
     * PythonのList, Deque, Dictの計算量の話
+* [Python_競技プログラミング高速化tips]( https://juppy.hatenablog.com/entry/2019/06/14/Python_競技プログラミング高速化tips_%28PythonでAtcoderをやる際に個 )
 
 **C++関連**
 * [Macで#include<bits/stdc++.h>を導入]( http://perogram.hateblo.jp/entry/2019/04/15/094647 )
