@@ -7,4 +7,5 @@
 
 
 ## D - トランプ挿入ソート
-LIS
+* [chokudai今日の一問]( https://twitter.com/chokudai/status/1166223219386281984?s=20 )に選ばれた問題。
+* LIS
