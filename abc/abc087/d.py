@@ -1,79 +1,53 @@
-import math
-import copy
-from operator import mul
-from functools import reduce
-from collections import defaultdict
-from collections import Counter
 from collections import deque
-# 直積 A={a, b, c}, B={d, e}:のとき，A×B={(a,d),(a,e),(b,d),(b,e),(c,d),(c,e)}: product(A, B)
-from itertools import product
-# 階乗 P!: permutations(seq), 順列 {}_len(seq) P_n: permutations(seq, n)
-from itertools import permutations
-# 組み合わせ {}_len(seq) C_n: combinations(seq, n)
-from itertools import combinations
-# 一次元累積和
-from itertools import accumulate
-from bisect import bisect_left, bisect_right
-
-import re
-# import numpy as np
-# from scipy.misc import comb
-
 import sys
-sys.setrecursionlimit(10**9)
+input = sys.stdin.readline
 
-def inside(y, x, H, W):
-    return 0 <= y < H and 0 <= x < W
+def topological_sort(graph: list, n_v: int) -> list:
+    # graph[node] = [(cost, to)]
+    indegree = [0] * n_v # 各頂点の入次数
+    for i in range(n_v):
+        for c, v in graph[i]:
+            indegree[v] += 1
 
-# 四方向: 右, 下, 左, 上
-dy = [0, -1, 0, 1]
-dx = [1, 0, -1, 0]
+    cand = deque([i for i in range(n_v) if indegree[i] == 0])
+    res = []
+    while cand:
+        v1 = cand.popleft()
+        res.append(v1)
+        for c, v2 in graph[v1]:
+            indegree[v2] -= 1
+            if indegree[v2] == 0:
+                cand.append(v2)
 
-def i_inpl(): return int(input())
-def l_inpl(): return list(map(int, input().split()))
-def line_inpl(x): return [i_inpl() for _ in range(x)]
+    return res
 
-INF = int(1e18)
-MOD = int(1e9)+7 # 10^9 + 7
 
-# field[H][W]
-def create_grid(H, W, value = 0):
-    return [[ value for _ in range(W)] for _ in range(H)]
+n, m = map(int, input().split())
+edges = [[] for _ in range(n)]
+for i in range(m):
+    l, r, d = map(int, input().split())
+    l -= 1
+    r -= 1
+    edges[l].append((d, r))
 
-########
+ts = topological_sort(edges, n)
 
-def main():
-    N, M = l_inpl()
+if len(ts) != n:
+    # Not DAG
+    ans = "No"
+else:
+    # DAG
+    dist = [-1] * n
+    ans = "Yes"
+    for v in ts:
+        if dist[v] == -1:
+            dist[v] = 0
 
-    G = [[] for _ in range(N+1)]
+        for c, u in edges[v]:
+            if dist[u] == -1:
+                dist[u] = dist[v] + c
+            elif dist[u] != dist[v] + c:
+                ans = "No"
+                break
 
-    for _ in range(M):
-        Li, Ri, Di = l_inpl()
-        Li, Ri = Li - 1, Ri - 1
-        G[Li].append((Ri, Di))
-        G[Ri].append((Li, -Di))
-
-    # ある点からの距離
-    x = [INF] * (N+1)
-
-    # 計算によって得たx[s]が正しいか
-    def dfs(s, cost):
-        # node_startまでの距離が未探索
-        if x[s] == INF:
-            x[s] = cost
-            # s->tの距離の整合性
-            for t, d in G[s]:
-                if dfs(t, cost + d) == False:
-                    return False
-        return x[s] == cost
-
-    for i in range(N):
-        # if x[i] is not None: # 探索済み
-        #     continue
-        if x[i] == INF and dfs(i, 0) == False:
-            print("No")
-            return
-    print("Yes")
-
-if __name__ == "__main__":
-    main()
+print(ans)

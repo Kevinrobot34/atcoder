@@ -253,6 +253,8 @@ https://docs.python.org/ja/3/library/stdtypes.html#mapping-types-dict
 * stack
 
 問題
+* [ABC054 C - One-stroke Path (300点)]( https://atcoder.jp/contests/abc054/tasks/abc054_c )
+    * グラフをdfsで全探索するいい練習問題
 * [ABC119 C - Synthetic Kadomatsu (300点)]( https://atcoder.jp/contests/abc119/tasks/abc119_c )
 * [ABC114 C - 755 (300点)]( https://atcoder.jp/contests/abc114/tasks/abc114_c )
 * [ABC126 D - Even Relation (400点)]( https://atcoder.jp/contests/abc126/tasks/abc126_d )
@@ -542,13 +544,17 @@ def is_dag(graph: list, n_v: int):
     ts = topological_sort(graph, n_v)
     return len(ts) == n_v
 ```
+* topological_sortの計算量は、indegreeの計算で$O(|V|)$、順番に辺を見て実際にtopological_sortする部分で$O(|E|)$、の合計$O(|V| + |E|)$
 
 問題
+* [ABC087 D - People on a Line (400点)]( https://atcoder.jp/contests/abc087/tasks/arc090_b )
 * [ABC139 E - League (500点)]( https://atcoder.jp/contests/abc139/tasks/abc139_e )
     * トポロジカルソートじゃなくても大丈夫だが、トポロジカルソートちっくに書いても解ける。
 
-## 根付き木
+## 木 / 根付き木
 問題
+* [ABC067  D - Fennec VS. Snuke (400点)]( https://atcoder.jp/contests/abc067/tasks/arc078_b )
+    * 良問。競プロっぽい。言い換えが大事。
 * [ABC133 E - Virus Tree 2 (500点)]( https://atcoder.jp/contests/abc133/tasks/abc133_e )
     * 数え上げ
 * [ABC138 D - Ki (400点)]( https://atcoder.jp/contests/abc138/tasks/abc138_d )
@@ -570,6 +576,7 @@ https://topcoder.g.hatena.ne.jp/iwiwi/20111205/1323099376
 
 ## その他
 問題
+* [ABC108 D - All Your Paths are Different Lengths (700点)]( https://atcoder.jp/contests/abc108/tasks/arc102_b )
 * [ABC131 E - Friendships (500点)]( https://atcoder.jp/contests/abc131/tasks/abc131_e )
 
 
@@ -837,6 +844,7 @@ class UnionFind():
 問題
 * [AGC034 A - Kenken Race (400点)]( https://atcoder.jp/contests/agc034/tasks/agc034_a )
 * [AGC034 B - ABC (600点)]( https://atcoder.jp/contests/agc034/tasks/agc034_b )
+* [ABC092 D - Grid Components(500点)]( https://atcoder.jp/contests/abc092/tasks/arc093_b )
 * [ABC135 E - Golf (500点)]( https://atcoder.jp/contests/abc135/tasks/abc135_e )
 * [ABC136 D - Gathering Children (400点)]( https://atcoder.jp/contests/abc136/tasks/abc136_d )
   - 問題を細かく分解する、状況をよく整理して答えを書くなどが大事

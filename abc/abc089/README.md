@@ -7,3 +7,4 @@
 
 
 ##　D - Practical Skill Test (400点)
+二分探索
