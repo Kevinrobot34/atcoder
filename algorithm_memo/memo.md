@@ -42,7 +42,6 @@ cin >> n;
 > input([prompt])
 > （略）この関数は入力から 1 行を読み込み、文字列に変換して (末尾の改行を除いて) 返します
 
-標準出力は当然`print()`
 ```python
 # 文字列
 s = input()
@@ -64,6 +63,17 @@ table = [list(map(int, input().split())) for _ in range(m)]
 import sys
 input = sys.stdin.readline
 ```
+
+標準出力は当然`print()`
+* １行に複数の数を空白区切で出力する時、`ans=[1, 2, 3, 4, 5]`として、
+   ```python
+   print(' '.join([str(ansi) for ansi in ans]))
+   ```
+   としても良いが、
+   ```python
+   print(*ans)
+   ```
+   の方がスマートな気がする。
 
 
 
@@ -218,6 +228,7 @@ https://cpprefjp.github.io/reference/set/set.html
 
 **python** \
 https://docs.python.org/ja/3/library/stdtypes.html#set-types-set-frozenset
+* C++のset(平衡二分探索木)とは全然違う。Pythonのsetはhash使ったやつ。
 
 
 ## map/dict
@@ -236,6 +247,7 @@ https://docs.python.org/ja/3/library/stdtypes.html#mapping-types-dict
 また完全な意味での全列挙でなくても、「ある変数$x$を固定するとそれ以外の変数については最適なパターンが決まるので、変数$x$について全探索する」的な解法もしばしばある。
 
 問題
+* [ABC045 C - たくさんの数式 / Many Formulas (300点)]( https://atcoder.jp/contests/abc045/tasks/arc061_a )
 * [ABC062 C - Chocolate Bar (400点)]( https://atcoder.jp/contests/abc062/tasks/arc074_a )
 * [ABC080 C - Shopping Street (300点)]( https://atcoder.jp/contests/abc080/tasks/abc080_c )
 * [ABC099 C - Strange Bank (300点)]( https://atcoder.jp/contests/abc099/tasks/abc099_c )
@@ -386,13 +398,14 @@ https://imoz.jp/algorithms/imos_method.html
     * [ABC006 D - トランプ挿入ソート]( https://atcoder.jp/contests/abc006/tasks/abc006_4 )
     * [ABC134 E - Sequence Decomposing (500点)]( https://atcoder.jp/contests/abc134/tasks/abc134_e )
 * その他
-  * 体感難しい順
-  * [ABC135 D - Digits Parade (400点)]( https://atcoder.jp/contests/abc135/tasks/abc135_d )
-  * [ABC118 D - Match Matching (400点)]( https://atcoder.jp/contests/abc118/tasks/abc118_d )
-  * [ABC122 D - We Like AGC (400点)]( https://atcoder.jp/contests/abc122/tasks/abc122_d )
-  * [ABC104 D - We Love ABC (400点)]( https://atcoder.jp/contests/abc104/tasks/abc104_d )
-  * [ABC082 D - FT Robot (500点)]( https://atcoder.jp/contests/abc082/tasks/arc087_b )
-  * [ABC132 F - Small Products (600点)]( https://atcoder.jp/contests/abc132/tasks/abc132_f )
+    * [ABC044 C - 高橋君とカード / Tak and Cards (300点)]( https://atcoder.jp/contests/abc044/tasks/arc060_a )
+    * [ABC082 D - FT Robot (500点)]( https://atcoder.jp/contests/abc082/tasks/arc087_b )
+    * [ABC104 D - We Love ABC (400点)]( https://atcoder.jp/contests/abc104/tasks/abc104_d )
+    * [ABC118 D - Match Matching (400点)]( https://atcoder.jp/contests/abc118/tasks/abc118_d )
+    * [ABC122 D - We Like AGC (400点)]( https://atcoder.jp/contests/abc122/tasks/abc122_d )
+    * [ABC132 F - Small Products (600点)]( https://atcoder.jp/contests/abc132/tasks/abc132_f )
+    * [ABC135 D - Digits Parade (400点)]( https://atcoder.jp/contests/abc135/tasks/abc135_d )
+
 
 
 ## bitDP
@@ -701,6 +714,7 @@ def comb(n: int, k: int) -> int:
 
 
 問題
+* [ABC042 D - いろはちゃんとマス目 / Iroha and a Grid (400点)]( https://atcoder.jp/contests/abc042/tasks/arc058_b )
 * [ABC110 D - Factorization (400点)]( https://atcoder.jp/contests/abc110/tasks/abc110_d )
 * [ABC132 D - Blue and Red Balls (400点)]( https://atcoder.jp/contests/abc132/tasks/abc132_d )
 
@@ -825,6 +839,7 @@ class UnionFind():
 ```
 
 問題
+* [ABC049 D - 連結 / Connectivity (400点)]( https://atcoder.jp/contests/abc049/tasks/arc065_b )
 * [ABC097 D - Equals (400点)]( https://atcoder.jp/contests/abc097/tasks/arc097_b )
 * [ABC120 D - Decayed Bridges (400点)]( https://atcoder.jp/contests/abc120/tasks/abc120_d )
 * [ABC126 E - 1 or 2 (500点)]( https://atcoder.jp/contests/abc126/tasks/abc126_e )
@@ -869,6 +884,8 @@ class UnionFind():
       sys.setrecursionlimit(10**6)
       ```
 * PyPy3(2.4.0)では`math.log2`が使えない。
+* Pythonは割り算(`/`)するとdoubleの演算になって精度が64bitじゃなくなる
+    * https://twitter.com/chokudai/status/1168159665433149440?s=20
 
 
 # Reference

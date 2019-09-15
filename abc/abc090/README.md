@@ -6,6 +6,6 @@
 落ち着いて数える。
 
 
-##　D - Remainder Reminder (400点)
+## D - Remainder Reminder (400点)
 bを固定して考えると良い。
 k=0の時はちょっとウザいので注意。
