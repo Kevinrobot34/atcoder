@@ -741,6 +741,66 @@ XORの性質について知っていると便利なことも多い
 * [ABC121 D - XOR World (400点)]( https://atcoder.jp/contests/abc121/tasks/abc121_d )
 
 
+# 文字列系
+## suffix array
+ * https://qiita.com/flare/items/20439a1db54b367eea70
+
+## LCP array
+* https://blog.shibayu36.org/entry/2017/01/06/103956
+
+## KMP法
+* https://snuke.hatenablog.com/entry/2014/12/01/235807
+
+## Manacherのアルゴリズム
+回文関連のやつ
+* https://snuke.hatenablog.com/entry/2014/12/02/235837
+
+
+## Z Algorithm
+長さ$N$の文字列$S$に対して、
+* $Z[i] = $($S$と$S[i:]$の最長共通接頭辞(LCP)の長さ)
+
+を$0\leq i < N$なるすべての$i$について、$O(N)$で計算するアルゴリズム。
+解説
+* https://snuke.hatenablog.com/entry/2014/12/03/214243
+* http://codeforces.com/blog/entry/3107
+
+```python
+def z_algorithm(s):
+    n = len(s)
+    z = [0] * n
+    z[0] = n
+
+    i = 1
+    lcp = 0
+    while i < n:
+        while i+lcp < n and s[i+lcp] == s[lcp]:
+            lcp += 1
+        z[i] = lcp
+
+        if lcp == 0:
+            i += 1
+            continue
+
+        k = 1
+        while i+k < n and k+z[k] < lcp:
+            z[i+k] = z[k]
+            k += 1
+        i += k
+        lcp -= k
+
+    return z
+```
+
+問題
+* [ABC141 E - Who Says a Pun? (500点)]( https://atcoder.jp/contests/abc141/tasks/abc141_e )
+
+
+## Rooling Hash
+* https://odan3240.hatenablog.com/entry/2015/02/16/111938
+* https://ei1333.github.io/luzhiled/snippets/string/rolling-hash.html
+* https://scrapbox.io/pocala-kyopro/ローリングハッシュ
+* アリ本 第２版 4-7 文字列を華麗に扱う
 
 # データ構造
 ## Union-Find木

@@ -11,7 +11,14 @@
 
 
 ## E - Who Says a Pun? (500点)
+http://drken1215.hatenablog.com/entry/2019/09/16/014600
 
+* Z algorithm (`e_zalgo.py`)
+  - O(N^2)
+  - https://snuke.hatenablog.com/entry/2014/12/03/214243
+* DP (`e_dp.py`)
+  - O(N^2)
+  - http://drken1215.hatenablog.com/entry/2019/09/16/014600
 
 
 ## F - Xor Sum 3 (600点)

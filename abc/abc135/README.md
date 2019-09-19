@@ -15,3 +15,7 @@ DP
 
 
 ## F - Strings of Eternity (600点)
+* Z algorithm
+  - https://snuke.hatenablog.com/entry/2014/12/03/214243
+* KMP
+  - https://snuke.hatenablog.com/entry/2017/07/18/101026
