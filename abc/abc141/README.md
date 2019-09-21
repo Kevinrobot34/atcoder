@@ -18,7 +18,8 @@ http://drken1215.hatenablog.com/entry/2019/09/16/014600
   - https://snuke.hatenablog.com/entry/2014/12/03/214243
 * DP (`e_dp.py`)
   - O(N^2)
-  - http://drken1215.hatenablog.com/entry/2019/09/16/014600
+* rolling hash (`e_rollinghash.py`)
+  - O(NlogN)?
 
 
 ## F - Xor Sum 3 (600点)

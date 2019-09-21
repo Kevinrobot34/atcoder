@@ -1,27 +1,15 @@
-def z_algorithm(s):
+def kmp(s):
     n = len(s)
-    z = [0] * n
-    z[0] = n
+    kmp = [0] * (n+1)
+    kmp[0] = -1
+    j = -1
+    for i in range(n):
+        while j >= 0 and s[i] != s[j]:
+            j = kmp[j]
+        j += 1
+        kmp[i+1] = j
 
-    i = 1
-    lcp = 0
-    while i < n:
-        while i+lcp < n and s[i+lcp] == s[lcp]:
-            lcp += 1
-        z[i] = lcp
-
-        if lcp == 0:
-            i += 1
-            continue
-
-        k = 1
-        while i+k < n and k+z[k] < lcp:
-            z[i+k] = z[k]
-            k += 1
-        i += k
-        lcp -= k
-
-    return z
+    return kmp
 
 from collections import deque
 def topological_sort(graph: list, n_v: int) -> list:
@@ -55,15 +43,13 @@ def main():
 
     s = s * (m // n0 + 2)
 
+    res = kmp(t + '*' + s)
+    res = res[m+2:]
 
-    z = z_algorithm(t + '*' + s)
-    z = z[m+1:]
-    # print(z)
-
-    graph = [[] for _ in range(n0)]
-    for i in range(n0):
-        if z[i] >= m:
-            graph[i].append( (i + m) % n0 )
+    graph = [set() for _ in range(n0)]
+    for i in range(len(res)):
+        if res[i] >= m:
+            graph[(i-m+1)%n0].add( (i + 1) % n0 )
     # print(graph)
 
     ts = topological_sort(graph, n0)

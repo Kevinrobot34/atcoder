@@ -11,7 +11,9 @@
 
 
 ## E - Common Subsequence (500点)
-DP
+* DP
+  - 愚直にやると`O(N^2 M^2)`
+  - 二次元累積和使って`O(NM)`
 
 
 ## F - Minimum Bounding Box (600点)
