@@ -1,5 +1,5 @@
 競技プログラミングのメモ \
-基本的に蟻本([Amazonのリンク]( https://www.amazon.co.jp/dp/4839941068/ref=cm_sw_em_r_mt_dp_U_ZTWrDb9R924BK ))に書かれているアルゴリズムの実装や関連問題をメモしている。
+基本的に蟻本([Amazonのリンク]( https://www.amazon.co.jp/dp/4839941068/ref=cm_sw_em_r_mt_dp_U_ZTWrDb9R924BK ))に書かれているアルゴリズムの実装や関連問題(主にAtCoder)をメモしている。
 
 # コンテストサイト
 * [AtCoder]( http://atcoder.jp )
@@ -222,22 +222,23 @@ print(h)
     * priority_queueの使い方・挙動を理解するのに良い問題。別解も多くて勉強になる。
 
 
-## set
-**C++** \
-https://cpprefjp.github.io/reference/set/set.html
+## 平行二分探索木
+**C++**
+* set: https://cpprefjp.github.io/reference/set/set.html
+* map: https://cpprefjp.github.io/reference/map/map.html
 
 **python** \
-https://docs.python.org/ja/3/library/stdtypes.html#set-types-set-frozenset
-* C++のset(平衡二分探索木)とは全然違う。Pythonのsetはhash使ったやつ。
+そんなものはない。Treapを自分で実装しよう。
 
 
-## map/dict
-**C++** \
-https://cpprefjp.github.io/reference/map/map.html
+## ハッシュテーブル
+**C++**
+* unordered_map: https://cpprefjp.github.io/reference/unordered_map/unordered_map.html
 
-**python** \
-https://docs.python.org/ja/3/library/stdtypes.html#mapping-types-dict
-* `key in dict`と書くと早い。`key in dict.keys()`とかやってると$O(N)$になるので注意。
+**python**
+* set: https://docs.python.org/ja/3/library/stdtypes.html#set-types-set-frozenset
+* dict: https://docs.python.org/ja/3/library/stdtypes.html#mapping-types-dict
+    * `key in dict`と書くと早い。`key in dict.keys()`とかやってると$O(N)$になるので注意。
 
 
 
@@ -312,6 +313,7 @@ bisect_left(a, 5), bisect_right(a, 5) # 10, 10
 
 問題
 * lower_bound / bisect_leftなど使ってソート済み配列を二分探索するタイプの問題
+    * [ABC030 C - 飛行機乗り]( https://atcoder.jp/contests/abc030/tasks/abc030_c )
     * [ABC077 C - Snuke Festival (300点)]( https://atcoder.jp/contests/abc077/tasks/arc084_a )
     * [ABC119 D - Lazy Faith (400点)]( https://atcoder.jp/contests/abc119/tasks/abc119_d )
     * [ABC138 E - Strings of Impurity (500点)]( https://atcoder.jp/contests/abc138/tasks/abc138_e )
@@ -355,10 +357,17 @@ print(b[6] - b[3]) # 27
 * [ABC122 C - GeT AC (300点)]( https://atcoder.jp/contests/abc122/tasks/abc122_c )
 * [ABC130 E - Common Subsequence (500点)]( https://atcoder.jp/contests/abc130/tasks/abc130_e )
     * DPを二元累積和で高速化する
+* [ABC075 D - Axis-Parallel Rectangle (400点)]( https://atcoder.jp/contests/abc075/tasks/abc075_d )
+    * 二次元累積和
 
 
 ## しゃくとり法
+https://qiita.com/drken/items/ecd1a472d3a0e7db8dce
 問題
+* [ABC032 C - 列]( https://atcoder.jp/contests/abc032/tasks/abc032_c )
+    * 典型的なしゃくとり法
+* [ABC038 C - 単調増加]( https://atcoder.jp/contests/abc038/tasks/abc038_c )
+    * 典型的なしゃくとり法
 * [ABC124 D - Handstand (400点)]( https://atcoder.jp/contests/abc124/tasks/abc124_d )
 * [ABC130 D - Enough Array (500点)]( https://atcoder.jp/contests/abc130/tasks/abc130_d )
     * 典型的なしゃくとり法
@@ -369,11 +378,13 @@ print(b[6] - b[3]) # 27
 https://imoz.jp/algorithms/imos_method.html
 
 問題
+* [ABC035 C - オセロ]( https://atcoder.jp/contests/abc035/tasks/abc035_c )
 * [ABC080 D - Recording (400点)]( https://atcoder.jp/contests/abc080/tasks/abc080_d )
 
 
 ## 座標圧縮
 問題
+* [ABC036 C - 座圧]( https://atcoder.jp/contests/abc036/tasks/abc036_c )
 * [ABC113 C - ID (300点)]( https://atcoder.jp/contests/abc113/tasks/abc113_c )
 
 
@@ -412,13 +423,16 @@ https://imoz.jp/algorithms/imos_method.html
 
 
 ## bitDP
-整数の2進数表記を用いて、サイズNの部分集合を全列挙するなどして行うDPのこと。 \
+整数の2進数表記を用いて、サイズNの部分集合を全列挙するなどして行うDPのこと。
+
 例
 * 巡回セールスマン問題(TSP)
 
 問題
 * [JOI Flag]( http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=0559 )
+* [ABC041 D - 徒競走]( https://atcoder.jp/contests/abc041/tasks/abc041_d )
 * [ABC113 D - Number of Amidakuji (400点)]( https://atcoder.jp/contests/abc113/tasks/abc113_d )
+* [ABC142 E - Get Everything (500点)]( https://atcoder.jp/contests/abc142/tasks/abc142_e )
 
 
 ## 桁DP
@@ -461,7 +475,33 @@ def dijkstra(graph: list, node: int, start: int) -> list:
     # dist = [costs to nodes]
 ```
 
+次の簡易的な実装だと$O\left(|V|^2\right)$。$|V| \leq 10^3$で$|E| = O\left(|V|^2\right)$とかだとこっちの方が早かったりする
+```python
+def dijkstra(edge_adj: list, node: int, start: int) -> list:
+    inf = float('inf')
+    dist = [inf] * node
+    used = [False] * node
+
+    dist[start] = 0
+    while True:
+        v = -1
+        for i in range(node):
+            if not used[i] and (v == -1 or dist[v] > dist[i]):
+                v = i
+
+        if v == -1:
+            break
+
+        used[v] = True
+        for i in range(node):
+            if dist[i] > dist[v] + edge_adj[v][i]:
+                dist[i] = dist[v] + edge_adj[v][i]
+
+    return dist
+```
+
 問題
+* [ARC E - Cosmic Rays (600点)]( https://atcoder.jp/contests/arc064/tasks/arc064_c )
 * 変形Dijkstra
     * [ABC132 E - Hopscotch Addict (500点)]( https://atcoder.jp/contests/abc132/tasks/abc132_e )
         * 良問
@@ -488,6 +528,7 @@ def bellman_ford(n: int, edge: list):
     return d, update
 ```
 問題
+* [ABC061 D - Score Attack (400点)]( https://atcoder.jp/contests/abc061/tasks/abc061_d )
 * [ABC137 E - Coins Respawn (500点)]( https://atcoder.jp/contests/abc137/tasks/abc137_e )
 
 ### Warshall-Floyd法
@@ -532,6 +573,7 @@ def kruskal(n: int, edge: list) -> int:
 DAGについて、$O(|V| + |E|)$でトポロジカルソートした結果を取得できる。
 以下の実装(`topological_sort`)はKahnの方法([参考]( https://ja.wikipedia.org/wiki/トポロジカルソート ))。
 
+DAG上のDPとかやるときにあると便利。
 
 またトポロジカルソートができることと、グラフがDAG(有向非巡回グラフ、Directed Acyclic Graph)であることは同値。以下の`is_dag`ように判定可能。
 
@@ -599,6 +641,7 @@ https://topcoder.g.hatena.ne.jp/iwiwi/20111205/1323099376
 
 # 数学
 ## 約数
+正整数$n$の約数の一覧は$O(\sqrt{n})$で取得できる。
 ```python
 def get_divisor(n: int) -> list:
     divisor = []
@@ -607,11 +650,13 @@ def get_divisor(n: int) -> list:
             break
         if n % i == 0:
             divisor.append(i)
-            divisor.append(n // i)
+            if n // i != i:
+                divisor.append(n // i)
+    # divisor.sort() # if you want sorted divisors
     return divisor
 ```
 
-### GCD / LCM
+## GCD / LCM
 キーワード : GCD(最大公約数 - Greatest Common Divisor), LCM(最小公倍数 - Least Common Multiple), ユークリッドの互除法
 ```cpp
 int GCD(int a, int b) { return b ? GCD(b, a % b) : a; }
@@ -631,20 +676,28 @@ def LCM(a: int, b: int) -> int:
 
 ## 素数
 ### 素因数分解
+正整数$n$の素因数分解は[Trial-Division]( https://en.wikipedia.org/wiki/Trial_division )と呼ばれるナイーブなアルゴリズムで$O(\sqrt{n})$で可能。
+また一般に、正整数$n$の素因数の個数は$O(\log n)$。
 ```python
 from collections import defaultdict
 def factorize(n: int) -> dict:
     f = defaultdict(int)
-    p = 2
-    while n > 1:
+    while n % 2 == 0:
+        f[2] += 1
+        n //= 2
+    p = 3
+    while p * p <= n:
         while n % p == 0:
             f[p] += 1
-            n = n // p
-        p += 1 if p == 2 else 2
+            n //= p
+        p += 2
+    if n != 1:
+        f[n] += 1
     return f
 ```
 問題
 * [ABC052 C - Factors of Factorial (300点)]( https://atcoder.jp/contests/abc052/tasks/arc067_a )
+* [ABC142 D - Disjoint Set of Common Divisors (400点)]( https://atcoder.jp/contests/abc142/tasks/abc142_d )
 
 ### エラトステネスの篩
 $n$までの素数を$O(n\log\log n)$で求められるアルゴリズム。
@@ -754,6 +807,7 @@ XORの性質について知っていると便利なことも多い
 ## KMP法
 長さ$N$の文字列$S$に対して、
 * $\mathrm{KMP}[i] = $( 文字列$S[:i]$の接頭辞と接尾辞が最大何文字一致しているか)
+
 を$0\leq i < N$なるすべての$i$について、$O(N)$で計算するアルゴリズム。
 ```
 S  : aabaabaaa
@@ -862,28 +916,41 @@ def z_algorithm(s):
 * アリ本 第２版 「4-7 文字列を華麗に扱う」
 
 ### ハッシュ関数
-そもそもハッシュ関数とは、文字列・数列といった何かしらのデータが与えられた時に、そのデータを代表する数値を得るなんらかの操作(関数)のこと。
+そもそもハッシュ関数とは、文字列・数列といった何かしらのデータが与えられた時に、そのデータに対応したなんらかの数値を得るなんらかの操作(関数)のこと。
 データをハッシュ関数にかけて得られた数値のことをハッシュ値という。
 元データの比較処理が重いような場合(文字列・数列など)、ハッシュ値に変換してから比較することで高速化が望めたりする。
 
 ### RollingHashの概要
 ただし、ハッシュ値の計算に時間がかかっていては意味がない。
-そこで便利なのがローリングハッシュである。
-ローリングハッシュ(多項式ハッシュ, Karp-Rabin Fingerprint)とは、
-文字列$S(=S_1S_2\dots S_m)$に対して
+そこで数列に対するハッシュ関数として、高速で便利なのがローリングハッシュである。
+ローリングハッシュ(多項式ハッシュ, Karp-Rabin Fingerprint)とは、数列$a ~=~[a_0, ~a_1, ~\cdots,~ a_{m-1} ]$に対して
 $$
 \begin{align*}
- H(S, b, h) &= \left[~ \mathrm{ord}(S_1)~b^{m-1} + \mathrm{ord}(S_2)~b^{m-2} + \cdots  + \mathrm{ord}(S_m)~b^{0} ~\right] ~\mathrm{mod}~~ h \\\\
-&= \left[~ \sum_{i=1}^{m} \mathrm{ord}(S_i)~b^{m-i} ~\right] ~\mathrm{mod}~~ h
+ H(a, b, h) &= \left[~ a_0~b^{m-1} + a_1~b^{m-2} + \cdots  + a_{m-1}~b^{0} ~\right] ~\mathrm{mod}~~ h \\\\
+&= \left[~ \sum_{i=0}^{m-1} a_i ~b^{m-1-i} ~\right] ~\mathrm{mod}~~ h
 \end{align*}
 $$
-というハッシュ関数のこと。
-多項式の形なので、効率的に計算できるのがミソ。
+と定義されるハッシュ関数のこと。文字列にも適用可能。（ 文字列$S=S_0S_1\cdots S_{m-1}$ を数列$a = \left[\mathrm{ord}(S_0), ~\mathrm{ord}(S_1), ~\cdots, ~\mathrm{ord}(S_{m-1}) \right]$ に変換すれば良い。$\mathrm{ord}(\cdot)$は文字の[アスキーコードを返す関数]( https://docs.python.org/ja/3/library/functions.html#ord )。）
 
-直接文字列を比較するのではなく、このハッシュを（累積和のようなイメージで）効率的に計算しハッシュ値の比較をすることで処理の高速化を図る。
-もう少し具体的には
+多項式の形なので、**（累積和のようなイメージで）効率的に計算できる**のがミソ。具体的には、長さ$N$の数列$S$に対して$H(S[:i], b, h)$を全ての$i$に対して計算するという前処理$O(N)$を行なっておくと、$S$の任意の部分列$S[l:r]$のハッシュ値を$O(1)$で次式のように計算できるようになる。
+$$
+H(S[l:r], b, h) = \left[~ H(S[:r], b, h) - H(S[:l], b, h) ~ b^{r-l} ~\right] ~\mathrm{mod}~~ h \\\\
+\left(
+\begin{align*}
+ H(S[:r], b, h) &= \left[~ S_0~b^{r-2} + \cdots + S_{l-1}~b^{r-l} + S_l~b^{r-l-1} + \cdots  + S_{r-1}~b^{0} ~\right] ~\mathrm{mod}~~ h \\\\
+H(S[:l], b, h)&= \left[~ S_0~b^{l-2} + \cdots  + S_{l-1}~b^{0} ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \right] ~\mathrm{mod}~~ h \\\\
+H(S[l:r], b, h)&= \left[~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ S_l~b^{r-l-1} + \cdots  + S_{r-1}~b^{0} ~\right] ~\mathrm{mod}~~ h
+\end{align*}
+\right)
+$$
+
+
+
+直接文字列を比較するのではなく、効率的に計算されるハッシュ値の比較をすることで処理の高速化を図る。
 
 ### ハッシュの衝突について
+ハッシュは衝突することもある。
+複数の$b$と$h$に対してハッシュを計算するようにしておくことで、衝突する確率を下げるのが比較的容易な対策の一つ。
 * https://snuke.hatenablog.com/entry/2017/02/03/035524
 
 ```python
@@ -901,7 +968,7 @@ class RollingHash:
             self.hash_cum[i+1] = (self.hash_cum[i] * base + ord(s[i])) % mod
             self.base_pow[i+1] = (self.base_pow[i] * base) % mod
 
-    def get_hash(self, l: int, r: int) -> int:
+    def get_hash(self, l: int, r: int) -> int: # get hash value of the substring: s[l:r]
         hash_val = self.hash_cum[r] - self.hash_cum[l] * self.base_pow[r-l] % self.mod
         if hash_val < 0:
             hash_val += self.mod
@@ -912,14 +979,19 @@ class RollingHashMulti:
     def __init__(self, s: str, base_list: list=[1007, 2009], mod_list: list=[10**9+7, 10**9+9]):
         self.n = len(base_list)
         self.base_list = base_list
+        self.mod_list = mod_list
         self.rh_list = [RollingHash(s, base_list[i], mod_list[i]) for i in range(self.n)]
 
     def get_hash(self, l: int, r: int) -> tuple:
         return tuple( self.rh_list[i].get_hash(l, r) for i in range(self.n) )
 
 ```
+ToDo
+* `RollingHashBase`という基底クラスを作って、`RollingHashStr`と`RollingHashStrMulti`と`RollingHash2dim`をそれを継承したクラスとして実現する
 
 問題
+* [ABC054 B - Template Matching (200点)]( https://atcoder.jp/contests/abc054/tasks/abc054_b )
+    * 二次元のRollingHashでも解ける
 * [ABC141 E - Who Says a Pun? (500点)]( https://atcoder.jp/contests/abc141/tasks/abc141_e )
     * RollingHashと二分探索
 
@@ -1022,6 +1094,7 @@ class UnionFind():
 
 問題
 * [ABC049 D - 連結 / Connectivity (400点)]( https://atcoder.jp/contests/abc049/tasks/arc065_b )
+* [ABC075 C - Bridge (300点)]( https://atcoder.jp/contests/abc075/tasks/abc075_c )
 * [ABC097 D - Equals (400点)]( https://atcoder.jp/contests/abc097/tasks/arc097_b )
 * [ABC120 D - Decayed Bridges (400点)]( https://atcoder.jp/contests/abc120/tasks/abc120_d )
 * [ABC126 E - 1 or 2 (500点)]( https://atcoder.jp/contests/abc126/tasks/abc126_e )
@@ -1029,6 +1102,10 @@ class UnionFind():
 
 
 ## Segment Tree / BIT
+* https://www.slideshare.net/iwiwi/ss-3578491
+* https://www.creativ.xyz/segment-tree-entrance-999/
+* http://koba-e964.hatenablog.com/entry/2016/12/14/214132#f-888cad5c
+
 問題
 * [ABC136 F - Enclosed Points (600点)]( https://atcoder.jp/contests/abc136/tasks/abc136_f )
 
@@ -1039,13 +1116,18 @@ class UnionFind():
 ちょっとずつこれらのまとめもしていきたい。
 
 問題
-* [AGC034 A - Kenken Race (400点)]( https://atcoder.jp/contests/agc034/tasks/agc034_a )
-* [AGC034 B - ABC (600点)]( https://atcoder.jp/contests/agc034/tasks/agc034_b )
-* [ABC092 D - Grid Components(500点)]( https://atcoder.jp/contests/abc092/tasks/arc093_b )
-* [ABC135 E - Golf (500点)]( https://atcoder.jp/contests/abc135/tasks/abc135_e )
-* [ABC136 D - Gathering Children (400点)]( https://atcoder.jp/contests/abc136/tasks/abc136_d )
-  - 問題を細かく分解する、状況をよく整理して答えを書くなどが大事
-* [JSC2019-qual C - Cell Inversion (500点)]( https://atcoder.jp/contests/jsc2019-qual/tasks/jsc2019_qual_c )
+* ゲーム系
+    * [ABC059 D - Alice&Brown (500点)]( https://atcoder.jp/contests/abc059/tasks/arc072_b )
+    * [ABC067 D - Fennec VS. Snuke (400点)]( https://atcoder.jp/contests/abc067/tasks/arc078_b )
+    * [ABC078 D - ABS (500点)]( https://atcoder.jp/contests/abc078/tasks/arc085_b )
+* その他
+    * [AGC034 A - Kenken Race (400点)]( https://atcoder.jp/contests/agc034/tasks/agc034_a )
+    * [AGC034 B - ABC (600点)]( https://atcoder.jp/contests/agc034/tasks/agc034_b )
+    * [ABC092 D - Grid Components(500点)]( https://atcoder.jp/contests/abc092/tasks/arc093_b )
+    * [ABC135 E - Golf (500点)]( https://atcoder.jp/contests/abc135/tasks/abc135_e )
+    * [ABC136 D - Gathering Children (400点)]( https://atcoder.jp/contests/abc136/tasks/abc136_d )
+      - 問題を細かく分解する、状況をよく整理して答えを書くなどが大事
+    * [JSC2019-qual C - Cell Inversion (500点)]( https://atcoder.jp/contests/jsc2019-qual/tasks/jsc2019_qual_c )
 
 
 
@@ -1068,7 +1150,19 @@ class UnionFind():
 * PyPy3(2.4.0)では`math.log2`が使えない。
 * Pythonは割り算(`/`)するとdoubleの演算になって精度が64bitじゃなくなる
     * https://twitter.com/chokudai/status/1168159665433149440?s=20
-
+* DPの配列の初期値にINFを入れたいときに、`INF = float("inf")`を使うと遅いっぽい
+    * 問題に応じて適宜`INF = 10**9`とかにした方が良い
+* PythonのListのランダムアクセス（して代入するの）はかなり遅いっぽい。
+    * DPなどで
+        ```python
+        dp[j | c] = min(dp[j] + a, dp[j | c])
+        ```
+        と書くのであれば、
+        ```python
+        if dp[j] + a < dp[j | c]:
+            dp[j | c] = dp[j] + a
+        ```
+        と、if文を書いた方が早い。
 
 # Reference
 * [AtCoder 版！蟻本 (初級編)]( https://qiita.com/drken/items/e77685614f3c6bf86f44 )

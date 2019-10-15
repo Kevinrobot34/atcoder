@@ -1,29 +1,26 @@
+from collections import defaultdict, Counter
+
+def comb(n: int, k: int) -> int:
+    ans = 1
+    for i in range(1, k+1):
+        ans *= n - i + 1
+        ans //= i
+    return ans
+
 n, a, b = map(int, input().split())
 v = list(map(int, input().split()))
 v.sort(reverse=True)
-print(n, a, b, v)
+c = Counter(v)
 
-ans = 0
-pattern = 1
-selected = {}
-m = 0
-s = 0
-for i in range(n):
-    print(i, v[i])
+cand = defaultdict(int)
+for m in range(a, b+1):
+    s = sum(v[:m])
+    k = len(list(filter(lambda x: x == v[m-1], v[:m])))
+    l = c[v[m-1]]
 
-    if v[i] in selected:
-        selected[v[i]] += 1
-    else:
-        selected[v[i]] = 1
-        m += 1
-        s += v[i]
+    cand[s / m] += comb(l, k)
 
-
-    if a <= m <= b and ans <= s / m:
-        ans = s / m
-        pattern = 1
-        for key, val in selected.items():
-            pattern *= val
-
-print(ans)
-print(pattern)
+# print(cand)
+ans1 = max(cand.keys())
+print(ans1)
+print(cand[ans1])
