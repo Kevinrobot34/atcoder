@@ -7,4 +7,5 @@
 
 
 ## D - Candidates of No Shortest Paths (400点)
-* パスの復元もできるタイプのdijkstraが遂に必要...?
+* ワーシャルフロイド
+* 経路復元
