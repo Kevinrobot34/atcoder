@@ -45,4 +45,15 @@
   - 上記のように作った有向グラフについてdijkstraをする
     - 辺の数は`M+(N-1)`本で、頂点は`N`点なので、`O((M+N)logN)`
 * segment tree
+  - `dp[i] = (1からiへの最短距離)`
+    - 初期化
+      - `dp[1] = 0`
+      - `dp[i] = INF (i > 1)`
+    - これを小さい方から順に決定していく
+  - セグ木で、`dp[i]`のRMQを答えられるようにしておく
+  - `dp[i]`まで求まってる時に`dp[i+1]`を求めたい
+    - `i+1`を右端の点とするような操作区間`[l, i+1]`に注目する
+      - コストは`c`とする
+    - `dp[i+1] = min(dp[i+1], RMQ(l, i+1) + c)`
+  - RMQが`M`回と、更新が`N`回なので、`O((M+N)logN)`
   - https://atcoder.jp/contests/nikkei2019-2-qual/submissions/8356834
