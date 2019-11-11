@@ -1,4 +1,4 @@
-class BIT1():
+class BIT():
     """
     Binary Indexed Tree (1-indexed)
     """
@@ -29,7 +29,7 @@ class BIT1():
 
     def bisect_left(self, w):
         # condition : always all element is not minus
-        # return minimum idx where bit.sum(idx) >= w
+        # return minimum idx where sum(idx) >= w
         if w <= 0:
             return 0
         idx = 0  # self.bit[idx] < w
@@ -43,7 +43,7 @@ class BIT1():
 
     def bisect_right(self, w):
         # condition : always all element is not minus
-        # return minimum idx where bit.sum(idx) > w
+        # return minimum idx where sum(idx) > w
         if w < 0:
             return 0
         idx = 0  # self.bit[idx] <= w
@@ -56,27 +56,13 @@ class BIT1():
         return idx + 1
 
 
-n = int(input())
-p = list(map(int, input().split()))
+n, q = map(int, input().split())
 
-p2idx = [0] * (n + 1)
-for i in range(1, n + 1):
-    p2idx[p[i - 1]] = i
-
-ans = 0
-bit = BIT1(n)
-for x in reversed(range(1, n + 1)):
-    idx = p2idx[x]
-    bit.add(idx, 1)
-    idx_rank = bit.sum(idx)
-    idx_l2 = bit.bisect_left(idx_rank - 2)
-    idx_l1 = bit.bisect_left(idx_rank - 1)
-    idx_r1 = bit.bisect_left(idx_rank + 1)
-    idx_r2 = bit.bisect_left(idx_rank + 2)
-
-    cnt = 0
-    cnt += (idx_l1 - idx_l2) * (idx_r1 - idx)
-    cnt += (idx - idx_l1) * (idx_r2 - idx_r1)
-    ans += x * cnt
-
-print(ans)
+bit = BIT(n)
+for _ in range(q):
+    com, x, y = map(int, input().split())
+    if com == 0:
+        bit.add(x, y)
+    elif com == 1:
+        ans = bit.sum(y) - bit.sum(x - 1)
+        print(ans)

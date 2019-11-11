@@ -14,7 +14,8 @@
 
 
 ## E - Second Sum (500点)
-
+* [AGC005 B - Minimum Sum (400点)]( https://atcoder.jp/contests/agc005/tasks/agc005_b )
+とほぼ同じ問題
 
 
 ## F - Many Slimes (600点)

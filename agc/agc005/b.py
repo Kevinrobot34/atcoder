@@ -57,26 +57,22 @@ class BIT1():
 
 
 n = int(input())
-p = list(map(int, input().split()))
+a = [0] + list(map(int, input().split()))
 
-p2idx = [0] * (n + 1)
+a2idx = [0] * (n + 1)
 for i in range(1, n + 1):
-    p2idx[p[i - 1]] = i
+    a2idx[a[i]] = i
 
 ans = 0
 bit = BIT1(n)
-for x in reversed(range(1, n + 1)):
-    idx = p2idx[x]
+for x in range(1, n + 1):
+    idx = a2idx[x]
     bit.add(idx, 1)
     idx_rank = bit.sum(idx)
-    idx_l2 = bit.bisect_left(idx_rank - 2)
-    idx_l1 = bit.bisect_left(idx_rank - 1)
-    idx_r1 = bit.bisect_left(idx_rank + 1)
-    idx_r2 = bit.bisect_left(idx_rank + 2)
+    idx_l = bit.bisect_left(idx_rank - 1)
+    idx_r = bit.bisect_left(idx_rank + 1)
 
-    cnt = 0
-    cnt += (idx_l1 - idx_l2) * (idx_r1 - idx)
-    cnt += (idx - idx_l1) * (idx_r2 - idx_r1)
-    ans += x * cnt
+    ans += x * (idx - idx_l) * (idx_r - idx)
+    # print(x, idx, idx_l, idx_r, (idx - idx_l) * (idx_r - idx))
 
 print(ans)
