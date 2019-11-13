@@ -17,3 +17,8 @@ DFS的に色を塗りながら数える
 
 ## F - Colorful Tree
 * LCA
+  - EulerTour + RMQ
+  - doubling
+* クエリ先読みによるメモリの節約
+
+* 木のtopologicalなdepthと、edgeの長さの和としてのdepthの違いに気をつけること

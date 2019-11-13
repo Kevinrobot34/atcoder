@@ -220,6 +220,7 @@ print(h)
 * [ABC062 D - 3N Numbers (500点)]( https://atcoder.jp/contests/abc062/tasks/arc074_b )
 * [ABC123 D - Cake 123 (400点)]( https://atcoder.jp/contests/abc123/tasks/abc123_d )
     * priority_queueの使い方・挙動を理解するのに良い問題。別解も多くて勉強になる。
+* [ABC137 D - Summer Vacation (400点)]( https://atcoder.jp/contests/abc137/tasks/abc137_d )
 
 
 ## 平行二分探索木
@@ -278,8 +279,10 @@ print(h)
 * queue
 
 問題
-* [AGC033 A - Darker and Darker (300点)]( https://atcoder.jp/contests/agc033/tasks/agc033_a )
+* [ABC007 C - 幅優先探索]( https://atcoder.jp/contests/abc007/tasks/abc007_3 )
+    * 典型的な幅優先探索の問題
 * [ABC088 D - Grid Repainting (400点)]( https://atcoder.jp/contests/abc088/tasks/abc088_d )
+* [AGC033 A - Darker and Darker (300点)]( https://atcoder.jp/contests/agc033/tasks/agc033_a )
 
 
 ## 二分探索
@@ -311,15 +314,34 @@ bisect_left(a, 4), bisect_right(a, 4) #  7, 10
 bisect_left(a, 5), bisect_right(a, 5) # 10, 10
 ```
 
+自分でチェック関数作ってやるやつ
+```python
+def check(x):
+    # xが条件を満たすか判定する関数
+    pass
+lb = -1    # False
+ub = hoge  # True
+while ub - lb > 1:
+    mid = (ub + lb) // 2
+    if check(mid):
+        ub = mid
+    else:
+        lb = mid
+# lbがFalseの最大、ubがTrueの最小
+```
+
 問題
 * lower_bound / bisect_leftなど使ってソート済み配列を二分探索するタイプの問題
     * [ABC030 C - 飛行機乗り]( https://atcoder.jp/contests/abc030/tasks/abc030_c )
     * [ABC077 C - Snuke Festival (300点)]( https://atcoder.jp/contests/abc077/tasks/arc084_a )
     * [ABC119 D - Lazy Faith (400点)]( https://atcoder.jp/contests/abc119/tasks/abc119_d )
     * [ABC138 E - Strings of Impurity (500点)]( https://atcoder.jp/contests/abc138/tasks/abc138_e )
+    * [ABC143 D - Triangles (400点)]( https://atcoder.jp/contests/abc143/tasks/abc143_d )
 * 自分でループ書くタイプの二分探索するタイプの問題
     * [ABC063 D - Widespread (400点)]( https://atcoder.jp/contests/abc063/tasks/arc075_b )
     * [ABC141 E - Who Says a Pun? (500点)]( https://atcoder.jp/contests/abc141/tasks/abc141_e )
+        * RollingHashと組み合わせた二分探索
+    * [ABC144 E - Gluttony (500点)]( https://atcoder.jp/contests/abc144/tasks/abc144_e )
 
 
 ## 半分全列挙
@@ -372,18 +394,32 @@ https://qiita.com/drken/items/ecd1a472d3a0e7db8dce
 * [ABC130 D - Enough Array (500点)]( https://atcoder.jp/contests/abc130/tasks/abc130_d )
     * 典型的なしゃくとり法
 * [ABC098 D - Xor Sum 2 (500点)]( https://atcoder.jp/contests/abc098/tasks/arc098_b )
+* [ABC139 F - Engines (600点)]( https://atcoder.jp/contests/abc139/tasks/abc139_f )
 
 
 ## いもす法
 https://imoz.jp/algorithms/imos_method.html
 
 問題
+* [ABC014 C - AtColor]( https://atcoder.jp/contests/abc014/tasks/abc014_3 )
 * [ABC035 C - オセロ]( https://atcoder.jp/contests/abc035/tasks/abc035_c )
 * [ABC080 D - Recording (400点)]( https://atcoder.jp/contests/abc080/tasks/abc080_d )
 
 
 ## 座標圧縮
+```python
+def compress_coordinate(x: list, key=None, reverse=False):
+    zipped = {}
+    unzipped = {}
+    for i, xi in enumerate(sorted(set(x), key=None, reverse=reverse)):
+        zipped[xi] = i
+        unzipped[i] = xi
+    return zipped, unzipped
+```
+
 問題
+* [ARC008 D - タコヤキオイシクナール]( https://atcoder.jp/contests/arc008/tasks/arc008_4 )
+    * メインテーマはセグツリーだが、座標圧縮の必要性も感じられる問題
 * [ABC036 C - 座圧]( https://atcoder.jp/contests/abc036/tasks/abc036_c )
 * [ABC113 C - ID (300点)]( https://atcoder.jp/contests/abc113/tasks/abc113_c )
 
@@ -397,7 +433,10 @@ https://imoz.jp/algorithms/imos_method.html
 
 
 # 動的計画法
-## DP
+メモ化再帰とか漸化式立てて解くやつ。
+[Educational DP Contest]( https://atcoder.jp/contests/dp )とか練習になりそうだし解きたい
+
+## 典型的なDP
 いろんなパターンがある。それぞれの詳細については別途記載。
 * ナップザック
 * [LIS - 最長増加部分列]( https://github.com/Kevinrobot34/atcoder/blob/master/algorithm_memo/LIS.md )
@@ -411,7 +450,11 @@ https://imoz.jp/algorithms/imos_method.html
 * LIS (Longest Increasing Subsequence)系
     * [ABC006 D - トランプ挿入ソート]( https://atcoder.jp/contests/abc006/tasks/abc006_4 )
     * [ABC134 E - Sequence Decomposing (500点)]( https://atcoder.jp/contests/abc134/tasks/abc134_e )
+* DAG上のDP
+    * [ABC144 F - Fork in the Road (600点)]( https://atcoder.jp/contests/abc144/tasks/abc144_f )
 * その他
+    * [ABC037 D - 経路]( https://atcoder.jp/contests/abc037/tasks/abc037_d )
+        * メモ化再帰の練習になる
     * [ABC044 C - 高橋君とカード / Tak and Cards (300点)]( https://atcoder.jp/contests/abc044/tasks/arc060_a )
     * [ABC082 D - FT Robot (500点)]( https://atcoder.jp/contests/abc082/tasks/arc087_b )
     * [ABC104 D - We Love ABC (400点)]( https://atcoder.jp/contests/abc104/tasks/abc104_d )
@@ -450,6 +493,22 @@ http://drken1215.hatenablog.com/entry/2019/02/04/013700
 
 
 # グラフ
+## グラフの基本
+グラフの頂点集合を$V$、辺の集合を$E$とする
+
+### グラフの種類
+#### 無向グラフ
+#### 木
+#### 有向グラフ
+
+
+### グラフの表現の仕方
+* 隣接リスト
+    * メモリが$O(|V|+|E|)$かかる。
+* 隣接行列
+    * メモリが$O(|V|^2)$かかる。ワーシャルフロイドが使えるくらいの問題じゃないと使えない。
+
+
 ## 最短経路
 ### Dijkstra法
 負の辺が存在しないグラフに対して、単一始点最短路問題を$O(|E|\log|V|)$で解けるアルゴリズム。
@@ -502,16 +561,17 @@ def dijkstra(edge_adj: list, node: int, start: int) -> list:
 
 問題
 * [ARC E - Cosmic Rays (600点)]( https://atcoder.jp/contests/arc064/tasks/arc064_c )
-* 変形Dijkstra
-    * [ABC132 E - Hopscotch Addict (500点)]( https://atcoder.jp/contests/abc132/tasks/abc132_e )
-        * 良問
-    * https://yukicoder.me/problems/no/807
+* [ABC132 E - Hopscotch Addict (500点)]( https://atcoder.jp/contests/abc132/tasks/abc132_e )
+* [第２回日経コン D - Shortest Path on a Line (600点)]( https://atcoder.jp/contests/nikkei2019-2-qual/tasks/nikkei2019_2_qual_d )
+* https://yukicoder.me/problems/no/807
 
 
 ### Bellman-Ford法
 単一始点最短路問題を$O(|V| |E|)$で解けるアルゴリズム。
 $\text{dist}[i]=$(頂点$i$までの最短路)とした時、
-$$ \text{dist}[i] = \min \\{ \text{dist}[j] + \text{cost}_{j\to i} ~|~ (j, i) \in E  \\} $$
+
+$$ \text{dist}[i] = \min \\{ \text{dist}[j] + \text{cost}_{j\to i}  \\:| \\: (j, i) \in E  \\} $$
+
 が成り立つことを利用した手法。
 負の辺が存在していても問題なく、また負の閉路の検出にも使える。
 ```python
@@ -533,12 +593,38 @@ def bellman_ford(n: int, edge: list):
 
 ### Warshall-Floyd法
 全点対最短路問題を$O(|V|^3)$で解けるアルゴリズム。
+グラフを表す隣接行列を更新し、全点間の最短経路が入った行列にする。
+$d[i][j] = $($i$から$j$への最短経路の長さ)として、初期化は
+* $d[i][i] = 0$
+* $d[i][j] =\text{INF}~$($i$と$j$の間に辺がないとき)
+* $d[i][j] = \text{cost}[i][j]$
+
+```python
+def warshall_floyd(d, next_node):
+    # d        : nxn adjacent matrix
+    # next_node: node after i on the shortest path of (i,j)
+    for k in range(n):
+        for i in range(n):
+            for j in range(n):
+                if d[i][j] > d[i][k] + d[k][j]:
+                    d[i][j] = d[i][k] + d[k][j]
+                    next_node[i][j] = next_node[i][k]
+```
 
 問題
+* [ABC012 D - バスと避けられない運命]( https://atcoder.jp/contests/abc012/tasks/abc012_4 )
+* [ABC051 D - Candidates of No Shortest Paths (400点)]( https://atcoder.jp/contests/abc051/tasks/abc051_d )
 * [ABC073 D - joisino's travel (400点)]( https://atcoder.jp/contests/abc073/tasks/abc073_d )
+* [ABC143 E - Travel by Car (500点)]( https://atcoder.jp/contests/abc143/tasks/abc143_e )
 
 
 ### 経路復元
+最短経路の長さを更新するときに、どの点を通ったかといった情報も更新・保持するようにすればよい
+* Warshall-Floyd法の経路復元
+    * http://zeosutt.hatenablog.com/entry/2015/05/05/045943
+    * [ABC051 D - Candidates of No Shortest Paths (400点)]( https://atcoder.jp/contests/abc051/tasks/abc051_d )が参考になる
+
+問題
 
 
 
@@ -553,7 +639,7 @@ def bellman_ford(n: int, edge: list):
 対象のグラフを構成する辺をコストでソートし、小さい方から見ていく。
 今見ている辺を追加することで閉路ができなければ、最小全域木の一辺として使う。
 閉路ができるかどうかの判定にをUnionFindを使うことで高速に処理ができる。
-結局辺のソートの部分に一番時間がかかり、$E\leq V^2$なので$O(|E|\log |E|) = O(|E| \log |V|)$で最小全域木のコストが求まる。
+結局辺のソートの部分に一番時間がかかり、$|E| \leq |V|^2$なので$O(|E|\log |E|) = O(|E| \log |V|)$で最小全域木のコストが求まる。
 ```python
 def kruskal(n: int, edge: list) -> int:
     # edge[node] = (v_from, v_to, cost)
@@ -621,15 +707,93 @@ def is_dag(graph: list, n_v: int):
 
 ### LCA
 https://en.wikipedia.org/wiki/Lowest_common_ancestor
+実装方法はいくつかあり、
+* ダブリング
+* EulerTour + RMQ
+    * RMQで最小値の値だけでなくそのindexを返すようにする必要がある
+        * `(値, index)`をSegmentTreeの要素として、最初の要素の大小で比較するようにしておけば良い
+    * https://www.creativ.xyz/abc014d-431/
+
+
+```python
+class Tree():
+    def __init__(self, n, graph, v_root):
+        self.n = n  # number of nodes
+        self.graph = graph  # adjacent list of graph
+        self.v_root = v_root  # root node
+
+        # euler tour
+        self.first_idx = [2 * self.n] * self.n
+        self.euler_tour = []
+        self.euler_depth = []
+        self.euler_tour_dfs(self.v_root, -1, 0)
+
+        # Segment Tree for LCA
+        depth_list = [(di, i) for i, di in enumerate(self.euler_depth)]
+        INF = (2 * self.n, -1)
+        operation_func = lambda a, b: a if a[0] < b[0] else b
+        self.st_rmq = SegmentTree1(2 * self.n - 1, INF, operation_func) # Abstract Segment Tree
+        self.st_rmq.build(depth_list)
+
+    def euler_tour_dfs(self, v, v_par, depth):
+        self.first_idx[v] = len(self.euler_tour)
+        self.euler_tour.append(v)
+        self.euler_depth.append(depth)
+        for v_next in self.graph[v]:
+            if v_next == v_par:
+                continue
+            self.euler_tour_dfs(v_next, v, depth + 1)
+            self.euler_tour.append(v)
+            self.euler_depth.append(depth)
+
+    def depth(self, v):
+        return self.euler_depth[self.first_idx[v]]
+
+    def lca(self, u, v):
+        u_idx, v_idx = self.first_idx[u], self.first_idx[v]
+        if u_idx > v_idx:
+            u_idx, v_idx = v_idx, u_idx
+        _, idx = self.st_rmq.query(u_idx, v_idx + 1)
+        return self.euler_tour[idx]
+
+    def dist(self, u, v):
+        lca_uv = self.lca(u, v)
+        return self.depth(u) + self.depth(v) - 2 * self.depth(lca_uv)
+```
+
+
 
 問題
+* [ABC014 D - 閉路]( https://atcoder.jp/contests/abc014/tasks/abc014_4 )
 * [ABC133 F - Colorful Tree (600点)]( https://atcoder.jp/contests/abc133/tasks/abc133_f )
     * LCAに更にもう一捻りしてあるので難しそう
 * [F - 根付き木のみさわさん]( https://tenka1-2015-final-open.contest.atcoder.jp/tasks/tenka1_2015_final_f )
 
 
 ### Euler Tour
-https://topcoder.g.hatena.ne.jp/iwiwi/20111205/1323099376
+参考
+* https://topcoder.g.hatena.ne.jp/iwiwi/20111205/1323099376
+* https://www.npca.jp/works/magazine/#2015 の「木に対する一般的なテク達」
+* http://beet-aizu.hatenablog.com/entry/2019/07/08/174727
+
+
+
+
+```python
+first_idx = [2 * n] * n
+euler_tour = []
+euler_depth = []
+def dfs(v, par, depth):
+    first_idx[v] = len(euler_tour)
+    euler_tour.append(v)
+    euler_depth.append(depth)
+    for v_next in graph[v]:
+        if v_next == par:
+            continue
+        dfs(v_next, v, depth + 1)
+        euler_tour.append(v)
+        euler_depth.append(depth)
+```
 
 
 ## その他
@@ -668,6 +832,9 @@ def GCD(a:int , b: int) -> int:
 def LCM(a: int, b: int) -> int:
     return a * b // GCD(a, b)    
 ```
+* Python3.5以降には`math`にgcdは実装してある。https://docs.python.org/ja/3/library/math.html#math.gcd
+    * ただし、Python3.4.3では最大公約数を求めるgcdは”math"ではなくて、"fractions"の中にある: `from fractions import gcd`
+
 問題
 * [ABC131 C - Anti-Divisor (300点)]( https://atcoder.jp/contests/abc131/tasks/abc131_c )
 * [ABC125 C - GCD on Blackboard (300点)]( https://atcoder.jp/contests/abc125/tasks/abc125_c )
@@ -775,7 +942,22 @@ def comb(n: int, k: int) -> int:
 * [ABC132 D - Blue and Red Balls (400点)]( https://atcoder.jp/contests/abc132/tasks/abc132_d )
 
 
-## XOR
+## bit演算
+### bit演算テクニック
+* `x`の最下位の1bit分だけ取り出す
+    * `(x & (-x))`
+    * 負の数は「全てのbitを反転して1を足す」という補数で表現されていることを利用した技
+        * BITの実装などに使える
+
+    | $x_{(10)}$ | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 |
+    | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+    | $x_{(2)}$                  | 00001 | 00010 | 00011 | 00100 | 00101 | 00110 | 00111 | 01000 |
+    | $-x_{(2)}$                | 11111 | 11110 | 11101 | 11100 | 11011 | 11010 | 11001 | 11000 |
+    | $(x \\& -x)_{(2)}$ | 00001 | 00010 | 00001 | 00100 | 00001 | 00010 | 00001 | 01000 |
+
+
+
+### XOR
 https://qiita.com/kuuso1/items/778acaa7011d98a3ff3a
 
 XOR関連の問題はDPなどと合わせて出たり、数学の問題として出ることが多々ある。
@@ -795,6 +977,13 @@ XORの性質について知っていると便利なことも多い
 
 問題
 * [ABC121 D - XOR World (400点)]( https://atcoder.jp/contests/abc121/tasks/abc121_d )
+
+
+## 幾何
+* 線分の交差判定
+    * https://atcoder.jp/contests/abc016/tasks/abc016_4
+    *
+
 
 
 # 文字列系
@@ -916,9 +1105,12 @@ def z_algorithm(s):
 * アリ本 第２版 「4-7 文字列を華麗に扱う」
 
 ### ハッシュ関数
-そもそもハッシュ関数とは、文字列・数列といった何かしらのデータが与えられた時に、そのデータに対応したなんらかの数値を得るなんらかの操作(関数)のこと。
+そもそも[ハッシュ関数]( https://ja.wikipedia.org/wiki/ハッシュ関数  )とは、文字列・数列といった何かしらのデータが与えられた時に、そのデータに対応したなんらかの数値を得るなんらかの操作(関数)のこと。
 データをハッシュ関数にかけて得られた数値のことをハッシュ値という。
 元データの比較処理が重いような場合(文字列・数列など)、ハッシュ値に変換してから比較することで高速化が望めたりする。
+$$
+\text{HashFunction} : \text{Data(str, series, ...)} \mapsto \text{HashValue}
+$$
 
 ### RollingHashの概要
 ただし、ハッシュ値の計算に時間がかかっていては意味がない。
@@ -938,12 +1130,11 @@ H(S[l:r], b, h) = \left[~ H(S[:r], b, h) - H(S[:l], b, h) ~ b^{r-l} ~\right] ~\m
 \left(
 \begin{align*}
  H(S[:r], b, h) &= \left[~ S_0~b^{r-2} + \cdots + S_{l-1}~b^{r-l} + S_l~b^{r-l-1} + \cdots  + S_{r-1}~b^{0} ~\right] ~\mathrm{mod}~~ h \\\\
-H(S[:l], b, h)&= \left[~ S_0~b^{l-2} + \cdots  + S_{l-1}~b^{0} ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \right] ~\mathrm{mod}~~ h \\\\
-H(S[l:r], b, h)&= \left[~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ S_l~b^{r-l-1} + \cdots  + S_{r-1}~b^{0} ~\right] ~\mathrm{mod}~~ h
+H(S[:l], b, h)&= \left[~ S_0~b^{l-2} + \cdots  + S_{l-1}~b^{0}  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  \right] ~\mathrm{mod}~~ h \\\\
+H(S[l:r], b, h)&= \left[  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  S_l~b^{r-l-1} + \cdots  + S_{r-1}~b^{0} ~\right] ~\mathrm{mod}~~ h
 \end{align*}
 \right)
 $$
-
 
 
 直接文字列を比較するのではなく、効率的に計算されるハッシュ値の比較をすることで処理の高速化を図る。
@@ -1093,6 +1284,8 @@ class UnionFind():
 ```
 
 問題
+* [ABC040 D - 道路の老朽化対策について]( https://atcoder.jp/contests/abc040/tasks/abc040_d )
+    * UnionFindのちょっとした応用問題。Pythonだと際どい。
 * [ABC049 D - 連結 / Connectivity (400点)]( https://atcoder.jp/contests/abc049/tasks/arc065_b )
 * [ABC075 C - Bridge (300点)]( https://atcoder.jp/contests/abc075/tasks/abc075_c )
 * [ABC097 D - Equals (400点)]( https://atcoder.jp/contests/abc097/tasks/arc097_b )
@@ -1101,15 +1294,293 @@ class UnionFind():
 * [ABC131 F - Must Be Rectangular! (600点)]( https://atcoder.jp/contests/abc131/tasks/abc131_f )
 
 
-## Segment Tree / BIT
+## Segment Tree
+長さ$N$の列に対して、
+
+* ある区間全体に対する演算
+* ある点の値の変更
+
+を$O(\log N)$で可能なデータ構造。モノイドと関わりが深く、面白い。
+構築は$O(N)$でできる。
+
+具体的な実装の注意点
+* 二分木を0-indexedで持つか、1-indexedで持つか。
+    * 0-indexedの場合、ノード`k`について
+        * left-child : `2*k+1`
+        * right-child : `2*k+2`
+        * parent : `(k-1) // 2`
+    * 1-indexedの場合、ノード`k`について
+        * left-child : `2*k`
+        * right-child : `2*k+1`
+        * parent : `k // 2`
+* queryの書き方
+    * アリ本的な再帰を用いた実装（こっちの方がわかりやすい）
+    * 再帰を使わず、木を登りながら計算する実装（こっちの方がpythonでは早い）
+
+
+抽象化したSegment Treeの2つの実装を記す。
+
+アリ本的、0-indexed Segment Tree
+```python
+class SegmentTree0():
+    """
+    0-indexed Segment Tree
+    """
+    def __init__(self, n_, ele_id, operation_func):
+        self.n = 1 << (n_ - 1).bit_length()
+        self.data = [ele_id] * (2 * self.n - 1)
+        self.ele_id = ele_id
+        self.operation_func = operation_func
+
+    def __getitem__(self, idx):
+        return self.data[idx + self.n - 1]
+
+    def build(self, data_init):
+        for i in range(len(data_init)):
+            self.data[i + self.n - 1] = data_init[i]
+        for i in range(self.n - 2, -1, -1):
+            self.data[i] = self.operation_func(self.data[2 * i + 1],
+                                               self.data[2 * i + 2])
+
+    def update(self, idx, x):
+        # change idx-th element to x (idx : 0-indexed)
+        idx += self.n - 1
+        self.data[idx] = x
+        while idx > 0:
+            idx = (idx - 1) // 2
+            self.data[idx] = self.operation_func(self.data[2 * idx + 1],
+                                                 self.data[2 * idx + 2])
+
+    def query(self, a, b):
+        # query for interval [a, b) (a, b : 0-indexed)
+        return self.query_(a, b, 0, 0, self.n)
+
+    def query_(self, a, b, k, l, r):
+        if r <= a or b <= l:
+            # [a, b)が[l, r)と交差しない
+            return self.ele_id
+        if a <= l and r <= b:
+            # [a, b)が[l, r)を完全に含む
+            return self.data[k]
+        else:
+            # [a, b)と[l, r)は一部被る
+            child_l = self.query_(a, b, 2 * k + 1, l, (l + r) // 2)
+            child_r = self.query_(a, b, 2 * k + 2, (l + r) // 2, r)
+            return self.operation_func(child_l, child_r)
+
+```
+
+1-indexed Segment Tree
+```python
+class SegmentTree1():
+    """
+    1-indexed Segment Tree
+    """
+    def __init__(self, n_, ele_id, operation_func):
+        self.n = 1 << (n_ - 1).bit_length()   # size
+        self.data = [ele_id] * (2 * self.n)   # binary tree
+        self.ele_id = ele_id                  # identity element
+        self.operation_func = operation_func  # binary operation of monoid
+
+    def __getitem__(self, idx):
+        return self.data[idx + self.n]
+
+    def build(self, data_init):
+        for i in range(len(data_init)):
+            self.data[i + self.n] = data_init[i]
+        for i in range(self.n - 1, 0, -1):
+            self.data[i] = self.operation_func(self.data[2 * i],
+                                               self.data[2 * i + 1])
+
+    def update(self, idx, x):
+        # change idx-th element to x (idx : 0-indexed)
+        idx += self.n
+        self.data[idx] = x
+        while idx > 1:
+            idx = idx >> 1
+            self.data[idx] = self.operation_func(self.data[2 * idx],
+                                                 self.data[2 * idx + 1])
+
+    def query(self, l, r):
+        # query for interval [l, r) (l, r : 0-indexed)
+        l += self.n
+        r += self.n
+        ret = self.ele_id
+        while l < r:
+            if l & 1:  # right child
+                ret = self.operation_func(ret, self.data[l])
+                l += 1
+            if r & 1:  # right child
+                r -= 1
+                ret = self.operation_func(ret, self.data[r])
+            # go to parent-nodes
+            l = l >> 1
+            r = r >> 1
+        return ret
+```
+* https://www.geeksforgeeks.org/segment-tree-efficient-implementation/
+
+### RMQ - Range Minimum Query
+```python
+INF = (1 << 31) - 1
+st_rmq = SegmentTree0(n, INF, lambda a, b: min(a, b))
+```
+* https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_A
+
+### RMQ with index
+ある範囲の最小値の値とそのindexも必要なqueryに答えなければならない場合、
+ただのRMQを改良し、セグ木に`(値, index)`を持たせるようにすれば良い。
+`operation_func`も最初の要素の大小を比較するように明記すればOK。
+
+```python
+INF = (10**10, -1)
+operation_func = lambda a, b: a if a[0] < b[0] else b
+st_rmq = SegmentTree0(n, INF, operation_func)
+```
+
+### RSQ - Range Sum Query
+```python
+st_rsq = SegmentTree0(n, 0, lambda a, b: a + b)
+```
+* https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/2/DSL_2_B
+
+
+### Range GCD Query
+GCDをユークリッドの互除法で適宜書く時、整数に対するGCDはモノイドをなす。単位元は0。
+```python
+from fractions import gcd
+st_gcd = SegmentTree0(n, 0, gcd)
+```
+
+* [ABC125 C - GCD on Blackboard (300点)]( https://atcoder.jp/contests/abc125/tasks/abc125_c )
+
+Reference
 * https://www.slideshare.net/iwiwi/ss-3578491
+  - 秋葉さんによるデータ構造の解説
+* [セグメント木について by beet]( http://beet-aizu.hatenablog.com/entry/2017/09/10/132258 )
+    * [セグ木の実装例 by beet]( http://beet-aizu.hatenablog.com/entry/2017/09/14/122311 )
+    * [セグ木に載せるモノイドまとめ（未完） by beet]( http://beet-aizu.hatenablog.com/entry/2019/03/12/171221 )
+    * [遅延伝播セグメント木について]( http://beet-aizu.hatenablog.com/entry/2017/12/01/225955 )
+    * [「セグ」で検索した結果 in beetさんブログ]( http://beet-aizu.hatenablog.com/search?q=%E3%82%BB%E3%82%B0 )
 * https://www.creativ.xyz/segment-tree-entrance-999/
-* http://koba-e964.hatenablog.com/entry/2016/12/14/214132#f-888cad5c
+* https://www.creativ.xyz/segment-tree-abstraction-979/
+  - セグツリーの抽象化について
+* https://ei1333.github.io/luzhiled/snippets/structure/segment-tree.html
+  - セグツリーの抽象化と遅延評価について
+* http://koba-e964.hatenablog.com/entry/2016/12/14/214132
+* [蟻本　python セグメント木　競技プログラミング　Atcoder]( https://juppy.hatenablog.com/entry/2019/05/02/%E8%9F%BB%E6%9C%AC_python_%E3%82%BB%E3%82%B0%E3%83%A1%E3%83%B3%E3%83%88%E6%9C%A8_%E7%AB%B6%E6%8A%80%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0_Atcoder )
+* https://www.onakasuitacity.com/segment-tree-fenwick-tree/
 
 問題
+* [ARC008 D - タコヤキオイシクナール]( https://atcoder.jp/contests/arc008/tasks/arc008_4 )
+    * 座標圧縮 + 関数の合成についてのsegtree
+*  [ABC125 C - GCD on Blackboard (300点)]( https://atcoder.jp/contests/abc125/tasks/abc125_c )
+    * Range GCD Queryを解く問題としてSegmentTreeを使うこともできる。
+* [第２回日経コン D - Shortest Path on a Line (600点)]( https://atcoder.jp/contests/nikkei2019-2-qual/tasks/nikkei2019_2_qual_d )
+    * DPの漸化式更新のためにRMQする
+
+
+## BIT (fenwick tree)
+> Fenwick Tree とも呼ばれる。数列に対し, ある要素に値を加える操作と, 区間和を求める操作をそれぞれ対数時間で行うことが出来るデータ構造。セグメント木や平衡二分探索木の機能を制限したものであるが, 実装が非常に単純で定数倍も軽いなどの利点がある。
+
+BITはセグ木を制限したものなので、応用範囲は狭いが、実装が簡単で定数倍が軽いのが特徴らしい。
+なので当然BITの問題はセグ木でも出来る。
+
+$v_1, v_2, \cdots, v_N$という数列を考えた時に、
+
+* 前から$m$項分の和の計算: $~ {\rm sum}(m) = \sum_{i=1}^{m} v_i$
+    * 特に${\rm sum}(0) = 0$
+* 第$i$項に加算: $~ v_i += x$
+
+を$O(\log N)$で可能なデータ構造。
+また特に、常に$v_i \geq 0$を満たす場合には
+
+* 二分探索: $~ {\rm sum}({\rm index}) \geq x$を満たす最小のindexを見つける
+
+も$O(\log N)$で可能。
+
+```python
+class BIT1():
+    """
+    Binary Indexed Tree (1-indexed)
+    """
+    def __init__(self, n):
+        self.n = n
+        self.bit = [0] * (self.n + 1)
+        self.data = [0] * (self.n + 1)
+
+    def build(self, data):
+        pass
+
+    def add(self, idx, x):
+        # add x to idx-th element
+        # idx: 1-indexed
+        self.data[idx] += x
+        while idx <= self.n:
+            self.bit[idx] += x
+            idx += (idx & (-idx))
+
+    def sum(self, idx):
+        # get sum of [1, idx]
+        # idx: 1-indexed
+        s = 0
+        while idx:
+            s += self.bit[idx]
+            idx -= (idx & (-idx))
+        return s
+
+    def bisect_left(self, w):
+        # condition : always all element is not minus
+        # return minimum idx where bit.sum(idx) >= w
+        if w <= 0:
+            return 0
+        idx = 0  # self.bit[idx] < w
+        k = 1 << ((self.n).bit_length() - 1)
+        while k > 0:
+            if idx + k <= self.n and self.bit[idx + k] < w:
+                w -= self.bit[idx + k]
+                idx += k
+            k = k >> 1
+        return idx + 1
+
+    def bisect_right(self, w):
+        # condition : always all element is not minus
+        # return minimum idx where bit.sum(idx) > w
+        if w < 0:
+            return 0
+        idx = 0  # self.bit[idx] <= w
+        k = 1 << ((self.n).bit_length() - 1)
+        while k > 0:
+            if idx + k <= self.n and self.bit[idx + k] <= w:
+                w -= self.bit[idx + k]
+                idx += k
+            k = k >> 1
+        return idx + 1
+```
+
+値の範囲($1 \sim N$)が分かっている場合のstd::setライクな使い方ができる。具体的には
+* $v_i=~$(数$i$が集合に入っていれば1、そうでなければ0)
+
+として、この数列にBITを適用することで、
+
+* 集合への要素の追加・削除 (add)
+* 指定された要素は何番目に小さいか (sum)
+* $x$番目に小さい要素は何か (bisect_left)
+
+を全て$O(\log N)$で出来る。
+（セグ木でも出来るが、bisect_leftが遅くなる or 実装が面倒）
+
+Reference
+* https://ei1333.github.io/luzhiled/snippets/structure/binary-indexed-tree.html
+* http://hos.ac/slides/20140319_bit.pdf
+
+問題
+* [ARC088 E - Papple Sort (800点)]( https://atcoder.jp/contests/arc088/tasks/arc088_c )
 * [ABC136 F - Enclosed Points (600点)]( https://atcoder.jp/contests/abc136/tasks/abc136_f )
-
-
+* std::setライクな使い方をする問題
+    * [AGC005 B - Minimum Sum (400点)]( https://atcoder.jp/contests/agc005/tasks/agc005_b )
+    * [ARC033 C - データ構造]( https://atcoder.jp/contests/arc033/tasks/arc033_3 )
+    * [ABC140 E - Second Sum (500点)]( https://atcoder.jp/contests/abc140/tasks/abc140_e )
 
 # 何とも言えないけど競プロっぽいやつ
 うまく言語化できないけど、競プロっぽい問題はたくさんあるし、慣れないと解けない。
@@ -1140,6 +1611,7 @@ class UnionFind():
   import sys
   input = sys.stdin.readline
     ```
+    * `sys.stdin.buffer.readline` も最近見かける。こいつは一体...???
 * pythonの謎の`RE`について。
     * 再帰関数を使っているならば可能性の一つとして、`RecursionError: maximum recursion depth exceeded in comparison` がある。
     * 対策は以下。
@@ -1175,6 +1647,7 @@ class UnionFind():
 * [Pythonistaなら知らないと恥ずかしい計算量のはなし]( https://qiita.com/Hironsan/items/68161ee16b1c9d7b25fb )
     * PythonのList, Deque, Dictの計算量の話
 * [Python_競技プログラミング高速化tips]( https://juppy.hatenablog.com/entry/2019/06/14/Python_競技プログラミング高速化tips_%28PythonでAtcoderをやる際に個 )
+* [「Pythonで競プロ」という選択について]( https://maspypy.com/atcoder-%e6%a9%992400%e3%81%ab%e3%81%aa%e3%82%8a%e3%81%be%e3%81%97%e3%81%9f#toc8 )
 
 **C++関連**
 * [Macで#include<bits/stdc++.h>を導入]( http://perogram.hateblo.jp/entry/2019/04/15/094647 )
