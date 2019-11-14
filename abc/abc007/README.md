@@ -7,3 +7,7 @@
 
 
 ## D - 禁止された数字
+* 桁DP
+* reference
+  - https://torus711.hatenablog.com/entry/20150423/1429794075
+  - http://drken1215.hatenablog.com/entry/2019/02/04/013700

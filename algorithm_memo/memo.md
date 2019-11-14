@@ -479,10 +479,12 @@ def compress_coordinate(x: list, key=None, reverse=False):
 
 
 ## 桁DP
-http://drken1215.hatenablog.com/entry/2019/02/04/013700
+* http://drken1215.hatenablog.com/entry/2019/02/04/013700
+* https://torus711.hatenablog.com/entry/20150423/1429794075
 
 問題
 * [Zigzag Numbers]( http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=0570 )
+* [ABC007 D - 禁止された数字]( https://atcoder.jp/contests/abc007/tasks/abc007_4 )
 * xor系
   * 2進数表記で、桁ごとに考えると良いことが多い
   * [ABC117 D - XXOR (400点)]( https://atcoder.jp/contests/abc117/tasks/abc117_d )
@@ -709,57 +711,107 @@ def is_dag(graph: list, n_v: int):
 https://en.wikipedia.org/wiki/Lowest_common_ancestor
 実装方法はいくつかあり、
 * ダブリング
+    ```python
+    class Tree():
+        def __init__(self, n, graph, v_root):
+            self.n = n  # number of nodes
+            self.graph = graph  # adjacent list of graph
+            self.v_root = v_root  # root node
+
+            self.logn = (self.n - 1).bit_length()
+            self.parent = [[-1] * self.n for _ in range(self.logn)]
+            self.depth = [0] * self.n
+            self.dist = [0] * self.n
+
+            self.init()
+
+        def init(self):
+            self.dfs(self.v_root, -1, 0, 0)
+            # doubling
+            for k in range(self.logn - 1):
+                for v in range(self.n):
+                    if self.parent[k][v] != -1:
+                        self.parent[k + 1][v] = self.parent[k][self.parent[k][v]]
+
+        def dfs(self, v, v_par, depth, dist):
+            self.parent[0][v] = v_par
+            self.depth[v] = depth
+            self.dist[v] = dist
+            for v_next, d in self.graph[v]:
+                if v_next == v_par:
+                    continue
+                self.dfs(v_next, v, depth + 1, dist + d)
+
+        def lca(self, u, v):
+            if self.depth[u] > self.depth[v]:
+                u, v = v, u
+
+            # go to parents of v until same depth as u
+            diff = self.depth[v] - self.depth[u]
+            for k in range(diff.bit_length()):
+                if diff & (1 << k):
+                    v = self.parent[k][v]
+            if u == v:
+                return u
+            # binary search
+            # for k in reversed(range(self.logn)):
+            for k in range(self.depth[u].bit_length() - 1, -1, -1):
+                if self.parent[k][u] != self.parent[k][v]:
+                    u = self.parent[k][u]
+                    v = self.parent[k][v]
+            return self.parent[0][u]
+    ```
+
 * EulerTour + RMQ
     * RMQで最小値の値だけでなくそのindexを返すようにする必要がある
         * `(値, index)`をSegmentTreeの要素として、最初の要素の大小で比較するようにしておけば良い
     * https://www.creativ.xyz/abc014d-431/
 
+    ```python
+    class Tree():
+        def __init__(self, n, graph, v_root):
+            self.n = n  # number of nodes
+            self.graph = graph  # adjacent list of graph
+            self.v_root = v_root  # root node
 
-```python
-class Tree():
-    def __init__(self, n, graph, v_root):
-        self.n = n  # number of nodes
-        self.graph = graph  # adjacent list of graph
-        self.v_root = v_root  # root node
+            # euler tour
+            self.first_idx = [2 * self.n] * self.n
+            self.euler_tour = []
+            self.euler_depth = []
+            self.euler_tour_dfs(self.v_root, -1, 0)
 
-        # euler tour
-        self.first_idx = [2 * self.n] * self.n
-        self.euler_tour = []
-        self.euler_depth = []
-        self.euler_tour_dfs(self.v_root, -1, 0)
+            # Segment Tree for LCA
+            depth_list = [(di, i) for i, di in enumerate(self.euler_depth)]
+            INF = (2 * self.n, -1)
+            operation_func = lambda a, b: a if a[0] < b[0] else b
+            self.st_rmq = SegmentTree1(2 * self.n - 1, INF, operation_func) # Abstract Segment Tree
+            self.st_rmq.build(depth_list)
 
-        # Segment Tree for LCA
-        depth_list = [(di, i) for i, di in enumerate(self.euler_depth)]
-        INF = (2 * self.n, -1)
-        operation_func = lambda a, b: a if a[0] < b[0] else b
-        self.st_rmq = SegmentTree1(2 * self.n - 1, INF, operation_func) # Abstract Segment Tree
-        self.st_rmq.build(depth_list)
-
-    def euler_tour_dfs(self, v, v_par, depth):
-        self.first_idx[v] = len(self.euler_tour)
-        self.euler_tour.append(v)
-        self.euler_depth.append(depth)
-        for v_next in self.graph[v]:
-            if v_next == v_par:
-                continue
-            self.euler_tour_dfs(v_next, v, depth + 1)
+        def euler_tour_dfs(self, v, v_par, depth):
+            self.first_idx[v] = len(self.euler_tour)
             self.euler_tour.append(v)
             self.euler_depth.append(depth)
+            for v_next in self.graph[v]:
+                if v_next == v_par:
+                    continue
+                self.euler_tour_dfs(v_next, v, depth + 1)
+                self.euler_tour.append(v)
+                self.euler_depth.append(depth)
 
-    def depth(self, v):
-        return self.euler_depth[self.first_idx[v]]
+        def depth(self, v):
+            return self.euler_depth[self.first_idx[v]]
 
-    def lca(self, u, v):
-        u_idx, v_idx = self.first_idx[u], self.first_idx[v]
-        if u_idx > v_idx:
-            u_idx, v_idx = v_idx, u_idx
-        _, idx = self.st_rmq.query(u_idx, v_idx + 1)
-        return self.euler_tour[idx]
+        def lca(self, u, v):
+            u_idx, v_idx = self.first_idx[u], self.first_idx[v]
+            if u_idx > v_idx:
+                u_idx, v_idx = v_idx, u_idx
+            _, idx = self.st_rmq.query(u_idx, v_idx + 1)
+            return self.euler_tour[idx]
 
-    def dist(self, u, v):
-        lca_uv = self.lca(u, v)
-        return self.depth(u) + self.depth(v) - 2 * self.depth(lca_uv)
-```
+        def dist(self, u, v):
+            lca_uv = self.lca(u, v)
+            return self.depth(u) + self.depth(v) - 2 * self.depth(lca_uv)
+    ```
 
 
 
@@ -1282,6 +1334,8 @@ class UnionFind():
     def size(self, x):
         return -self.par[self.root(x)]
 ```
+* [データ構造をマージする一般的なテク]( https://topcoder.g.hatena.ne.jp/iwiwi/20131226/1388062106 )
+    * > 大きさに気をつけて小さい方を大きい方にくっつけるという考え方を応用することで，色々な普通のデータ構造にマージ機能を追加することができます．
 
 問題
 * [ABC040 D - 道路の老朽化対策について]( https://atcoder.jp/contests/abc040/tasks/abc040_d )
