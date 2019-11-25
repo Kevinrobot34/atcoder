@@ -21,3 +21,6 @@ XとYは独立に扱えることを利用すると綺麗に溶けるらしい。
 
 
 ## F - Absolute Minima (600点)
+「オンラインに更新される数列のmedianを求める問題 + アルファ」に帰着される。
+BITとか使う方法と、Priority-Queueでやる方法とがある。
+* http://drken1215.hatenablog.com/entry/2019/06/15/114700

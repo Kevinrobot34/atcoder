@@ -17,6 +17,8 @@
 ## E - Rem of Sum is Num (500点)
 * こういうの苦手
   - ナイーブな`O(N^2)`解を見て高速化無理だと思ったら、条件を改めて見直して他の方法を探したいところ
+* 近い問題
+  - [ABC105 D - Candy Distribution (400点)]( https://atcoder.jp/contests/abc105/tasks/abc105_d )
 
 
 ## F - Sugoroku (600点)

@@ -3,22 +3,20 @@ import sys
 input = sys.stdin.readline
 
 
-def dijkstra(graph: list, node: int, start: int) -> list:
-    # graph[node] = [(cost, to)]
-    INF = float('inf')
-    dist = [INF] * node
+def dijkstra(graph: list, n: int, v_s: int, INF: int = float('inf')) -> list:
+    # graph[v_from] = [(cost, v_to), ...]
+    dist = [INF] * n
 
-    dist[start] = 0
-    heap = [(0, start)]
+    dist[v_s] = 0
+    heap = [(0, v_s)]  # heap = [(dist[v], v), ...]
     while heap:
-        cost, thisNode = heappop(heap)
-        for NextCost, NextNode in graph[thisNode]:
-            dist_cand = dist[thisNode] + NextCost
-            if dist_cand < dist[NextNode]:
-                dist[NextNode] = dist_cand
-                heappush(heap, (dist[NextNode], NextNode))
+        _, v_from = heappop(heap)
+        for cost, v_to in graph[v_from]:
+            dist_cand = dist[v_from] + cost
+            if dist_cand < dist[v_to]:
+                dist[v_to] = dist_cand
+                heappush(heap, (dist[v_to], v_to))
     return dist
-    # dist = [costs to nodes]
 
 
 n, m = map(int, input().split())
@@ -31,7 +29,8 @@ for _ in range(m):
 for i in range(1, n):
     edge[i].append((0, i - 1))
 
-dist = dijkstra(edge, n, 0)
-ans = dist[-1] if dist[-1] != float("inf") else -1
+INF = 10**15
+dist = dijkstra(edge, n, 0, INF=INF)
+ans = dist[-1] if dist[-1] != INF else -1
 
 print(ans)

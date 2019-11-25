@@ -314,7 +314,7 @@ bisect_left(a, 4), bisect_right(a, 4) #  7, 10
 bisect_left(a, 5), bisect_right(a, 5) # 10, 10
 ```
 
-自分でチェック関数作ってやるやつ
+自分でチェック関数作ってやるやつ。
 ```python
 def check(x):
     # xが条件を満たすか判定する関数
@@ -342,6 +342,10 @@ while ub - lb > 1:
     * [ABC141 E - Who Says a Pun? (500点)]( https://atcoder.jp/contests/abc141/tasks/abc141_e )
         * RollingHashと組み合わせた二分探索
     * [ABC144 E - Gluttony (500点)]( https://atcoder.jp/contests/abc144/tasks/abc144_e )
+    * [ABC146 C - Buy an Integer (300点)]( https://atcoder.jp/contests/abc146/tasks/abc146_c )
+        * こういう問題で、「これ二分探索でいけるじゃん」とすぐ気付けるようになりたい
+    * [ABC026 D - 高橋君ボール1号]( https://atcoder.jp/contests/abc026/tasks/abc026_d )
+        * 条件(True/False)の切り替わる境界が複数あっても、それを一つ見つけるだけで良いなら二分探索が使える
 
 
 ## 半分全列挙
@@ -379,6 +383,8 @@ print(b[6] - b[3]) # 27
 * [ABC122 C - GeT AC (300点)]( https://atcoder.jp/contests/abc122/tasks/abc122_c )
 * [ABC130 E - Common Subsequence (500点)]( https://atcoder.jp/contests/abc130/tasks/abc130_e )
     * DPを二元累積和で高速化する
+* [ABC146 E - Rem of Sum is Num (500点)]( https://atcoder.jp/contests/abc146/tasks/abc146_e )
+    * 累積和的な見方をして、条件の式を変形すると見えてくるものがある
 * [ABC075 D - Axis-Parallel Rectangle (400点)]( https://atcoder.jp/contests/abc075/tasks/abc075_d )
     * 二次元累積和
 
@@ -447,6 +453,7 @@ def compress_coordinate(x: list, key=None, reverse=False):
 * ナップザック問題系
     * [ABC032D - ナップサック問題]( https://atcoder.jp/contests/abc032/tasks/abc032_d )
     * [ABC060 D - Simple Knapsack (400点)]( https://atcoder.jp/contests/abc060/tasks/arc073_b )
+    * [ABC145 E - All-you-can-eat (500点)]( https://atcoder.jp/contests/abc145/tasks/abc145_e )
 * LIS (Longest Increasing Subsequence)系
     * [ABC006 D - トランプ挿入ソート]( https://atcoder.jp/contests/abc006/tasks/abc006_4 )
     * [ABC134 E - Sequence Decomposing (500点)]( https://atcoder.jp/contests/abc134/tasks/abc134_e )
@@ -485,6 +492,7 @@ def compress_coordinate(x: list, key=None, reverse=False):
 問題
 * [Zigzag Numbers]( http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=0570 )
 * [ABC007 D - 禁止された数字]( https://atcoder.jp/contests/abc007/tasks/abc007_4 )
+* [ABC029 D - 1]( https://atcoder.jp/contests/abc029/tasks/abc029_d )
 * xor系
   * 2進数表記で、桁ごとに考えると良いことが多い
   * [ABC117 D - XXOR (400点)]( https://atcoder.jp/contests/abc117/tasks/abc117_d )
@@ -498,17 +506,21 @@ def compress_coordinate(x: list, key=None, reverse=False):
 ## グラフの基本
 グラフの頂点集合を$V$、辺の集合を$E$とする
 
-### グラフの種類
+### グラフの種類と用語
+* 頂点(vertex, node)
+* 辺(edge)
 #### 無向グラフ
-#### 木
+* 頂点の次数(degree)
 #### 有向グラフ
-
+* 頂点の入次数(in-degree)、出次数(out-degree)
+#### 木
+* 直径
 
 ### グラフの表現の仕方
 * 隣接リスト
     * メモリが$O(|V|+|E|)$かかる。
 * 隣接行列
-    * メモリが$O(|V|^2)$かかる。ワーシャルフロイドが使えるくらいの問題じゃないと使えない。
+    * メモリが$O\left(|V|^2\right)$かかる。ワーシャルフロイド(時間計算量$O\left(|V|^3\right)$)が使えるくらいの問題じゃないと使えない。
 
 
 ## 最短経路
@@ -518,22 +530,20 @@ def compress_coordinate(x: list, key=None, reverse=False):
 
 ```python
 from heapq import heappush, heappop
-def dijkstra(graph: list, node: int, start: int) -> list:
-    # graph[node] = [(cost, to)]
-    inf = float('inf')
-    dist = [inf] * node
+def dijkstra(graph: list, n: int, v_s: int, INF: int = float('inf')) -> list:
+    # graph[v_from] = [(cost, v_to), ...]
+    dist = [INF] * n
 
-    dist[start] = 0
-    heap = [(0, start)]
+    dist[v_s] = 0
+    heap = [(0, v_s)]  # heap = [(dist[v], v), ...]
     while heap:
-        cost, thisNode = heappop(heap)
-        for NextCost, NextNode in graph[thisNode]:
-            dist_cand = dist[thisNode] + NextCost
-            if dist_cand < dist[NextNode]:
-                dist[NextNode] = dist_cand
-                heappush(heap,(dist[NextNode], NextNode))
+        _, v_from = heappop(heap)
+        for cost, v_to in graph[v_from]:
+            dist_cand = dist[v_from] + cost
+            if dist_cand < dist[v_to]:
+                dist[v_to] = dist_cand
+                heappush(heap, (dist[v_to], v_to))
     return dist
-    # dist = [costs to nodes]
 ```
 
 次の簡易的な実装だと$O\left(|V|^2\right)$。$|V| \leq 10^3$で$|E| = O\left(|V|^2\right)$とかだとこっちの方が早かったりする
@@ -621,13 +631,56 @@ def warshall_floyd(d, next_node):
 
 
 ### 経路復元
-最短経路の長さを更新するときに、どの点を通ったかといった情報も更新・保持するようにすればよい
+最短経路の長さを更新するときに、直前もしくは直後にどの点を通ったかといった情報も更新・保持するようにすればよい。
+
+経路復元付きWarshall-Floydのコードは上のWarshal-Floydの説参照。
+
 * Warshall-Floyd法の経路復元
     * http://zeosutt.hatenablog.com/entry/2015/05/05/045943
     * [ABC051 D - Candidates of No Shortest Paths (400点)]( https://atcoder.jp/contests/abc051/tasks/abc051_d )が参考になる
 
 問題
+* [ABC051 D - Candidates of No Shortest Paths (400点)]( https://atcoder.jp/contests/abc051/tasks/abc051_d )
 
+### 最短経路数
+最短経路を求める時、どんな手法でも最短経路の配列の緩和処理をしていくはず。
+緩和処理する際に、最短経路数も適宜更新するようにすればOK。
+* $\text{num}[i] ~=~$(スタート地点から$i$までの最短経路の数)
+* 初期化
+    * $\text{num}[v_{\rm start}] ~=~ 1$
+    * $\text{num}[v_{\rm others}] ~=~ 0$ （なんでもいい）
+
+* http://drken1215.hatenablog.com/entry/2018/02/09/003200
+
+Dijkstraの場合
+```python
+def dijkstra(graph: list,
+             n: int,
+             v_s: int,
+             INF: int = float('inf'),
+             MOD: int = 10**9 + 7) -> list:
+    # graph[v_from] = [(cost, v_to), ...]
+    dist = [INF] * n  # length of the shortest paths
+    num = [0] * n     # number of the shortest paths
+
+    dist[v_s] = 0
+    num[v_s] = 1
+    heap = [(0, v_s)]  # heap = [(dist[v], v), ...]
+    while heap:
+        _, v_from = heappop(heap)
+        for v_to in graph[v_from]:
+            dist_cand = dist[v_from] + 1
+            if dist_cand < dist[v_to]:
+                dist[v_to] = dist_cand
+                num[v_to] = num[v_from]
+                heappush(heap, (dist[v_to], v_to))
+            elif dist_cand == dist[v_to]:
+                num[v_to] += num[v_from]
+                num[v_to] %= MOD
+    return dist, num
+```
+問題
+* [ABC021 C - 正直者の高橋くん]( https://atcoder.jp/contests/abc021/tasks/abc021_c )
 
 
 ## 最小全域木
@@ -705,6 +758,7 @@ def is_dag(graph: list, n_v: int):
     * 数え上げ
 * [ABC138 D - Ki (400点)]( https://atcoder.jp/contests/abc138/tasks/abc138_d )
     * 木の上でimos法的なことをする
+* [ABC146 D - Coloring Edges on Tree (400点)]( https://atcoder.jp/contests/abc146/tasks/abc146_d )
 
 
 ### LCA
@@ -928,28 +982,92 @@ $n$までの素数を$O(n\log\log n)$で求められるアルゴリズム。
 （参考：[素数の逆数和が発散することの証明]( https://mathtrain.jp/primeinverse )）。
 境界条件がちょっとだけ面倒なので、$n$ではなく大きな数字を入れておくとバグりにくいかも。
 ```python
-is_prime = [True] * (n+1)
-is_prime[0] = is_prime[1] = False
-for i in range(2, n):
-    if is_prime[i]:
-        for j in range(2, n // i + 1):
-            is_prime[i*j] = False
+def eratosthenes(n: int) -> list:
+    is_prime = [True] * (n + 1)
+    is_prime[0] = is_prime[1] = False
+    for i in range(2, n // 2 + 1):
+        if is_prime[i]:
+            for j in range(2, n // i + 1):
+                is_prime[i * j] = False
+    return is_prime
 ```
 
 問題
 * [ABC084 D - 2017-like Number (400点)]( https://atcoder.jp/contests/abc084/tasks/abc084_d )
 
 
+## Permutation
+自分で再帰とかで書いても良いけど、permutationとかの生成にはitertoolsが便利。
+* https://docs.python.org/ja/3/library/itertools.html
+* **ToDo** 早いのかどうか確認
+```python
+from itertools import permutations
+for p in permutations(range(3)):
+    print(p)
+# (0, 1, 2)
+# (0, 2, 1)
+# (1, 0, 2)
+# (1, 2, 0)
+# (2, 0, 1)
+# (2, 1, 0)
+```
+
+
 ## Combination
-combinationの計算を効率よくやるには工夫が必要。\
-階乗とその逆元の事前計算をしておくことで高速にcombinationができるようになる。
-以下のFermatの小定理を使うことで、
-「素数を法とする時(mod p の時)の$a$の逆元は$a^{p-2}$であることがわかる」ということがポイント。
-> Fermatの小定理
+$$ _nC_k = \frac{n!}{k!(n-k)!} = \frac{n\cdot (n-1)\cdot \cdots \cdot (n-k+1)}{1\cdot2\cdot \cdots \cdot k} $$
+combinationの計算を効率よくやるには工夫が必要。
+
+### DPによる計算
+$$
+{}_{n+1}C_k = {}_nC_k +  {}_nC _{k-1}
+$$
+を利用して、combinationのテーブルを作る方法。パスカルの三角形的な表を上の漸化式で作るという話。
+$n\leq N$の範囲で、テーブルを作る前処理に$O(N^2)$、${}_n C_k$の計算に$O(1)$の時間がかかる。
+
+### Fermatの小定理を利用した高速な計算
+$$ _nC_k = n! \times (k!)^{-1} \times ((n-k)!)^{-1}  $$
+上記の式より、階乗とその逆元の事前計算をしておくことで高速にcombinationができるようになる。
+以下のFermatの小定理を使うことで、「素数を法とする時(mod p の時)の$a$の逆元は$a^{p-2}$であることがわかる」ということがポイント。
+> **Fermatの小定理**
 > $p$を素数、$a$を$p$の倍数でない整数とする時、
 > $$ a^{p-1} \equiv 1 ~\text{ (mod $p$)} $$
 > [ $\Rightarrow$  $p$を素数、$a$を任意の整数とする時、$a^p \equiv a ~\text{ (mod $p$)}$ ]
 
+```python
+MOD = 10**9 + 7
+MAX = 2000 + 5
+fact = [1 for _ in range(MAX)]
+finv = [1 for _ in range(MAX)]
+for i in range(2, MAX):
+    fact[i] = fact[i - 1] * i % MOD
+    finv[i] = pow(fact[i], MOD-2, MOD)
+
+def comb(n: int, k: int) -> int:
+    if n < k or n < 0 or k < 0:
+        return 0
+    return (fact[n] * finv[k] % MOD) * finv[n-k] % MOD
+```
+この方法だと$n\leq N$なる${}_n C_k$の計算をできるようにするために、前処理で$O(N\log \text{MOD})$、${}_n C_k$の計算で$O(1)$の時間がかかる。
+
+このままだと$a!$の逆元計算部分の`pow`が遅い。
+* $\text{MOD}=10^9+7$に対して、$(a!)^{\text{MOD}-2}$を計算しないといけない。
+* ダブリング使った実装だとしても$O(\log \text{MOD})$かかる（多分）。
+
+
+### 更なる高速化
+実はこの$a!$の逆元計算はさらに高速化できる。まず$(a!)^{-1} = ((a-1)!)^{-1} \cdot a^{-1}$と表せるので、$a^{-1}$が高速に計算できれば再帰的に$(a!)^{-1} $の計算が高速にできることになる。
+ここで、以下合同式は全てmod $p$として、
+$$
+\begin{align}
+&p = (p//a) \cdot a + (p\\%a) \\\\
+\Leftrightarrow~ & (p//a) \cdot a + (p\\%a) \equiv 0 \\\\
+\Leftrightarrow~ & (p\\%a) \equiv -(p//a) \cdot a  \\\\
+\Leftrightarrow~ & (p\\%a) \cdot a^{-1}  \equiv -(p//a)   \\\\
+\Leftrightarrow~ & a^{-1}  \equiv - (p\\%a)^{-1} \cdot (p//a)
+\end{align}
+$$
+（最初の式は$p$を$a$で割った商と余りに分けただけの式）
+と表せる。$(p\\%a) < a$であることに注意すると、上式を用いれば$a^{-1}$は1から順次高速に計算できることが分かる。
 http://drken1215.hatenablog.com/entry/2018/06/08/210000
 ```cpp
 const int MAX = 510000;
@@ -974,17 +1092,42 @@ long long int COM(int n, int k){
 ```
 ```python
 MOD = 10**9 + 7
-MAX = 2000 + 5
-fact = [1 for _ in range(MAX)]
-finv = [1 for _ in range(MAX)]
-for i in range(2, MAX):
+MAX = 7 * 10**5
+fact = [1] * (MAX + 1)  # i!
+finv = [1] * (MAX + 1)  # (i!)^{-1}
+iinv = [1] * (MAX + 1)  # i^{-1}
+for i in range(2, MAX + 1):
     fact[i] = fact[i - 1] * i % MOD
-    finv[i] = pow(fact[i], MOD-2, MOD)
+    iinv[i] = MOD - iinv[MOD % i] * (MOD // i) % MOD
+    finv[i] = finv[i - 1] * iinv[i] % MOD
 
 def comb(n: int, k: int) -> int:
     if n < k or n < 0 or k < 0:
         return 0
-    return (fact[n] * finv[k] % MOD) * finv[n-k] % MOD
+    return (fact[n] * finv[k] % MOD) * finv[n - k] % MOD
+```
+この方法だと$n\leq N$なる${}_n C_k$の計算をできるようにするために、前処理で$O(N)$、${}_n C_k$の計算で$O(1)$の時間がかかる。
+
+
+### 前処理しないシンプルな実装
+$$ _nC_k = \frac{n}{1} \cdot \frac{n-1}{2} \cdot \frac{n-2}{3} \cdot\cdots\cdot \frac{n-k+1}{k}  = \prod _{i=1}^{k} (n-i+1)\cdot i^{-1} $$
+combinationを**1回求めるだけ**なら以下でもOK。
+上記のcombinationの表式を前から愚直に計算していくと同時に、$i^{-1}$を求めていく。
+${}_nC_k$の計算に$O(\min(k, n-k))$かかる。
+```python
+def comb(n: int, k: int, MOD: int) -> int:
+    if n < k or n < 0 or k < 0:
+        return 0
+    k = min(k, n - k)
+    if k == 0:
+        return 1
+    iinv = [1] * (k + 1)
+    ans = n
+    for i in range(2, k + 1):
+        iinv[i] = MOD - iinv[MOD % i] * (MOD // i) % MOD
+        ans *= (n + 1 - i) * iinv[i] % MOD
+        ans %= MOD
+    return ans
 ```
 
 
@@ -992,6 +1135,7 @@ def comb(n: int, k: int) -> int:
 * [ABC042 D - いろはちゃんとマス目 / Iroha and a Grid (400点)]( https://atcoder.jp/contests/abc042/tasks/arc058_b )
 * [ABC110 D - Factorization (400点)]( https://atcoder.jp/contests/abc110/tasks/abc110_d )
 * [ABC132 D - Blue and Red Balls (400点)]( https://atcoder.jp/contests/abc132/tasks/abc132_d )
+* [ABC145 D - Knight (400点)]( https://atcoder.jp/contests/abc145/tasks/abc145_d )
 
 
 ## bit演算
@@ -1666,6 +1810,12 @@ Reference
   input = sys.stdin.readline
     ```
     * `sys.stdin.buffer.readline` も最近見かける。こいつは一体...???
+* pythonでtupleのlistやlistのlistをソートするのはそもそも遅い。keyにitemgetterを指定すると速くなったりする。
+    ```python
+    from operator import itemgetter
+    x = [(1,2), (3, 4), (2, 5), (1, 0), (5, 2)]
+    x.sort(key=itemgetter(0))
+    ```
 * pythonの謎の`RE`について。
     * 再帰関数を使っているならば可能性の一つとして、`RecursionError: maximum recursion depth exceeded in comparison` がある。
     * 対策は以下。
