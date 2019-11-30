@@ -12,3 +12,5 @@
 
 
 ## D - Mixing Experiment (400点)
+DP
+* `dp[i][a][b] = (薬品iまでを使ってAをa[g]、Bをb[g]作るのに必要な最小金額)`
