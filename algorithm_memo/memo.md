@@ -4,8 +4,11 @@
 # コンテストサイト
 * [AtCoder]( http://atcoder.jp )
     * my account : https://atcoder.jp/users/Kevinrobot34
-        * AtCoder Problems : https://kenkoooo.com/atcoder/#/user/Kevinrobot34
-        * AtCoder Scores: http://atcoder-scores.herokuapp.com/?user=Kevinrobot34
+        * [AtCoder Problems]( https://kenkoooo.com/atcoder/#/user/Kevinrobot34 )
+            * 似た難易度の問題を探すのに役立つ。便利。
+        * [AtCoder Scores]( http://atcoder-scores.herokuapp.com/?user=Kevinrobot34 )
+        * [AtCoder Tags]( https://atcoder-tags.herokuapp.com/graph/Kevinrobot34? )
+            * 特定ジャンルの問題を探したいときに参考になる。
     * 過去の自分の解答 : https://github.com/Kevinrobot34/atcoder
     * [YouTube - AtCoder Live]( https://www.youtube.com/channel/UCtG3StnbhxHxXfE6Q4cPZwQ )
         * コンペの後、問題解説生放送をやってる。
@@ -249,6 +252,7 @@ print(h)
 また完全な意味での全列挙でなくても、「ある変数$x$を固定するとそれ以外の変数については最適なパターンが決まるので、変数$x$について全探索する」的な解法もしばしばある。
 
 問題
+* [ABC029 C - Brute-force Attack]( https://atcoder.jp/contests/abc029/tasks/abc029_c )
 * [ABC045 C - たくさんの数式 / Many Formulas (300点)]( https://atcoder.jp/contests/abc045/tasks/arc061_a )
 * [ABC062 C - Chocolate Bar (400点)]( https://atcoder.jp/contests/abc062/tasks/arc074_a )
 * [ABC080 C - Shopping Street (300点)]( https://atcoder.jp/contests/abc080/tasks/abc080_c )
@@ -338,14 +342,15 @@ while ub - lb > 1:
     * [ABC138 E - Strings of Impurity (500点)]( https://atcoder.jp/contests/abc138/tasks/abc138_e )
     * [ABC143 D - Triangles (400点)]( https://atcoder.jp/contests/abc143/tasks/abc143_d )
 * 自分でループ書くタイプの二分探索するタイプの問題
+    * [ABC020 C - 壁抜け]( https://atcoder.jp/contests/abc020/tasks/abc020_c )
+    * [ABC026 D - 高橋君ボール1号]( https://atcoder.jp/contests/abc026/tasks/abc026_d )
+        * 条件(True/False)の切り替わる境界が複数あっても、それを一つ見つけるだけで良いなら二分探索が使える
     * [ABC063 D - Widespread (400点)]( https://atcoder.jp/contests/abc063/tasks/arc075_b )
     * [ABC141 E - Who Says a Pun? (500点)]( https://atcoder.jp/contests/abc141/tasks/abc141_e )
         * RollingHashと組み合わせた二分探索
     * [ABC144 E - Gluttony (500点)]( https://atcoder.jp/contests/abc144/tasks/abc144_e )
     * [ABC146 C - Buy an Integer (300点)]( https://atcoder.jp/contests/abc146/tasks/abc146_c )
         * こういう問題で、「これ二分探索でいけるじゃん」とすぐ気付けるようになりたい
-    * [ABC026 D - 高橋君ボール1号]( https://atcoder.jp/contests/abc026/tasks/abc026_d )
-        * 条件(True/False)の切り替わる境界が複数あっても、それを一つ見つけるだけで良いなら二分探索が使える
 
 
 ## 半分全列挙
@@ -354,6 +359,15 @@ while ub - lb > 1:
 
 
 # アルゴリズム
+## 貪欲
+[AtCoder 版！蟻本 (初級編) : 2-2 猪突猛進！ "貪欲法"]( https://qiita.com/drken/items/e77685614f3c6bf86f44#2-2-%E7%8C%AA%E7%AA%81%E7%8C%9B%E9%80%B2-%E8%B2%AA%E6%AC%B2%E6%B3%95 )
+
+問題
+* [ABC011 C - 123引き算]( https://atcoder.jp/contests/abc011/tasks/abc011_3 )
+* [ABC083 C - Multiple Gift (300点)]( https://atcoder.jp/contests/abc083/tasks/arc088_a )
+* [ABC141 D - Powerful Discount Tickets (400点)]( https://atcoder.jp/contests/abc141/tasks/abc141_d )
+
+
 ## 累積和
 数列$a_0, a_1, ..., a_{N-1}$がある時に、$\sum_{i=l}^r a_i$を計算する問題を考える。
 ナイーブに足し算をすると$O(N)$かかりうる。
@@ -460,9 +474,11 @@ def compress_coordinate(x: list, key=None, reverse=False):
 * DAG上のDP
     * [ABC144 F - Fork in the Road (600点)]( https://atcoder.jp/contests/abc144/tasks/abc144_f )
 * その他
+    * [ABC011 C - 123引き算]( https://atcoder.jp/contests/abc011/tasks/abc011_3 )
     * [ABC037 D - 経路]( https://atcoder.jp/contests/abc037/tasks/abc037_d )
         * メモ化再帰の練習になる
     * [ABC044 C - 高橋君とカード / Tak and Cards (300点)]( https://atcoder.jp/contests/abc044/tasks/arc060_a )
+    * [ABC054 D - Mixing Experiment (400点)]( https://atcoder.jp/contests/abc054/tasks/abc054_d )
     * [ABC082 D - FT Robot (500点)]( https://atcoder.jp/contests/abc082/tasks/arc087_b )
     * [ABC104 D - We Love ABC (400点)]( https://atcoder.jp/contests/abc104/tasks/abc104_d )
     * [ABC118 D - Match Matching (400点)]( https://atcoder.jp/contests/abc118/tasks/abc118_d )
@@ -625,6 +641,8 @@ def warshall_floyd(d, next_node):
 
 問題
 * [ABC012 D - バスと避けられない運命]( https://atcoder.jp/contests/abc012/tasks/abc012_4 )
+* [ABC022 C - Blue Bird]( https://atcoder.jp/contests/abc022/tasks/abc022_c )
+    * 良問
 * [ABC051 D - Candidates of No Shortest Paths (400点)]( https://atcoder.jp/contests/abc051/tasks/abc051_d )
 * [ABC073 D - joisino's travel (400点)]( https://atcoder.jp/contests/abc073/tasks/abc073_d )
 * [ABC143 E - Travel by Car (500点)]( https://atcoder.jp/contests/abc143/tasks/abc143_e )
@@ -1132,6 +1150,7 @@ def comb(n: int, k: int, MOD: int) -> int:
 
 
 問題
+* [ABC034 C - 経路]( https://atcoder.jp/contests/abc034/tasks/abc034_c )
 * [ABC042 D - いろはちゃんとマス目 / Iroha and a Grid (400点)]( https://atcoder.jp/contests/abc042/tasks/arc058_b )
 * [ABC110 D - Factorization (400点)]( https://atcoder.jp/contests/abc110/tasks/abc110_d )
 * [ABC132 D - Blue and Red Balls (400点)]( https://atcoder.jp/contests/abc132/tasks/abc132_d )
@@ -1180,6 +1199,23 @@ XORの性質について知っていると便利なことも多い
     * https://atcoder.jp/contests/abc016/tasks/abc016_4
     *
 
+
+
+# 構築系
+https://www.hamayanhamayan.com/entry/2017/08/21/102212
+
+問題
+* [ABC069 D - Grid Coloring (400点)]( https://atcoder.jp/contests/abc069/tasks/arc080_b )
+* [ABC081 D - Non-decreasing (600点)]( https://atcoder.jp/contests/abc081/tasks/arc086_b )
+* [ABC108 D - All Your Paths are Different Lengths (700点)]( https://atcoder.jp/contests/abc108/tasks/arc102_b )
+
+
+# ゲーム系
+https://www.hamayanhamayan.com/entry/2017/02/27/025050
+
+問題
+* [ABC046 D - AtCoDeerくんと変なじゃんけん / AtCoDeer and Rock-Paper]( https://atcoder.jp/contests/abc046/tasks/arc062_b )
+* [ABC067 D - Fennec VS. Snuke (400点)]( https://atcoder.jp/contests/abc067/tasks/arc078_b )
 
 
 # 文字列系
@@ -1389,6 +1425,7 @@ ToDo
 * 同じグループかどうかの確認
 * ２つのグループの併合
 
+### シンプルな実装
 一番ナイーブな実装は以下。
 ```cpp
 struct UnionFind {
@@ -1439,6 +1476,7 @@ uf.find(0)        # uf.par [2, 2, 2, 3, 4]
 ```
 
 
+### ちょっと工夫した実装
 更に上手に実装すると、
 * rank of union (蟻本はこっち)
 * size of union (今回はこっち)
@@ -1448,7 +1486,9 @@ uf.find(0)        # uf.par [2, 2, 2, 3, 4]
 * 全て-1で初期化。
 * rootのnodeについては、`-(size of union)`を保持する。（逆に負の数であればroot。）
 * root以外のnodeについては、parentのidを保持する。（逆に正の数であればleaf。）
-* (size of union)に簡単にアクセスできるようになったので、merge techniqueとして、サイズが大きなものに小さなものを結合するようにする。
+* (size of union)に簡単にアクセスできるようになったので、merge techniqueとして、 **サイズが大きなものに小さなものを結合する**ようにする。
+    * [データ構造をマージする一般的なテク]( https://topcoder.g.hatena.ne.jp/iwiwi/20131226/1388062106 )
+        > 大きさに気をつけて小さい方を大きい方にくっつけるという考え方を応用することで，色々な普通のデータ構造にマージ機能を追加することができます．
 
 という形で実装すること。
 
@@ -1478,8 +1518,6 @@ class UnionFind():
     def size(self, x):
         return -self.par[self.root(x)]
 ```
-* [データ構造をマージする一般的なテク]( https://topcoder.g.hatena.ne.jp/iwiwi/20131226/1388062106 )
-    * > 大きさに気をつけて小さい方を大きい方にくっつけるという考え方を応用することで，色々な普通のデータ構造にマージ機能を追加することができます．
 
 問題
 * [ABC040 D - 道路の老朽化対策について]( https://atcoder.jp/contests/abc040/tasks/abc040_d )
@@ -1498,8 +1536,7 @@ class UnionFind():
 * ある区間全体に対する演算
 * ある点の値の変更
 
-を$O(\log N)$で可能なデータ構造。モノイドと関わりが深く、面白い。
-構築は$O(N)$でできる。
+を$O(\log N)$で可能なデータ構造。[モノイド]( https://ja.wikipedia.org/wiki/%E3%83%A2%E3%83%8E%E3%82%A4%E3%83%89 )と関わりが深く、面白い。構築は$O(N)$でできる。
 
 具体的な実装の注意点
 * 二分木を0-indexedで持つか、1-indexedで持つか。
@@ -1516,9 +1553,9 @@ class UnionFind():
     * 再帰を使わず、木を登りながら計算する実装（こっちの方がpythonでは早い）
 
 
-抽象化したSegment Treeの2つの実装を記す。
+### 抽象化セグメントツリー(0-indexed)
+queryを再帰で書いたアリ本的な0-indexed Segment Tree。
 
-アリ本的、0-indexed Segment Tree
 ```python
 class SegmentTree0():
     """
@@ -1568,7 +1605,8 @@ class SegmentTree0():
 
 ```
 
-1-indexed Segment Tree
+### 抽象化セグメントツリー(1-indexed)
+queryを再帰ではなくループで書いた1-indexed Segment Tree 。
 ```python
 class SegmentTree1():
     """
@@ -1676,6 +1714,8 @@ Reference
     * Range GCD Queryを解く問題としてSegmentTreeを使うこともできる。
 * [第２回日経コン D - Shortest Path on a Line (600点)]( https://atcoder.jp/contests/nikkei2019-2-qual/tasks/nikkei2019_2_qual_d )
     * DPの漸化式更新のためにRMQする
+* [ABC146 F - Sugoroku (600点)]( https://atcoder.jp/contests/abc146/tasks/abc146_f )
+    * DPの漸化式更新のためにRMQする
 
 
 ## BIT (fenwick tree)
@@ -1773,7 +1813,8 @@ Reference
 * http://hos.ac/slides/20140319_bit.pdf
 
 問題
-* [ARC088 E - Papple Sort (800点)]( https://atcoder.jp/contests/arc088/tasks/arc088_c )
+* 転倒数([参考]( https://qiita.com/wisteria0410ss/items/296e0daa9e967ca71ed6 ))関連
+    * [ARC088 E - Papple Sort (800点)]( https://atcoder.jp/contests/arc088/tasks/arc088_c )
 * [ABC136 F - Enclosed Points (600点)]( https://atcoder.jp/contests/abc136/tasks/abc136_f )
 * std::setライクな使い方をする問題
     * [AGC005 B - Minimum Sum (400点)]( https://atcoder.jp/contests/agc005/tasks/agc005_b )
