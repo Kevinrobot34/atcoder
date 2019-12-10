@@ -3,7 +3,8 @@
 
 
 ## C - Brute-force Attack
-全探索
+* 全探索
 
 
 ## D - 1
+* 桁DP
