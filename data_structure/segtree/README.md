@@ -1,8 +1,10 @@
 # Segment Tree
-`N`個からなる列に対して
+`N`個の要素からなる列`a = (a[0], ..., a[N-1])`に対して
 
 * 連続する区間に(モノイドをなす)演算をする
+  - `op(a[s:t]) = op(a[s], a[s+1], ..., a[t-1])`
 * 一点の値を更新する
+  - `a[i] = x`
 
 の両方を`O(logN)`で行えるデータ構造。
 構築にかかる時間は`O(N)`。
@@ -34,6 +36,26 @@
 `int`をint型で扱える整数とすると、
 * (`int`, +) : 0を単位元とするモノイド
 * (`int`, min) : `INT_MAX`を単位元とするモノイド
+
+
+
+### モノイドとSegTree
+区間に対する演算をいくつかの区間によしなに分解して行うためには結合律が必要である。
+また単位元を用いて初期化しておく。
+これがSegTreeに載せる集合・演算がモノイドでなければならない理由。
+* http://beet-aizu.hatenablog.com/entry/2017/09/10/132258
+
+
+## 問題
+* [ARC008 D - タコヤキオイシクナール]( https://atcoder.jp/contests/arc008/tasks/arc008_4 )
+    * 座標圧縮 + 関数の合成についてのsegtree
+*  [ABC125 C - GCD on Blackboard (300点)]( https://atcoder.jp/contests/abc125/tasks/abc125_c )
+    * Range GCD Queryを解く問題としてSegmentTreeを使うこともできる。
+* [第２回日経コン D - Shortest Path on a Line (600点)]( https://atcoder.jp/contests/nikkei2019-2-qual/tasks/nikkei2019_2_qual_d )
+    * DPの漸化式更新のためにRMQする
+* [ABC146 F - Sugoroku (600点)]( https://atcoder.jp/contests/abc146/tasks/abc146_f )
+    * DPの漸化式更新のためにRMQする
+
 
 
 ## Reference
