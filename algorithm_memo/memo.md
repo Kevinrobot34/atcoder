@@ -258,12 +258,14 @@ print(h)
 * [ABC080 C - Shopping Street (300点)]( https://atcoder.jp/contests/abc080/tasks/abc080_c )
 * [ABC099 C - Strange Bank (300点)]( https://atcoder.jp/contests/abc099/tasks/abc099_c )
 * [ABC099 D - Good Grid (400点)]( https://atcoder.jp/contests/abc099/tasks/abc099_d )
-* [ABC104 C - All Green (300点)]( https://atcoder.jp/contests/abc104/tasks/abc104_c )
-    * bitを使った全探索（各問題を全部解くor全く解かない）
 * [ABC107 C - Candles (300点)]( https://atcoder.jp/contests/abc107/tasks/arc101_a )
 * [ABC112 C - Pyramid (300点)]( https://atcoder.jp/contests/abc112/tasks/abc112_c )
 * [ABC128 D - equeue (400点)]( https://atcoder.jp/contests/abc128/tasks/abc128_d )
-
+* [ABC144 C - Walk on Multiplication Table (300点)]( https://atcoder.jp/contests/abc144/tasks/abc144_c )
+* [ABC145 C - Average Length (300点)]( https://atcoder.jp/contests/abc145/tasks/abc145_c )
+* bit全探索
+    * [ABC104 C - All Green (300点)]( https://atcoder.jp/contests/abc104/tasks/abc104_c )
+    * [ABC147 C - HonestOrUnkind2 (300点)]( https://atcoder.jp/contests/abc147/tasks/abc147_c )
 
 ### DFS - 深さ優先探索
 実装方法
@@ -292,6 +294,9 @@ print(h)
 ## 二分探索
 https://qiita.com/drken/items/97e37dd6143e33a64c8c
 
+### ソート済み配列を探索するタイプの二分探索
+`lower_bound`や`bisect_left`を使う
+
 **C++** \
 https://cpprefjp.github.io/reference/algorithm/lower_bound.html \
 https://cpprefjp.github.io/reference/algorithm/upper_bound.html
@@ -318,11 +323,43 @@ bisect_left(a, 4), bisect_right(a, 4) #  7, 10
 bisect_left(a, 5), bisect_right(a, 5) # 10, 10
 ```
 
-自分でチェック関数作ってやるやつ。
+問題
+* lower_bound / bisect_leftなど使ってソート済み配列を二分探索するタイプの問題
+    * [ABC030 C - 飛行機乗り]( https://atcoder.jp/contests/abc030/tasks/abc030_c )
+    * [ABC077 C - Snuke Festival (300点)]( https://atcoder.jp/contests/abc077/tasks/arc084_a )
+    * [ABC119 D - Lazy Faith (400点)]( https://atcoder.jp/contests/abc119/tasks/abc119_d )
+    * [ABC138 E - Strings of Impurity (500点)]( https://atcoder.jp/contests/abc138/tasks/abc138_e )
+    * [ABC143 D - Triangles (400点)]( https://atcoder.jp/contests/abc143/tasks/abc143_d )
+
+
+### 答えを決め打つタイプの二分探索
+https://betrue12.hateblo.jp/entry/2019/05/11/013403
+
+「答えを決め打つ」タイプの二分探索で問題を解くために必要な条件は
+* 「ある値`x`に対して、ある条件を満たすことができるか」という判定問題が解きやすい
+* 上記の判定問題の答えに単調性があるか（Yes/Noの境界が一つか）
+
+
+
+いくつか典型のパターンがある
+* 「〜〜を満たす最大(最小値)値を求めよ」
+* 「〜〜の最大値の最小化（最小値の最大化）」
+    * 「〜〜の最大値をX以下にできるか」「任意の〜〜をX以下にできるか」などと言い換えて、二分探索に持ち込む
+* 「平均の最大化」
+    * 「数列`{x[i]}`の平均値が`a`」は「数列`{x[i]-a}`の総和が0」
+* 「K番目の要素の値」
+    * 「K番目の要素の値がX以下である」と「X以下の要素がK個以上ある」は同値
+    * 「X以下の要素がK個以上ある」という判定問題を解く
+        * 単調性は「K番目の要素の値がX以下である」に戻っと考えるとほぼ自明
+* 「方程式の解を一つだけ求めよ」
+    * 条件(True/False)の切り替わる境界（方程式の解）が複数あっても、それを一つ見つけるだけで良いなら二分探索が使える。
+    * こういう方程式の数値的な解析は「二分法」というっぽい？
+
 ```python
 def check(x):
     # xが条件を満たすか判定する関数
     pass
+
 lb = -1    # False
 ub = hoge  # True
 while ub - lb > 1:
@@ -335,22 +372,24 @@ while ub - lb > 1:
 ```
 
 問題
-* lower_bound / bisect_leftなど使ってソート済み配列を二分探索するタイプの問題
-    * [ABC030 C - 飛行機乗り]( https://atcoder.jp/contests/abc030/tasks/abc030_c )
-    * [ABC077 C - Snuke Festival (300点)]( https://atcoder.jp/contests/abc077/tasks/arc084_a )
-    * [ABC119 D - Lazy Faith (400点)]( https://atcoder.jp/contests/abc119/tasks/abc119_d )
-    * [ABC138 E - Strings of Impurity (500点)]( https://atcoder.jp/contests/abc138/tasks/abc138_e )
-    * [ABC143 D - Triangles (400点)]( https://atcoder.jp/contests/abc143/tasks/abc143_d )
-* 自分でループ書くタイプの二分探索するタイプの問題
+* 「〜〜を満たす最大(最小)値を求めよ」的な問題
     * [ABC020 C - 壁抜け]( https://atcoder.jp/contests/abc020/tasks/abc020_c )
-    * [ABC026 D - 高橋君ボール1号]( https://atcoder.jp/contests/abc026/tasks/abc026_d )
-        * 条件(True/False)の切り替わる境界が複数あっても、それを一つ見つけるだけで良いなら二分探索が使える
     * [ABC063 D - Widespread (400点)]( https://atcoder.jp/contests/abc063/tasks/arc075_b )
+    * [ABC144 E - Gluttony (500点)]( https://atcoder.jp/contests/abc144/tasks/abc144_e )
     * [ABC141 E - Who Says a Pun? (500点)]( https://atcoder.jp/contests/abc141/tasks/abc141_e )
         * RollingHashと組み合わせた二分探索
-    * [ABC144 E - Gluttony (500点)]( https://atcoder.jp/contests/abc144/tasks/abc144_e )
     * [ABC146 C - Buy an Integer (300点)]( https://atcoder.jp/contests/abc146/tasks/abc146_c )
-        * こういう問題で、「これ二分探索でいけるじゃん」とすぐ気付けるようになりたい
+* 「〜〜の最大値の最小化（最小値の最大化）」
+    * [ABC023 D - 射撃王]( https://atcoder.jp/contests/abc023/tasks/abc023_d )
+    * [ARC003 C - 暗闇帰り道]( https://atcoder.jp/contests/arc003/tasks/arc003_3 )
+* 「平均の最大化」
+    * [ABC034 D - 食塩水]( https://atcoder.jp/contests/abc034/tasks/abc034_d )
+* 「K番目の要素の値」
+    * [ABC107 D - Median of Medians (700点)]( https://atcoder.jp/contests/abc107/tasks/arc101_b )
+    * [ARC037 C - 億マス計算]( https://atcoder.jp/contests/arc037/tasks/arc037_c )
+* 「方程式の解を一つだけ見つける問題」
+    * [ABC026 D - 高橋君ボール1号]( https://atcoder.jp/contests/abc026/tasks/abc026_d )
+
 
 
 ## 半分全列挙
@@ -473,6 +512,8 @@ def compress_coordinate(x: list, key=None, reverse=False):
     * [ABC134 E - Sequence Decomposing (500点)]( https://atcoder.jp/contests/abc134/tasks/abc134_e )
 * DAG上のDP
     * [ABC144 F - Fork in the Road (600点)]( https://atcoder.jp/contests/abc144/tasks/abc144_f )
+* tree上のDP
+    * [ABC036 D - 塗り絵]( https://atcoder.jp/contests/abc036/tasks/abc036_d )
 * その他
     * [ABC011 C - 123引き算]( https://atcoder.jp/contests/abc011/tasks/abc011_3 )
     * [ABC037 D - 経路]( https://atcoder.jp/contests/abc037/tasks/abc037_d )
@@ -504,6 +545,12 @@ def compress_coordinate(x: list, key=None, reverse=False):
 ## 桁DP
 * http://drken1215.hatenablog.com/entry/2019/02/04/013700
 * https://torus711.hatenablog.com/entry/20150423/1429794075
+
+```
+dp[i][smaller] :=
+  * (smaller = 0) 上からi桁がsと完全一致してる範囲の数で条件を満たしている数
+  * (smaller = 1) 上からi桁が既にsより小さい範囲の数で条件を満たしている数
+```
 
 問題
 * [Zigzag Numbers]( http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=0570 )
@@ -588,8 +635,9 @@ def dijkstra(edge_adj: list, node: int, start: int) -> list:
 ```
 
 問題
-* [ARC E - Cosmic Rays (600点)]( https://atcoder.jp/contests/arc064/tasks/arc064_c )
+* [ABC035 D - トレジャーハント]( https://atcoder.jp/contests/abc035/tasks/abc035_d )
 * [ABC132 E - Hopscotch Addict (500点)]( https://atcoder.jp/contests/abc132/tasks/abc132_e )
+* [ARC064 E - Cosmic Rays (600点)]( https://atcoder.jp/contests/arc064/tasks/arc064_c )
 * [第２回日経コン D - Shortest Path on a Line (600点)]( https://atcoder.jp/contests/nikkei2019-2-qual/tasks/nikkei2019_2_qual_d )
 * https://yukicoder.me/problems/no/807
 
@@ -1170,6 +1218,8 @@ def comb(n: int, k: int, MOD: int) -> int:
     | $-x_{(2)}$                | 11111 | 11110 | 11101 | 11100 | 11011 | 11010 | 11001 | 11000 |
     | $(x \\& -x)_{(2)}$ | 00001 | 00010 | 00001 | 00100 | 00001 | 00010 | 00001 | 01000 |
 
+* `x|y = x + y - (x & y)`
+* `x^y = x + y - 2*(x & y)`
 
 
 ### XOR
@@ -1194,11 +1244,59 @@ XORの性質について知っていると便利なことも多い
 * [ABC121 D - XOR World (400点)]( https://atcoder.jp/contests/abc121/tasks/abc121_d )
 
 
-## 幾何
-* 線分の交差判定
-    * https://atcoder.jp/contests/abc016/tasks/abc016_4
-    *
+# 幾何
+## 平面幾何
+### 二次元ベクトルのクラス
+```python
+class P2():
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
 
+    def __add__(self, other):
+        return P2(self.x + other.x, self.y + other.y)
+
+    def __sub__(self, other):
+        return P2(self.x - other.x, self.y - other.y)
+
+    def smul(self, a):
+        return P2(self.x * a, self.y * a)
+
+    def dot(self, other):
+        return self.x * other.x + self.y * other.y
+
+    def det(self, other):
+        return self.x * other.y - self.y * other.x
+```
+
+
+### 点が線分上にあるか
+```python
+def on_seg(p1, p2, q) -> bool:
+    is_online = (p1 - q).det(p2 - q) == 0
+    is_between = (p1 - q).dot(p2 - q) <= 0
+    return is_online and is_between
+```
+
+### 線分の交差判定
+```python
+def is_crossing(p1, p2, q1, q2) -> bool:
+    ta = (q2 - q1).det(q1 - p1) / (q2 - q1).det(p2 - p1)
+    tb = (p2 - p1).det(p1 - q1) / (p2 - p1).det(q2 - q1)
+    return (0.0 <= ta <= 1.0) and (0.0 <= tb <= 1.0)
+```
+問題
+* [ABC016 D - 一刀両断]( https://atcoder.jp/contests/abc016/tasks/abc016_4 )
+
+### 線分の交点
+```python
+def intersection(p1, p2, q1, q2):
+    t = (q2 - q1).det(q1 - p1) / (q2 - q1).det(p2 - p1)
+    return p1 + (p2 - p1).smul(t)
+```
+
+## 誤差を考慮した計算
+* アリ本 P228
 
 
 # 構築系
