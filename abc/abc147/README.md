@@ -12,6 +12,8 @@
 
 
 ## E - Balanced Path (500点)
+* bitset
+* https://maspypy.com/atcoder-%E5%8F%82%E5%8A%A0%E6%84%9F%E6%83%B3-2019-12-08abc-147
 
 
 ## F - Sum Difference (600点)

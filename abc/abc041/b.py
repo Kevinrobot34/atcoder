@@ -1,0 +1,4 @@
+a, b, c = map(int, input().split())
+MOD = 10**9 + 7
+ans = (a * b * c) % MOD
+print(ans)
