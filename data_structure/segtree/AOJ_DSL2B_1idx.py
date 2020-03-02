@@ -1,4 +1,5 @@
-# checked : http://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=4223486#1
+# checked : http://judge.u-aizu.ac.jp/onlinejudge/review.jsp?rid=4223480#1
+
 import sys
 input = sys.stdin.readline
 
@@ -49,13 +50,16 @@ class SegmentTree1():
 
 
 n, q = map(int, input().split())
-ele_id = (1 << 31) - 1
-op_func = min
-st_rmq = SegmentTree1(n, ele_id, op_func)
+ele_id = 0
+op_func = lambda a, b: a + b
+st_rsq = SegmentTree1(n, ele_id, op_func)
 for _ in range(q):
     com, x, y = map(int, input().split())
     if com == 0:
-        st_rmq.update(x, y)
+        x -= 1
+        st_rsq.update(x, st_rsq[x] + y)
     elif com == 1:
-        ans = st_rmq.query(x, y + 1)
+        x -= 1
+        y -= 1
+        ans = st_rsq.query(x, y + 1)
         print(ans)
