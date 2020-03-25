@@ -1,11 +1,11 @@
 h, n = map(int, input().split())
 magic = [tuple(map(int, input().split())) for _ in range(n)]
-magic.sort(key=lambda x: x[0] / x[1], reverse=True)
-print(*magic, sep='\n')
 
-ans = (h // magic[0][0]) * magic[0][1]
-h %= magic[0][0]
+INF = 10**10
+dp = [INF] * (h + 1)
+dp[h] = 0
+for i in reversed(range(h + 1)):
+    for aj, bj in magic:
+        dp[max(0, i - aj)] = min(dp[max(0, i - aj)], dp[i] + bj)
 
-magic.sort(key=lambda x: ((h + x[0] - 1) // x[0]) * x[1])
-
-print(ans)
+print(dp[0])

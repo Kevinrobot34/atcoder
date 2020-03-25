@@ -1,3 +1,7 @@
+import sys
+sys.setrecursionlimit(10**8)
+input = sys.stdin.readline
+
 n, u, v = map(int, input().split())
 u, v = u - 1, v - 1
 graph = [[] for _ in range(n)]
@@ -7,19 +11,23 @@ for _ in range(n - 1):
     graph[a].append(b)
     graph[b].append(a)
 
-d_v = d_ = -1
 
-
-def dfs(x, p, d, f_v):
-    print(x, p, d, f_v)
-    if x == v:
-        d_v = d
-        f_v = 1
-
-    for y in graph[x]:
-        if y == p:
+def dfs(v, d, count):
+    count[v] = d
+    for v_next in graph[v]:
+        if count[v_next] >= 0:
             continue
-        dfs(y, x, d + 1, f_v)
+        dfs(v_next, d + 1, count)
 
 
-dfs(v, -1, 0, 1)
+count_tak = [-1] * n
+dfs(u, 0, count_tak)
+count_aok = [-1] * n
+dfs(v, 0, count_aok)
+
+ans = 0
+for i in range(n):
+    if count_tak[i] < count_aok[i]:
+        ans = max(ans, count_aok[i] - 1)
+
+print(ans)

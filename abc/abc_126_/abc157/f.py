@@ -7,10 +7,10 @@ EPS = 10**-7
 
 
 class P2():
-    def __init__(self, x, y):
+    def __init__(self, x: float, y: float):
         self.x = x
         self.y = y
-        self.norm2 = (self.x**2 + self.y**2)**0.5
+        self.norm = (self.x**2 + self.y**2)**0.5
 
     def __add__(self, other):
         return P2(self.x + other.x, self.y + other.y)
@@ -18,23 +18,79 @@ class P2():
     def __sub__(self, other):
         return P2(self.x - other.x, self.y - other.y)
 
-    def __mul__(self, other: float):
-        return P2(self.x * other, self.y * other)
+    def __mul__(self, c: float):
+        return P2(self.x * c, self.y * c)
 
-    def __truediv__(self, other: float):
-        return P2(self.x / other, self.y / other)
+    def __truediv__(self, c: float):
+        return P2(self.x / c, self.y / c)
 
-    def dot(self, other):
+    def __eq__(self, other):
+        return (abs(self.x - other.x) < EPS) and (abs(self.y - other.y) < EPS)
+
+    def dot(self, other) -> float:
         return self.x * other.x + self.y * other.y
 
-    def det(self, other):
+    def det(self, other) -> float:
         return self.x * other.y - self.y * other.x
+
+    def rot90(self):
+        return P2(-self.y, self.x)
 
 
 class Circle():
-    def __init__(self, p, r):
-        self.p = p
-        self.r = r
+    def __init__(self, p: P2, r: float):
+        self.p = p  # center of the circle
+        self.r = r  # radius of the circle
+
+    def contains(self, p: P2, allow_on_edge: bool) -> bool:
+        if allow_on_edge:
+            return (self.p - p).norm < self.r + EPS
+        else:
+            return (self.p - p).norm < self.r - EPS
+
+    def cct(self, other) -> int:
+        # count common tangent / 共通接線の数
+        if self.p == other.p:
+            # center is same
+            if abs(self.r - other.r) < EPS:
+                return float('inf')  # same
+            else:
+                return 0  # 内包
+
+        d = other.p - self.p
+        if d.norm > self.r + other.r + EPS:
+            return 4  # 離れてる
+        elif d.norm > self.r + other.r - EPS:
+            return 3  # 外接
+        elif d.norm > abs(self.r - other.r) + EPS:
+            return 2  # 交点2つ
+        elif d.norm > abs(self.r - other.r) - EPS:
+            return 1  # 内接
+        else:
+            return 0  # 内包
+
+    def intersection_points_with_circle(self, other) -> list:
+        cct = self.cct(other)
+        d = other.p - self.p
+
+        if cct == 1:
+            # 内接
+            if self.r > other.r:
+                return [self.p + d * (self.r / d.norm)]
+            else:
+                return [self.p - d * (self.r / d.norm)]
+        elif cct == 3:
+            # 外接
+            return [self.p + d * (self.r / d.norm)]
+        elif cct == 2:
+            # 交点2個
+            x = (self.r**2 - other.r**2 + d.norm**2) / (2 * d.norm)
+            h = math.sqrt(max(self.r**2 - x**2, 0.0))
+            v = d.rot90() * (h / d.norm)
+            dx = self.p + d * (x / d.norm)
+            return [dx + v, dx - v]
+
+        return []
 
 
 n, k = map(int, input().split())
@@ -45,8 +101,6 @@ for _ in range(n):
     p.append(P2(x, y))
     c.append(cc)
 
-dist = [[(p[i] - p[j]).norm2 for j in range(n)] for i in range(n)]
-
 
 def check(r):
     circles = [Circle(p[i], r / c[i]) for i in range(n)]
@@ -54,20 +108,13 @@ def check(r):
     # 半径rの円２つの交点の列挙
     cand = [pi for pi in p]
     for c_i, c_j in combinations(circles, r=2):
-        d_ij = c_i.p - c_j.p
-        if d_ij.norm2 < c_i.r + c_j.r - EPS:
-            # 点iと点jを中心とする円が交点を持つ時
-            x = (c_j.r**2 - c_i.r**2 + d_ij.norm2**2) / (2 * d_ij.norm2)
-            h = math.sqrt(max(c_j.r**2 - x**2, 0.0))
-            v = P2(-d_ij.y, d_ij.x) * (h / d_ij.norm2)
-            dx = c_j.p + d_ij * (x / d_ij.norm2)
-            cand.append(dx + v)
-            cand.append(dx - v)
+        cand_ij = c_i.intersection_points_with_circle(c_j)
+        cand.extend(cand_ij)
 
     for cand_p in cand:
         cnt = 0
         for c_i in circles:
-            if (c_i.p - cand_p).norm2 < c_i.r + EPS:
+            if c_i.contains(cand_p, allow_on_edge=False)
                 cnt += 1
                 if cnt >= k:
                     return True

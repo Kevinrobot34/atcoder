@@ -1,32 +1,36 @@
-from itertools import combinations
-
-
-def comb(n: int, k: int) -> int:
-    if n < k or n < 0 or k < 0:
-        return 0
-    k = min(k, n - k)
-    if k == 0:
-        return 1
-
-    ans = n
-    for i in range(2, k + 1):
-        ans *= (n + 1 - i)
-        ans //= i
-    return ans
-
-
-n_str = input()  # 3***
+n_str = input()
 k = int(input())
 
-ans = 0
+dp1 = [[0] * (k + 2) for _ in range(len(n_str) + 1)]
+dp2 = [[0] * (k + 2) for _ in range(len(n_str) + 1)]
+# dp1[i][j] : 上から i 桁はnと一致していて、0でない数が j 個現れているような数
+# dp2[i][j] : 上から i 桁が既にnより小さく、0でない数が j 個現れているような数
 
-# 3***
-if k == 2:
-    ans += int(n_str)
-elif k == 3:
-    pass
+# init
+dp1[0][0] = 1
 
-# 1***
-ans += int(n_str[0] - 1) * comb(len(n_str) - 1, k - 1) * (9**(k - 1))
-# 0***
-ans += comb(len(n_str) - 1, k) * (9**k)
+for i in range(len(n_str)):
+    for j in range(k + 1):
+        if n_str[i] != '0':
+            # dp1
+            dp1[i + 1][j + 1] += dp1[i][j]
+
+            # dp2
+            dp2[i + 1][j + 1] += dp1[i][j] * (int(n_str[i]) - 1)
+            dp2[i + 1][j + 1] += dp2[i][j] * 9
+
+            dp2[i + 1][j] += dp1[i][j]
+            dp2[i + 1][j] += dp2[i][j]
+        else:
+            # dp1
+            dp1[i + 1][j] += dp1[i][j]
+
+            # dp2
+            dp2[i + 1][j + 1] += dp2[i][j] * 9
+
+            dp2[i + 1][j] += dp2[i][j]
+
+# print(*dp1, sep='\n')
+# print(*dp2, sep='\n')
+ans = dp1[len(n_str)][k] + dp2[len(n_str)][k]
+print(ans)
