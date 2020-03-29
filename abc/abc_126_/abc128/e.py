@@ -8,9 +8,9 @@ event = []
 stx = []
 for i in range(n):
     s, t, x = map(int, input().split())
-    heappush(event, (s - 0.5 - x, +1, i))
-    heappush(event, (t - 0.5 - x, -1, i))
-    stx.append((s - x, t - x, x))
+    heappush(event, (x - s - 0.5, +1, i))
+    heappush(event, (x - t - 0.5, -1, i))
+    stx.append((s, t, x))
 
 for i in range(q):
     d = int(input())
@@ -18,6 +18,7 @@ for i in range(q):
 
 ans = [-1] * q
 queue = []  # [(t, x)]
+
 while event:
     d, k, i = heappop(event)
     # print(d, k, i, queue)
