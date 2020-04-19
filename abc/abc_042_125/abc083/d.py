@@ -1,18 +1,11 @@
 s = input()
 
-t = []
-x = s[0]
-y = 0
-for i in range(len(s)):
-    if s[i] == x:
-        y += 1
-    else:
-        t.append(y)
-        y = 0
-        x = s[i]
-
-print(t)
-ans = max(t)
-
+n = len(s)
+ans = n
+for i in range(1, n):
+    if s[i - 1] != s[i]:
+        # left:  [0, i) -> length = i
+        # right: [i, n) -> length = n - i
+        ans = min(ans, max(i, n - i))
 
 print(ans)
