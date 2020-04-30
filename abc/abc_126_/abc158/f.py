@@ -55,18 +55,28 @@ robot = [tuple(map(int, input().split())) for _ in range(n)]
 robot.sort(key=itemgetter(0))
 x = [robot[i][0] for i in range(n)]
 
-# dp1[i] = (i番目のロボットを起動するとdp1[i]番目まで起動する)
-dp1 = [bisect_right(x, x[i] + robot[i][1]) for i in range(n)]
-# dp2[i] = (i番目のロボットを起動すると最終的にdp2[i]番目まで起動する)
-dp2 = [0] * n
-dp2[-1] = n
+# dp[i] = (i番目のロボットを起動すると最終的にdp[i]番目まで起動する)
+dp = [0] * n
+dp[n - 1] = n - 1
 
 st_rmq = SegmentTree1(n, 0, max)
-st_rmq.update(n - 1, dp2[n - 1])
+st_rmq.update(n - 1, dp[n - 1])
 for i in reversed(range(n - 1)):
-    dp2[i] = st_rmq.query(l=i + 1, r=dp1[i])
-    st_rmq.update(i, dp2[i])
+    r = bisect_left(x, x[i] + robot[i][1])
+    dp[i] = max(i, st_rmq.query(l=i + 1, r=r))
+    st_rmq.update(i, dp[i])
 
-print(robot)
-print(dp1)
-print(dp2)
+# print(robot)
+# print(dp)
+
+# dp2[i] = (i番目以降のロボットのみで考えたときの場合の数)
+dp2 = [0] * (n + 1)
+dp2[n] = 1
+for i in reversed(range(n)):
+    # i番目を起動しない -> {i} + {i+1以降を起動した場合のパターン} : dp2[i+1]通り存在
+    # i番目を起動する　 -> { } + {dp[i]+1以降を起動した場合のパターン} : dp2[dp[i]+1]通り存在
+    dp2[i] = dp2[i + 1] + dp2[dp[i] + 1]
+    dp2[i] %= MOD
+# print(dp2)
+
+print(dp2[0])
