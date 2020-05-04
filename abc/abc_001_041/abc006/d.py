@@ -1,15 +1,16 @@
 from bisect import bisect_left, bisect_right
 import sys
 input = sys.stdin.readline
+INF = float('inf')
 n = int(input())
 c = [int(input()) for _ in range(n)]
 
-dp = [c[0]]
-for i in range(1, n):
-    if dp[-1] < c[i]:
-        dp.append(c[i])
-    else:
-        idx = bisect_left(dp, c[i])
-        dp[idx] = c[i]
+dp = [INF] * n
+# dp[i] = (長さi+1の増加部分列の最終項のmin)
+for i in range(n):
+    idx = bisect_left(dp, c[i])
+    dp[idx] = c[i]
 
-print(len(c) - len(dp))
+lis = bisect_left(dp, INF)
+ans = n - lis
+print(ans)

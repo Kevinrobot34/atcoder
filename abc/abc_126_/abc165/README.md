@@ -4,11 +4,16 @@
 
 ## C - Many Requirements (300点)
 * keyword
-  - 全探索, DFS, combinations_with_replacement
+  - 全探索, DFS, combinations_with_replacement, 重複組み合わせ
 * 解法１
   - DFSで全探索
 * 解法２
   - [itertools.combinations_with_replacement]( https://docs.python.org/ja/3/library/itertools.html#itertools.combinations_with_replacement )
+* comments
+  - いわゆる重複組み合わせを全列挙せよという問題
+    - n種類からr個を取り出す組み合わせは`comb(n+r-1, r)`
+    - 今回の場合nもr(m)も高々10
+    - `comb(19, 10) = 92378`通りしかないので全探索が間に合う
 
 
 ## D - Floor Function (400点)

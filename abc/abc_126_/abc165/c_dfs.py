@@ -18,8 +18,20 @@ def calc(l):
 
 
 ans = 0
-for l in combinations_with_replacement(range(1, m + 1), n):
-    cand = calc(l)
-    ans = max(ans, cand)
+l = [0] * n
+l[0] = 1
 
+
+def dfs(l_len):
+    global l, ans
+    if l_len == n:
+        ans = max(ans, calc(l))
+        return
+
+    for i in range(l[l_len - 1], m + 1):
+        l[l_len] = i
+        dfs(l_len + 1)
+
+
+dfs(1)
 print(ans)
