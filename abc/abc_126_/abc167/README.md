@@ -50,3 +50,4 @@
 * 解法
 * 類題
   - [ARC053 C - 魔法使い高橋君]( https://atcoder.jp/contests/arc053/tasks/arc053_c )
+  - [AOJ Volume26-2681 Parentheses]( http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=2681 )
