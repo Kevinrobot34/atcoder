@@ -17,3 +17,4 @@
 
 
 ## F - Sum Difference (600点)
+* [ref]( https://penguinshunya.hatenablog.com/entry/2020/02/04/085845 )
