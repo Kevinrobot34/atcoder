@@ -14,9 +14,12 @@
 ## D - .. (Double Dots) (400点)
 * keywords
   - dijkstra、経路復元
-* 解法
+* 解法1
   - dijkstraして、経路復元用の `prev_node` が答えになる
   - Noは無いよねっていう
+* 解法2
+  - BFS
+  - 直前のnodeを保存しておく
 
 
 ## E - ∙ (Bullet) (500点)
@@ -32,4 +35,4 @@
 
 ## F - . (Single Dot) (600点)
 * keywords
-  - 幾何、面積、軸と平行
+  - 幾何、面積、軸と平行、座標圧縮

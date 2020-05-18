@@ -21,22 +21,27 @@ MOD = 10**9 + 7
 n = int(input())
 a = tuple(map(int, input().split()))
 
+MAX_a = max(a)
+iinv = [1] * (MAX_a + 1)
+for i in range(2, MAX_a + 1):
+    iinv[i] = MOD - iinv[MOD % i] * (MOD // i) % MOD
+
 a_fac = []
 lcm_fac = defaultdict(int)
-for i in range(n):
-    a_fac.append(factorize(a[i]))
-    for k, v in a_fac[i].items():
+for a_i in a:
+    a_fac_i = factorize(a_i)
+    a_fac.append(a_fac_i)
+    for k, v in a_fac_i.items():
         lcm_fac[k] = max(lcm_fac[k], v)
 
-# print(lcm_fac)
+lcm = 1
+for k, v in lcm_fac.items():
+    lcm *= pow(k, v, MOD)
+    lcm %= MOD
+
 ans = 0
 for i in range(n):
-    b_i = 1
-    for k, v in lcm_fac.items():
-        b_i *= pow(k, v - a_fac[i][k], MOD)
-        b_i %= MOD
-    # print(i, a[i], b_i)
-    ans += b_i
+    ans += lcm * iinv[a[i]]
     ans %= MOD
 
 print(ans)

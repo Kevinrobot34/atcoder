@@ -4,7 +4,7 @@ from heapq import heappush, heappop
 def dijkstra(graph: list, n: int, v_s: int, INF: int = float('inf')) -> list:
     # graph[v_from] = [(cost, v_to), ...]
     dist = [INF] * n
-    prev_node = [-1] * n
+    prev_node = [-1] * n  # previous node
 
     dist[v_s] = 0
     heap = [(0, v_s)]  # heap = [(dist[v], v), ...]
