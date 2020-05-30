@@ -2,8 +2,7 @@ import sys
 sys.setrecursionlimit(10**9)
 input = sys.stdin.readline
 
-MOD = 10**9 + 7
-n = int(input())
+n, mod = map(int, input().split())
 graph = [[] for _ in range(n)]
 for _ in range(n - 1):
     a, b = map(int, input().split())
@@ -12,16 +11,7 @@ for _ in range(n - 1):
     graph[a].append(b)
     graph[b].append(a)
 
-MAX = n + 5
-fact = [1] * (MAX + 1)  # i!
-finv = [1] * (MAX + 1)  # (i!)^{-1}
-iinv = [1] * (MAX + 1)  # i^{-1}
-for i in range(2, MAX + 1):
-    fact[i] = fact[i - 1] * i % MOD
-    iinv[i] = MOD - iinv[MOD % i] * (MOD // i) % MOD
-    finv[i] = finv[i - 1] * iinv[i] % MOD
-
-ele_id = (1, 0)
+ele_id = 1
 # dp[v][i] = (頂点vから出るi番目の有向辺に関する部分木のDPの値)
 # dp[v][i] = (c, m)
 # c = 頂点vから出るi番目の有向辺に関する部分木の塗り方の数
@@ -29,15 +19,8 @@ ele_id = (1, 0)
 dp = [[ele_id] * len(graph[i]) for i in range(n)]
 ans = [ele_id] * n
 
-add_func = lambda x: (x[0], x[1] + 1)
-
-
-def merge_func(a, b):
-    m = a[1] + b[1]
-    dp_a = a[0] * finv[a[1]] % MOD
-    dp_b = b[0] * finv[b[1]] % MOD
-    c = (dp_a * dp_b % MOD) * fact[m] % MOD
-    return (c, m)
+add_func = lambda x: x + 1
+merge_func = lambda a, b: a * b % mod
 
 
 def dfs1(v, v_p):
@@ -72,6 +55,7 @@ def dfs2(v, v_p, dp_vp):
 
 
 dfs1(0, -1)
+# print(*dp, sep='\n')
 dfs2(0, -1, ele_id)
-for ans_i, _ in ans:
-    print(ans_i)
+for ans_i in ans:
+    print(ans_i - 1)
