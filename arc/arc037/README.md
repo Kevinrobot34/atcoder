@@ -2,6 +2,15 @@
 * https://atcoder.jp/contests/arc037
 
 
+## B - バウムテスト
+* keywords
+  - DFS、UnionFind、木、連結成分
+* 解法1 (editorial)
+  - DFS
+* 解法2
+  - UnionFind
+
+
 ## C - 億マス計算
 * 二分探索
 * 「K番目の要素がX以下」は「X以下の要素がK個以上」と同値
