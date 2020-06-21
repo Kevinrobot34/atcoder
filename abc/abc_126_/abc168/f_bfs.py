@@ -1,31 +1,6 @@
 import sys
+from collections import deque
 input = sys.stdin.readline
-
-
-class UnionFind():
-    def __init__(self, n):
-        self.par = [-1] * n
-
-    def root(self, x):
-        if self.par[x] < 0:
-            return x
-        else:
-            self.par[x] = self.root(self.par[x])  # contraction
-            return self.par[x]
-
-    def unite(self, x, y):
-        x, y = self.root(x), self.root(y)
-        if x != y:
-            if self.par[x] > self.par[y]:  # merge technique
-                x, y = y, x
-            self.par[x] += self.par[y]
-            self.par[y] = x
-
-    def same(self, x, y):
-        return self.root(x) == self.root(y)
-
-    def size(self, x):
-        return -self.par[self.root(x)]
 
 
 def compress_coordinate(x: list, key=None, reverse=False):
@@ -42,6 +17,9 @@ line_v = [tuple(map(int, input().split())) for _ in range(n)]
 line_h = [tuple(map(int, input().split())) for _ in range(m)]
 
 INF = 10**9 + 10
+dx = [+1, 0, -1, 0]
+dy = [0, +1, 0, -1]
+
 x_list = [-INF, 0, INF]
 y_list = [-INF, 0, INF]
 for x1, x2, y in line_v:
@@ -82,26 +60,42 @@ for x in range(nx):
         h_ng[x][y + 1] += h_ng[x][y]
 
 # print(nx, ny)
-uf = UnionFind(nx * ny)
-for x in range(nx):
-    for y in range(ny):
-        c0 = x * ny + y
-        # print(x, y, c0)
-        if y + 1 < ny and v_ng[x][y + 1] == 0:
-            c1 = x * ny + (y + 1)
-            uf.unite(c0, c1)
-        if x + 1 < nx and h_ng[x + 1][y] == 0:
-            c2 = (x + 1) * ny + y
-            uf.unite(c0, c2)
+grid = [[False] * (ny + 1) for _ in range(nx + 1)]
+q = deque([(x_zipped[0], y_zipped[0])])
+while q:
+    x0, y0 = q.popleft()
+    if grid[x0][y0]:
+        continue
+    grid[x0][y0] = True
+    for k in range(4):
+        x1 = x0 + dx[k]
+        y1 = y0 + dy[k]
+        if x1 < 0 or x1 >= nx or y1 < 0 or y1 >= ny:
+            continue
+        if grid[x1][y1]:
+            continue
 
-c_start = x_zipped[0] * ny + y_zipped[0]
-if uf.same(c_start, 0):
+        if k == 0 and h_ng[x1][y1] == 0:
+            # move x-dir
+            q.append((x1, y1))
+        elif k == 2 and h_ng[x0][y0] == 0:
+            # move x-dir
+            q.append((x1, y1))
+        elif k == 1 and v_ng[x1][y1] == 0:
+            # move y-dir
+            q.append((x1, y1))
+        elif k == 3 and v_ng[x0][y0] == 0:
+            # move y-dir
+            q.append((x1, y1))
+
+# print(*grid, sep='\n')
+if grid[0][0]:
     ans = 'INF'
 else:
     ans = 0
     for x in range(nx):
         for y in range(ny):
-            if uf.same(c_start, x * ny + y):
+            if grid[x][y]:
                 ans += (x_unzipped[x + 1] -
                         x_unzipped[x]) * (y_unzipped[y + 1] - y_unzipped[y])
 
