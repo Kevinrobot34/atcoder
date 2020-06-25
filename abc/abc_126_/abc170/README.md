@@ -25,3 +25,19 @@
 
 
 ## F - Pond Skater (600点)
+* keywords
+  - BFS、Dijkstra
+* 解法1
+  - `(x, y, dir)`を状態として持つdijkstra
+  - 参考
+    - editorial
+    - [momoharaさんのコード]( https://atcoder.jp/contests/abc170/submissions/14352039 )
+* 解法2
+  - DFSをちょっと変更する
+  - 参考
+    - [chokudaiさんのツイート]( https://twitter.com/chokudai/status/1272168231172632576?s=20 )
+    - [chokudaiさんのコード]( https://atcoder.jp/contests/abc170/submissions/14358430 )
+* 解法3
+  - segtree的に辺を張ってdijkstra
+  - 参考
+    - [satanic@研究さんの絵]( https://twitter.com/satanic0258/status/1272165396502605824?s=20 )
