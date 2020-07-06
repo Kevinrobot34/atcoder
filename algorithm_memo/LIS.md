@@ -105,7 +105,7 @@ DPする。発想としては「`a[0]`から`a[i]`の中から作った長さ`j`
 
 pythonでの実装イメージ
 ```python
-from bisect import bisect_left, bisect_right
+from bisect import bisect_left
 dp = [a[0]]
 for i in range(1, n):
     if a[i] > dp[-1]:
@@ -113,7 +113,18 @@ for i in range(1, n):
     else:
         idx = bisect_left(dp, a[i])
         dp[idx] = a[i]
+ans = len(dp)
 ```
+```python
+from bisect import bisect_left
+INF = 10**8
+dp = [INF] * n
+for i in range(n):
+    idx = bisect_left(dp, w[i])
+    dp[idx] = w[i]
+ans = bisect_left(dp, INF)
+```
+
 
 こうして蟻本に載っているO(NlogN)のアルゴリズムができた。
 
