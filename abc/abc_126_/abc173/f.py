@@ -1,7 +1,13 @@
 n = int(input())
 
 ans = 0
-for _ in range(n):
+for i in range(1, n + 1):
+    ans += i * (i + 1) // 2
+
+for _ in range(n - 1):
     u, v = map(int, input().split())
-    u -= 1
-    v -= 1
+    if v < u:
+        u, v = v, u
+    ans -= u * (n - v + 1)
+
+print(ans)
