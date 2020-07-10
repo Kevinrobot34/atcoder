@@ -23,3 +23,5 @@ http://drken1215.hatenablog.com/entry/2019/09/16/014600
 
 
 ## F - Xor Sum 3 (600点)
+* keywords
+  - Xor、基底、桁ごと
