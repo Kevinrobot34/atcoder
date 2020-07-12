@@ -8,3 +8,7 @@
 
 
 ## D - 高橋くんと木の直径
+* keywords
+  - 木、直径、interactive
+* 解法
+  - double-sweepして求める
