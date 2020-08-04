@@ -51,3 +51,6 @@
   - Google検索して ["Queries for number of distinct elements in a subarray"]( https://www.geeksforgeeks.org/queries-number-distinct-elements-subarray/ ) を見つける
 * comments
   - Google検索力勝負...
+* references
+  - ["Queries for number of distinct elements in a subarray"]( https://www.geeksforgeeks.org/queries-number-distinct-elements-subarray/ )
+  - [けんちょんさん's BLOG: SPOJ DQUERY - D-query]( https://drken1215.hatenablog.com/entry/2019/01/01/234400 )
