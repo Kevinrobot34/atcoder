@@ -18,6 +18,9 @@
 
 
 ## E - Traveling Salesman among Aerial Cities (500点)
-
+* keyword
+  - bitDP、巡回セールスマン問題
+* 解法
+  - 基本的には巡回セールスマン問題を実装しちゃうだけ
 
 ## F - Unbranched (600点)
