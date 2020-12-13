@@ -1,8 +1,8 @@
-# ABC000
-* https://atcoder.jp/contests/abc000
+# ABC184
+* https://atcoder.jp/contests/abc184
 
 
-## C -  (300点)
+## C - Super Ryuma (300点)
 * keywords
 * 解法
 
