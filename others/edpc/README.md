@@ -85,3 +85,8 @@
 ## F - LCS
 * Longest Common Substring
   - 最長共通部分文字列
+
+
+## I - Coins
+* 確率DP
+* `dp[i][j] = (コインiまで見て、表がj枚出ている確率)`
