@@ -1,6 +1,5 @@
 import sys
 input = sys.stdin.readline
-sys.setrecursionlimit(10**9)
 
 n, m = map(int, input().split())
 graph = [[False] * n for _ in range(n)]
@@ -21,36 +20,16 @@ def check_comp(bit):
     return True
 
 
-is_comp = [check_comp(bit) for bit in range(1 << n)]
-is_comp[0] = False
-memo = {}
-ans = 0
+dp = [n] * (1 << n)
+dp[0] = 0
+for bit in range(1 << n):
+    if check_comp(bit):
+        dp[bit] = 1
 
+for s in range(1 << n):
+    t = s
+    while t > 0:
+        dp[s] = min(dp[s], dp[t] + dp[s - t])
+        t = (t - 1) & s
 
-def func(sup):
-    if sup == 0:
-        return 0
-    if is_comp[sup]:
-        return 1
-    if sup in memo:
-        return memo[sup]
-
-    ret = n
-    sub = (sup - 1) & sup
-    while True:
-        if is_comp[sub]:
-            # print(sup, bin(sup), bin(sub), bin(sub ^ sup))
-            r1 = func(sub)
-            if r1 + 1 < ret:
-                ret = min(ret, r1 + func(sup ^ sub))
-            # print(bin(sup), bin(sub))
-        sub = (sub - 1) & sup
-        if sub == 0:
-            break
-
-    memo[sup] = ret
-    return ret
-
-
-ans = func((1 << n) - 1)
-print(ans)
+print(dp[(1 << n) - 1])

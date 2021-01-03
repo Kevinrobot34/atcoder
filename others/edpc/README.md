@@ -87,6 +87,37 @@
   - 最長共通部分文字列
 
 
+## G - Longest Path
+* DAGの最長パスの長さを求める問題
+* 解法1
+  - トポロジカルソート + dp
+  - `dp[x] = (xを終点とする最長パスの長さ)`
+* 解法2
+  - メモ化再帰
+  - `f(x) = (xを始点とする最長パスの長さ)`
+
+
+## H - Grid 1
+* `dp[i][j] = (左上から(i, j)まで移動する経路の数)`
+
+
 ## I - Coins
 * 確率DP
 * `dp[i][j] = (コインiまで見て、表がj枚出ている確率)`
+
+
+## U - Grouping
+* 与えられた集合`S`について`S⊇T⊇U`となる`(T,U)`を`O(3^n)`で列挙してDPする
+* `dp[bit] = (集合bitに対する総得点の最大値)`
+  - 初期値
+    - `dp[bit] = 0`
+  - 漸化式
+    - `dp[bit] = max(dp[bit - t] + cost[t] | bit ⊇ t)`
+    - bitの小さい方から順に計算していけばOK
+  - 計算量
+    - costに関する前計算：`O(n^2 2^n)`
+    - 漸化式の更新: `O(3^n)`
+  - 答え
+    - `dp[(1 << n) - 1]`
+* references
+  - [YouTube - 【EDPC】U問題 Grouping【全部やる】]( https://youtu.be/YOZI76Eul5E )

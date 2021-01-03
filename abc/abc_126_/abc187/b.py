@@ -6,7 +6,7 @@ for i in range(n):
     xi, yi = p[i]
     for j in range(i):
         xj, yj = p[j]
-        if -1.0 <= (yj - yi) / (xj - xi) <= 1.0:
+        if abs(yj - yi) <= abs(xj - xi):
             ans += 1
 
 print(ans)
