@@ -1,5 +1,6 @@
 # ABC187
 * https://atcoder.jp/contests/abc187
+* [ABC187参加記]( https://medium.com/@kevinrobot34/abc187-c2fb559ad2d8 )
 
 
 ## C - 1-SAT (300点)
@@ -20,6 +21,8 @@
   - まず全ての街で演説しなかったとすると、 `-sum(bi)`の得票数があることになる
   - ある街で演説することにすると、合計で`2*ai + bi`得票数が増えることになる
   - よって`2*ai + bi`が大きい町から順に演説をして、得票数が0を超えるまでこれを続ければ良い
+* 類題
+  - [CODE FESTIVAL 2015 予選A C - 8月31日]( https://atcoder.jp/contests/code-festival-2015-quala/tasks/codefestival_2015_qualA_c )
 
 
 ## E - Through Path (500点)
@@ -27,6 +30,8 @@
   - グラフ、木、imos
 * 解法
   - 木の上でimos法的なことをする
+* 類題
+  - [ABC138 D - Ki (400点)]( https://atcoder.jp/contests/abc138/tasks/abc138_d )
 
 
 ## F - Close Group (600点)
@@ -37,3 +42,5 @@
   - PyPyだと重くてしんどい、枝刈りが必要
 * 解法2 (editorial)
   - ループで上手に書く
+* 類題
+  - [EDPC U - Grouping]( https://atcoder.jp/contests/dp/tasks/dp_u )

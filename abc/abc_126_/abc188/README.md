@@ -1,5 +1,6 @@
 # ABC188
 * https://atcoder.jp/contests/abc188
+* [ABC188参加記]( https://medium.com/@kevinrobot34/abc188-cc47b27f949d )
 
 
 ## C - ABC Tournament (300点)
@@ -54,6 +55,8 @@
       - なぜなら町`x`で金を買った場合の方が差額は大きいから
   - よって上記の操作を到達済みflagを管理しながらBFSすれば答えを求められる
     - ソートに`O(NlogN)`かかり、BFSに合計`O(M)`かかる
+* 類題
+  - [EDPC G - Longest Path]( https://atcoder.jp/contests/dp/tasks/dp_g )
 
 
 ## F - +1-1x2 (600点)
