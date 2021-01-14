@@ -14,4 +14,8 @@
 
 ## B - Reversible Cards (400点)
 * keyword
+  - グラフ、連結成分、UnionFind
 * 解法
+  - editorialの通り
+  - UnionFindをちょっと変形して連結成分ごとに頂点と辺の数を管理すれば簡単に解ける
+  - もちろんDFSしてもOK
