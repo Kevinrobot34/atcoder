@@ -2,27 +2,30 @@ n = int(input())
 t = list(map(int, input().split()))
 v = list(map(int, input().split()))
 
-t_cs = [0] * (n+1)
-for i in range(n):
-    t_cs[i+1] = t_cs[i] + t[i]
-
-v_l = [t_cs[i] for i in range(n)]
-v_r = [t_cs[n] - t_cs[i+1] for i in range(n)]
-for i in range(n):
-    v_l[i] = min(v_l[i], v[i])
-    v_r[i] = min(v_r[i], v[i])
-
-    for j in range(i, n):
-        v_l[j] = min(v_l[j], v[i] + (t_cs[j] - t_cs[i]))
-        if j > i:
-            v_l[j] = min(v_l[j], v[i] + (t_cs[j] - t_cs[i+1]))
-
-    for j in range(i):
-        v_r[j] = min(v_r[j],
-                     v[i] + (t_cs[i+1] - t_cs[j+1]),
-                     v[i] + (t_cs[i]   - t_cs[j+1]))
+tc = 0
+lrv = [(0, 0, 0)]
+for ti, vi in zip(t, v):
+    lrv.append((tc, tc + ti, vi))
+    tc += ti
+lrv.append((tc, tc, 0))
 
 
-print(v)
-print(v_l)
-print(v_r)
+def func(x, l, r, v):
+    if x <= l:
+        return v + (l - x)
+    elif x <= r:
+        return v
+    else:
+        return v + (x - r)
+
+
+ans = 0.0
+v_prev = 0.0
+for ti in range(1, 2 * tc + 1):
+    ti /= 2.0
+    vi = min(func(ti, li, ri, vi) for li, ri, vi in lrv)
+
+    ans += (vi + v_prev) * 0.5 / 2.0
+    v_prev = vi
+
+print(ans)
