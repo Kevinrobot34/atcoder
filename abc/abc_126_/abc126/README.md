@@ -16,3 +16,7 @@ UnionFindする。
 
 
 ## F - XOR Matching (600点)
+* keywords
+  - 構築系、Xor
+* 解法
+  - editorialが全て（以上）
