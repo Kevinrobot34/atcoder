@@ -3,4 +3,5 @@ input = sys.stdin.readline
 
 n = int(input())
 ab = [tuple(map(int, input().split())) for _ in range(n)]
-(ai + bj - 1) // bj > (aj + bi - 1) // bi
+ans = [abs(ai - bi) if ai != bi else -1 for ai, bi in ab]
+print(*ans, sep='\n')
