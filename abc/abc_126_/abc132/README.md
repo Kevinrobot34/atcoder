@@ -11,7 +11,10 @@ combination
 
 
 ## E - Hopscotch Addict
-頂点倍加ダイクストラ
+* keywords
+  - グラフ、Dijkstra、頂点倍加
+* 解法
+  - 頂点倍加ダイクストラ
 
 
 ## F - Small Products

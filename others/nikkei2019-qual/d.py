@@ -3,41 +3,41 @@ import sys
 input = sys.stdin.readline
 sys.setrecursionlimit(10**6)
 
+
+def topological_sort(graph: list, n_v: int) -> list:
+    # graph[node] = [to, ]
+    indegree = [0] * n_v  # 各頂点の入次数
+    for i in range(n_v):
+        for v in graph[i]:
+            indegree[v] += 1
+
+    cand = deque([i for i in range(n_v) if indegree[i] == 0])
+    res = []
+    while cand:
+        v1 = cand.popleft()
+        res.append(v1)
+        for v2 in graph[v1]:
+            indegree[v2] -= 1
+            if indegree[v2] == 0:
+                cand.append(v2)
+
+    return res
+
+
 n, m = map(int, input().split())
 
 graph = [[] for _ in range(n)]
-graph2 = [[] for _ in range(n)]
-in_degree = [0] * n
-out_degree = [0] * n
-for _ in range(n - 1 + m):
-    a, b = map(int, input().split())
-    a -= 1
-    b -= 1
-    graph[a].append(b)
-    graph2[b].append(a)
-    in_degree[b] += 1
-    out_degree[a] += 1
+for _ in range(n + m - 1):
+    ai, bi = map(int, input().split())
+    ai -= 1
+    bi -= 1
+    graph[ai].append(bi)
 
-v_root = in_degree.index(0)
+ts = topological_sort(graph, n)
+ans = [-1] * n
+for v in ts:
+    for v_to in graph[v]:
+        ans[v_to] = v
 
-depth = [-1] * n
-ans = [0] * n
-depth[v_root] = 0
-
-
-def dfs(v):
-    if depth[v] == -1:
-        for v_par in graph2[v]:
-            d = dfs(v_par)
-            if depth[v] < d + 1:
-                depth[v] = d + 1
-                ans[v] = v_par + 1
-    return depth[v]
-
-
-for i in range(n):
-    if out_degree[i] == 0:
-        # print(i)
-        _ = dfs(i)
-
+ans = [ans_i + 1 for ans_i in ans]
 print(*ans, sep='\n')
