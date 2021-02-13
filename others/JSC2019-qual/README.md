@@ -24,7 +24,8 @@
 
 
 ## E - Card Collector (800点)
-* キーワード
+* keywords
+  - 行と列の二部グラフ
   - マトロイド
     - http://drken1215.hatenablog.com/entry/20121212/1355280288
     - https://mathtrain.jp/matroid
