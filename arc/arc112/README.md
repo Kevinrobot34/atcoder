@@ -40,7 +40,7 @@
 * keywords
   - グラフ、ゲーム関係、木DP
 * 解法
-
+https://gist.github.com/Kevinrobot34/3ec3973887ecd6cf2d81a24f642c7ce4?file=arc112_d.py
 
 ## D - Skate (600点)
 * keywords

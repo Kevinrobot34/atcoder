@@ -20,35 +20,36 @@ def func1(v):
         n_st[v] += n_st[v_to]
 
 
-func1(0)
-# print(n_st)
-
-
 def func2(v):
     if n_st[v] == 1:
         s_st[v] = 1
         return
 
     s_st[v] += 1
-    cand1 = []
-    cand2 = []
+    bonus = 0
+    cand = []
     for v_to in graph[v]:
         func2(v_to)
         if n_st[v_to] % 2 == 0:
-            # s_st[v] += s_st[v_to]
-            # cand1.append((n_st[v_to] - s_st[v_to], s_st[v_to]))
-            cand1.append((s_st[v_to], n_st[v_to] - s_st[v_to]))
+            if s_st[v_to] < 0:
+                s_st[v] += s_st[v_to]
+            else:
+                bonus += s_st[v_to]
         else:
-            cand2.append((s_st[v_to], n_st[v_to] - s_st[v_to]))
+            cand.append(s_st[v_to])
 
-    cand1.sort()
-    cand2.sort()
+    cand.sort()
+    s_st[v] += sum(cand[0::2])
+    s_st[v] -= sum(cand[1::2])
+    if len(cand) % 2 == 0:
+        s_st[v] += bonus
+    else:
+        s_st[v] -= bonus
 
-    s_st[v] += sum(x if i % 2 == 0 else y for i, (x, y) in enumerate(cand2))
-    s_st[v] += sum(x if i % 2 == 0 else y for i, (x, y) in enumerate(cand1))
 
-
-func2(0)
+func1(0)  # calc num of sub tree verticies
+# print(n_st)
+func2(0)  # calc diff-score of sub tree
 # print(s_st)
-
-print(s_st[0])
+ans = (n + s_st[0]) // 2
+print(ans)
