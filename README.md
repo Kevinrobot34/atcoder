@@ -4,7 +4,7 @@
 ## Overview
 * account : http://atcoder.jp/user/Kevinrobot34
   - AtCoder Problems : https://kenkoooo.com/atcoder/#/user/Kevinrobot34
-* 主にPython3, C/C++で書いてます．
+* 主にPython3, C/C++, Goで書いてます．
 
 アルゴリズムについてのまとめは[こちら]( ./algorithm_memo/memo.md )
 
@@ -26,6 +26,9 @@ AtCoder Grand Contestの問題のコード置き場
 
 ### /acl
 AtCoder Libraryに関連したコード等
+
+### /joi
+JOI過去問のコード置き場
 
 ### /past
 PASTの過去問のコード置き場
