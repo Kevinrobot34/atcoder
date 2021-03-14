@@ -1,5 +1,6 @@
 # AtCoder Regular Contest 112
 * https://atcoder.jp/contests/arc112
+* 参加記 : https://medium.com/@kevinrobot34/arc112-990bf2793f2e
 
 
 ## A - B = C (300点)

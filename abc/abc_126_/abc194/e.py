@@ -1,7 +1,4 @@
 class SegmentTree1():
-    """
-    1-indexed Segment Tree
-    """
     def __init__(self, n_, ele_id, op_func):
         self.n = 1 << (n_ - 1).bit_length()  # size
         self.data = [ele_id] * (2 * self.n)  # binary tree (1-indexed)

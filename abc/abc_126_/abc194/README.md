@@ -1,5 +1,6 @@
 # ABC194
 * https://atcoder.jp/contests/abc194
+* 参加記 : https://medium.com/@kevinrobot34/abc194-aa31815e0120
 
 
 ## B - Job Assignment (200点)
