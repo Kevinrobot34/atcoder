@@ -21,6 +21,10 @@ AtCoder Regular Contestの問題のコード置き場
 ### /agc
 AtCoder Grand Contestの問題のコード置き場
 
+### /ahc
+AtCoder Heuristic Contestの問題のコード置き場
+
+
 ### /others
 定期開催以外のコンテストのコード置き場
 
