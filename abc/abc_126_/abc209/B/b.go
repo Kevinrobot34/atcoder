@@ -2,14 +2,6 @@ package main
 
 import "fmt"
 
-func max(x, y int) int {
-	if x > y {
-		return x
-	} else {
-		return y
-	}
-}
-
 func main() {
 	var n, x, total_cost int
 	fmt.Scanf("%d %d", &n, &x)
