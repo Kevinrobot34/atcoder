@@ -4,3 +4,6 @@
 apg4b
 .python-version
 *.drawio
+
+# VS Code
+.vscode/
