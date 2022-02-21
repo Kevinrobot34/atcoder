@@ -2,8 +2,14 @@
 *.txt
 .DS_Store
 apg4b
-.python-version
 *.drawio
+
+# python 系
+.python-version
+
+# node 系
+.node-version
+node_modules
 
 # VS Code
 .vscode/
