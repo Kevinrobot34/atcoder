@@ -103,7 +103,7 @@ Reference
 単一始点最短路問題を$`O(|V| |E|)`$で解けるアルゴリズム。
 $`\text{dist}[i]=`$(頂点$`i`$までの最短路)とした時、
 
-```{latex}
+```math
 \text{dist}[i] = \min \{ \text{dist}[j] + \text{cost}_{j\to i}  \:| \: (j, i) \in E  \}
 ```
 
@@ -275,15 +275,15 @@ def kruskal(n: int, edge: list) -> int:
 * **s-tフロー**
     * 各辺$`e \in E`$に対し、(データ/水/etcを)流す量$`f(e)`$が定義されており、以下を満たす
         * 容量を超えない
-            ```{latex}
+            ```math
             0 \leq f(e) \leq c(e)
             ```
         * 始点と終点以外は、湧き出しはない
-            ```{latex}
+            ```math
             \forall v \in V \backslash\{s, t\}, ~ \sum_{e=*v}f(e) = \sum_{e=v*}f(e)
             ```
     * **フローの流量**
-        ```{latex}
+        ```math
         |f| = \sum_{e=s*}f(e) - \sum_{e=*s}f(e)
         ```
 
@@ -295,7 +295,7 @@ def kruskal(n: int, edge: list) -> int:
     * 頂点集合の分割$`V ~=~ S ~\bigsqcup~ T`$であって、$`s \in S`$ と $`t \in T`$ なるもののこと
     * カットの**容量(capacity)**
         * 始点を含む集合から終点を含む集合への流量の和
-            ```{latex}
+            ```math
             c(S, T) = \sum_{e=vw,~ v \in S,~ w \in T} c(e)
             ```
 
@@ -306,7 +306,7 @@ def kruskal(n: int, edge: list) -> int:
 最大流と最小カットは一致するという定理。
 
 * 弱双対性: 任意のフローと任意のカットに対して、 $`|f| \leq c(S, T)`$
-    ```{latex}
+    ```math
     \begin{align*}
     |f|
     &= \left( \sum_{e=s*}f(e) ~-~ \sum_{e=*s}f(e) \right) + 0 \\

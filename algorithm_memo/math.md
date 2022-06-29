@@ -91,11 +91,11 @@ def LCM(a: int, b: int) -> int:
 $`a\times a^{-1} \equiv 1 ~ (\text{mod} ~p)`$なる$`a^{-1}`$を$`a`$の逆元という。
 > **Fermatの小定理**
 > $`p`$を素数、$`a`$を$`p`$の倍数でない整数とする時、
-> ```{latex}
+> ```math
 > a^{p-1} \equiv 1 ~ (\text{mod} ~p)
 > ```
 Fermatの小定理より、
-```{latex}
+```math
 \begin{align*}
     a^{p-1} &\equiv 1 ~ (\text{mod} ~p) \\
     \Leftrightarrow a \times a^{p-2} &\equiv 1 ~ (\text{mod} ~p)
@@ -243,7 +243,7 @@ $`n`$種類のものから重複を許して$`r`$個選ぶ場合の数は$`_{n+r
 
 
 ## Combination
-```{latex}
+```math
  _nC_k = \frac{n!}{k!(n-k)!} = \frac{n}{1} \cdot \frac{n-1}{2} \cdot \frac{n-2}{3} \cdot ~\cdots~ \cdot \frac{n-k+1}{k}
 ```
 
@@ -265,7 +265,7 @@ def comb(n: int, k: int) -> int:
 複数回のcombinationの計算やそのmodを取る処理を効率よく行うには工夫が必要。
 
 ### DPによる計算
-```{latex}
+```math
 {}_{n+1}C_k = {}_nC_k +  {}_nC _{k-1}
 ```
 という関係式を利用して、combinationのテーブルを作る方法。
@@ -273,14 +273,14 @@ def comb(n: int, k: int) -> int:
 $`n\leq N`$の範囲で、テーブルを作る前処理に$`O(N^2)`$、$`{}_n C_k`$の計算に$`O(1)`$の時間がかかる。
 
 ### Fermatの小定理を利用した高速な計算
-```{latex}
+```math
  _nC_k = n! \times (k!)^{-1} \times ((n-k)!)^{-1}  
 ```
 上記の式より、階乗とその逆元の事前計算をしておくことで高速にcombinationができるようになる。
 以下のFermatの小定理を使うことで、「素数$`p`$を法とする(mod $`p`$ の時)時、ある整数$`a`$の逆元は$`a^{p-2}`$であることがわかる」ということがポイント。
 > **Fermatの小定理**
 > $`p`$を素数、$`a`$を$`p`$の倍数でない整数とする時、
-> ```{latex}
+> ```math
 > a^{p-1} \equiv 1 ~ (\text{mod} ~p)
 > ```
 > [ $`\Rightarrow`$  $`p`$を素数、$`a`$を任意の整数とする時、$`a^p \equiv a ~ (\text{mod} ~p) `$ ]
@@ -310,7 +310,7 @@ def comb(n: int, k: int) -> int:
 実はこの$`a!`$の逆元計算はさらに高速化できる。まず$`(a!)^{-1} = ((a-1)!)^{-1} \cdot a^{-1}`$と表せるので、$`a^{-1}`$が高速に計算できれば再帰的に$`(a!)^{-1} `$の計算が高速にできることになる。
 ここで、以下合同式は全てmod $`p`$として、
 
-```{latex}
+```math
 \begin{align}
 &p = (p//a) \cdot a + (p\%a) \\
 \Leftrightarrow~ & (p//a) \cdot a + (p\%a) \equiv 0 \\
@@ -365,7 +365,7 @@ def comb(n: int, k: int) -> int:
 
 
 ### 前処理しないシンプルな実装
-```{latex}
+```math
 _nC_k = \frac{n}{1} \cdot \frac{n-1}{2} \cdot \frac{n-2}{3} \cdot ~\cdots~ \cdot \frac{n-k+1}{k}  = \prod _{i=1}^{k} (n-i+1)\cdot i^{-1}
 ```
 
@@ -419,7 +419,7 @@ def comb(n: int, k: int, MOD: int) -> int:
 
 1から $`n`$ の順列 $`\{ p_i | i = 1, 2, \cdots, n \}`$ を考える。
 任意の $`i`$ に対して、 $`p_i \neq i`$ であるような順列の個数を $`a_n`$ とすると以下の漸化式が成り立ち、 $`a_n`$ が求まる。
-```{latex}
+```math
 \begin{align*}
 a_n &= n! \sum_{k=2}^{n} \frac{(-1)^k}{k!}  \\
 a_n &= (n-1) (a_{n-1} + a_{n-2})
@@ -465,7 +465,7 @@ a_n &= (n-1) (a_{n-1} + a_{n-2})
         * $`a_{n-1}`$通り
 
 以上より、$`x`$は1以外の全てを取りうるので、
-```{latex}
+```math
 \begin{align*}
 a_n &= (n-1) (a_{n-1} + a_{n-2})
 \end{align*}
@@ -488,7 +488,7 @@ a_n &= (n-1) (a_{n-1} + a_{n-2})
 である。
 一方「完全順列でない順列の総数」は $` | B_1 \cup B_2 \cup \cdots \cup B_n | `$ で、包除原理が使えそうな形！
 
-```{latex}
+```math
 \begin{align*}
 & | B_1 \cup B_2 \cup \cdots \cup B_n | \\
 =
@@ -616,7 +616,7 @@ XORの性質について知っていると便利なことも多い。
     * $`4n`$と$`4n+1`$と$`4n+2`$と$`4n+3`$は2進数で考えたとき、下2桁以外は全て$`4n`$で一致している -> Xor取ると、下２桁以外は全て0
     * 下２桁、つまり $`0 \land 1 \land 2 \land 3`$はよく考えると0
 * $`x' = x \land a`$、$`y' = y \land a`$の時、
-  ```{latex}
+  ```math
   x' \land y' = (x \land a) ~ \land ~ (y \land a) = (x \land y) ~ \land ~ (a \land a) = x \land y
   ```
 * 2つの数列$`\{a_i \}`$と$`\{b_i \}`$が一致するということは以下のようにいくつかの言い方ができる
@@ -657,7 +657,7 @@ x(AND), 0, 1
 例えば32bit整数の空間は、線形空間としては$`F_2^{32}`$として捉えることができ、
 $`e_i = 2^i`$として、例えば$`\{ e_i ~|~ i=0, 1,\cdots, 31 \}`$が基底になる。
 実際、任意の32bit整数$`a`$は $`a_i \in \{0, 1\}`$として
-```{latex}
+```math
 a = \left(a_0 \& e_0 \right) \land \left(a_1 \& e_1 \right) \land \cdots \land \left(a_{31} \& e_{31} \right)
 ```
 と一意に表せる。

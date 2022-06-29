@@ -125,7 +125,7 @@ def z_algorithm(s):
 そもそも[ハッシュ関数]( https://ja.wikipedia.org/wiki/ハッシュ関数  )とは、文字列・数列といった何かしらのデータが与えられた時に、そのデータに対応したなんらかの数値を得るなんらかの操作(関数)のこと。
 データをハッシュ関数にかけて得られた数値のことをハッシュ値という。
 元データの比較処理が重いような場合(文字列・数列など)、ハッシュ値に変換してから比較することで高速化が望めたりする。
-```{latex}
+```math
 \text{HashFunction} : \text{Data(str, series, ...)} \mapsto \text{HashValue}
 ```
 
@@ -133,7 +133,7 @@ def z_algorithm(s):
 ただし、ハッシュ値の計算に時間がかかっていては意味がない。
 そこで数列に対するハッシュ関数として、高速で便利なのがローリングハッシュである。
 ローリングハッシュ(多項式ハッシュ, Karp-Rabin Fingerprint)とは、数列$`a ~=~[a_0, ~a_1, ~\cdots,~ a_{n-1} ]`$に対して
-```{latex}
+```math
 \begin{align*}
  H(a, b, m)
 &= \left[~ a_0~b^{n-1} + a_1~b^{n-2} + \cdots  + a_{n-1}~b^{0} ~\right] ~\mathrm{mod}~~ m \\
@@ -143,7 +143,7 @@ def z_algorithm(s):
 と定義されるハッシュ関数のこと。文字列にも適用可能。（ 文字列$`S=S_0S_1\cdots S_{n-1}`$ を数列$`a = \left[\mathrm{ord}(S_0), ~\mathrm{ord}(S_1), ~\cdots, ~\mathrm{ord}(S_{n-1}) \right]`$ に変換すれば良い。$`\mathrm{ord}(\cdot)`$は文字の[アスキーコードを返す関数]( https://docs.python.org/ja/3/library/functions.html#ord )。）
 
 多項式の形なので、**（累積和のようなイメージで）効率的に計算できる** のがミソ。具体的には、長さ$`N`$の数列$`S`$に対して$`H(S[:i], b, h)`$を全ての $`i`$ に対して計算するという前処理$`O(N)`$を行なっておくと、$`S`$の任意の部分列$`S[l:r]`$のハッシュ値を$`O(1)`$で次式のように計算できるようになる。
-```{latex}
+```math
 H(S[l:r], b, m) = \left[~ H(S[:r], b, m) - H(S[:l], b, m) ~ b^{r-l} ~\right] ~\mathrm{mod}~~ m \\
 \left(
 \begin{align*}
